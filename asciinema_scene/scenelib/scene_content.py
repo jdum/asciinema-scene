@@ -11,6 +11,7 @@ from typing import Any
 from zipfile import ZipFile
 
 from .frame import Frame
+from .utils import detect_stdin_timeout
 
 
 class SceneContent:
@@ -66,6 +67,7 @@ class SceneContent:
     def parse(cls, input_file: str | Path | None = None) -> SceneContent:
         if input_file:
             return cls.from_file(input_file)
+        detect_stdin_timeout()
         scene = SceneContent()
         scene.input_file = "sys.stdin"
         scene.parse_content("\n".join(list(sys.stdin)))

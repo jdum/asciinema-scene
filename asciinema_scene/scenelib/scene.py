@@ -11,11 +11,11 @@ from .scene_content import SceneContent
 class Scene(SceneContent):
     @classmethod
     def parse(cls, input_file: str | Path | None = None) -> Scene:
-        scformat = SceneContent.parse(input_file)
+        content = SceneContent.parse(input_file)
         scene = Scene()
-        scene.input_file = scformat.input_file
-        scene.header = scformat.header
-        scene.frames = scformat.frames
+        scene.input_file = content.input_file
+        scene.header = content.header
+        scene.frames = content.frames
         return scene
 
     def _split_parts(

@@ -1,4 +1,7 @@
 import importlib.metadata
+import shlex
+import subprocess
+import time
 from importlib import resources as rso
 
 from click.testing import CliRunner
@@ -8,6 +11,18 @@ from asciinema_scene.sciine import cli
 from .contents import SHORT_FILE_CONTENT
 
 __version__ = importlib.metadata.version("asciinema_scene")
+
+
+def my_invoke(command: str, input_content: str):
+    proc = subprocess.Popen(
+        shlex.split("sciine " + command),
+        stdin=subprocess.PIPE,
+        stdout=subprocess.PIPE,
+    )
+    proc.stdin.write(input_content.encode())
+    proc.stdin.close()
+    proc.wait()
+    return proc.returncode, proc.stdout.read().decode()
 
 
 def test_version_0():
@@ -42,217 +57,178 @@ def test_cli_help():
 
 
 def test_cli_cut():
-    runner = CliRunner()
-    result1 = runner.invoke(cli, "cut -e 3.0", input=SHORT_FILE_CONTENT)
-    assert result1.exit_code == 0
-    result_cast = result1.output
-    result2 = runner.invoke(cli, "status", input=result_cast)
-    assert result2.exit_code == 0
-    result = result2.output
-    assert "Duration: 3.023" in result
+    code, output = my_invoke("cut -e 3.0", SHORT_FILE_CONTENT)
+    assert code == 0
+    code2, output2 = my_invoke("status", output)
+    assert code2 == 0
+    assert "Duration: 3.023" in output2
 
 
 def test_cli_copy():
-    runner = CliRunner()
-    result1 = runner.invoke(cli, "copy -e 1.0", input=SHORT_FILE_CONTENT)
-    assert result1.exit_code == 0
-    result_cast = result1.output
-    result2 = runner.invoke(cli, "status", input=result_cast)
-    assert result2.exit_code == 0
-    result = result2.output
-    assert "Duration: 1.163" in result
+    code, output = my_invoke("copy -e 1.0", SHORT_FILE_CONTENT)
+    assert code == 0
+    code2, output2 = my_invoke("status", output)
+    assert code2 == 0
+    assert "Duration: 1.163" in output2
 
 
 def test_cli_header():
-    runner = CliRunner()
-    result1 = runner.invoke(cli, "header", input=SHORT_FILE_CONTENT)
-    assert result1.exit_code == 0
-    result = result1.output
-    assert "/bin/bash" in result
+    code, output = my_invoke("header", SHORT_FILE_CONTENT)
+    assert code == 0
+    assert "/bin/bash" in output
 
 
 def test_cli_include():
-    runner = CliRunner()
-    result1 = None
+    code = output = None
     for file in rso.files("tests.files").iterdir():
         with rso.as_file(file) as path:
             if path.name != "short.cast":
                 continue
-            result1 = runner.invoke(
-                cli, f"include 1.0 {path}", input=SHORT_FILE_CONTENT
-            )
+            code, output = my_invoke(f"include 1.0 {path}", SHORT_FILE_CONTENT)
             break
-    assert result1 is not None
-    assert result1.exit_code == 0
-    result_cast = result1.output
-    result2 = runner.invoke(cli, "status", input=result_cast)
-    assert result2.exit_code == 0
-    result = result2.output
-    assert "Duration: 12.271986" in result
+
+    assert output is not None
+    assert code == 0
+    code2, output2 = my_invoke("status", output)
+    assert code2 == 0
+    assert "Duration: 12.271986" in output2
 
 
 def test_cli_insert():
-    runner = CliRunner()
-    result1 = runner.invoke(cli, "insert 1.0 5.0 message", input=SHORT_FILE_CONTENT)
-    assert result1.exit_code == 0
-    result_cast = result1.output
-    result2 = runner.invoke(cli, "status", input=result_cast)
-    assert result2.exit_code == 0
-    result = result2.output
-    assert "Duration: 11.135993" in result
+    code, output = my_invoke("insert 1.0 5.0 message", SHORT_FILE_CONTENT)
+    assert code == 0
+    code2, output2 = my_invoke("status", output)
+    assert code2 == 0
+    assert "Duration: 11.135993" in output2
 
 
 def test_cli_delete():
-    runner = CliRunner()
-    result1 = runner.invoke(cli, "delete 1.16", input=SHORT_FILE_CONTENT)
-    assert result1.exit_code == 0
-    result_cast = result1.output
-    result2 = runner.invoke(cli, "status", input=result_cast)
-    assert result2.exit_code == 0
-    result = result2.output
-    assert "Duration: 5.835392" in result
+    code, output = my_invoke("delete 1.16", SHORT_FILE_CONTENT)
+    assert code == 0
+    code2, output2 = my_invoke("status", output)
+    assert code2 == 0
+    assert "Duration: 5.835392" in output2
 
 
 def test_cli_replace():
-    runner = CliRunner()
-    result1 = runner.invoke(cli, "replace 1.16 abc", input=SHORT_FILE_CONTENT)
-    assert result1.exit_code == 0
-    result_cast = result1.output
-    result2 = runner.invoke(cli, "status", input=result_cast)
-    assert result2.exit_code == 0
-    result = result2.output
-    assert "Duration: 6.135993" in result
-    result3 = runner.invoke(cli, "show -s 1.16 -l 1", input=result_cast)
-    assert result3.exit_code == 0
-    result = result3.output.strip()
-    assert "abc" in result
+    code, output = my_invoke("replace 1.16 abc", SHORT_FILE_CONTENT)
+    assert code == 0
+    code2, output2 = my_invoke("status", output)
+    assert code2 == 0
+    assert "Duration: 6.135993" in output2
+    code3, output3 = my_invoke("show -s 1.16 -l 1", output)
+    assert code3 == 0
+    assert "abc" in output3.strip()
 
 
 def test_cli_insert_o():
-    runner = CliRunner()
-    result1 = runner.invoke(cli, "insert 1.0 5.0 message o", input=SHORT_FILE_CONTENT)
-    assert result1.exit_code == 0
-    result_cast = result1.output
-    result2 = runner.invoke(cli, "status", input=result_cast)
-    assert result2.exit_code == 0
-    result = result2.output
-    assert "Duration: 11.135993" in result
+    code, output = my_invoke("insert 1.0 5.0 message o", SHORT_FILE_CONTENT)
+    assert code == 0
+    code2, output2 = my_invoke("status", output)
+    assert code2 == 0
+    assert "Duration: 11.135993" in output2
 
 
 def test_cli_maximum():
-    runner = CliRunner()
-    result1 = runner.invoke(cli, "maximum 0.1", input=SHORT_FILE_CONTENT)
-    assert result1.exit_code == 0
-    result_cast = result1.output
-    result2 = runner.invoke(cli, "status", input=result_cast)
-    assert result2.exit_code == 0
-    result = result2.output
-    assert "Duration: 2.000" in result
+    code, output = my_invoke("maximum 0.1", SHORT_FILE_CONTENT)
+    assert code == 0
+    code2, output2 = my_invoke("status", output)
+    assert code2 == 0
+    assert "Duration: 2.000" in output2
 
 
 def test_cli_minimum():
-    runner = CliRunner()
-    result1 = runner.invoke(cli, "minimum 10.0", input=SHORT_FILE_CONTENT)
-    assert result1.exit_code == 0
-    result_cast = result1.output
-    result2 = runner.invoke(cli, "status", input=result_cast)
-    assert result2.exit_code == 0
-    result = result2.output
-    assert "Duration: 210.000" in result
+    code, output = my_invoke("minimum 10.0", SHORT_FILE_CONTENT)
+    assert code == 0
+    code2, output2 = my_invoke("status", output)
+    assert code2 == 0
+    assert "Duration: 210.000" in output2
 
 
 def test_cli_quantize():
-    runner = CliRunner()
-    result1 = runner.invoke(cli, "quantize 0.1 3.0 20.0", input=SHORT_FILE_CONTENT)
-    assert result1.exit_code == 0
-    result_cast = result1.output
-    result2 = runner.invoke(cli, "status", input=result_cast)
-    assert result2.exit_code == 0
-    result = result2.output
-    assert "Duration: 400.000" in result
+    code, output = my_invoke("quantize 0.1 3.0 20.0", SHORT_FILE_CONTENT)
+    assert code == 0
+    code2, output2 = my_invoke("status", output)
+    assert code2 == 0
+    assert "Duration: 400.000" in output2
 
 
 def test_cli_show_1():
-    runner = CliRunner()
-    result1 = runner.invoke(cli, "show", input=SHORT_FILE_CONTENT)
-    assert result1.exit_code == 0
-    result = result1.output
-    assert "0.000│ 0.89│ 'e'\n" in result
+    code, output = my_invoke("show", SHORT_FILE_CONTENT)
+    assert code == 0
+    assert "0.000│ 0.89│ 'e'\n" in output
 
 
 def test_cli_show_2():
-    runner = CliRunner()
-    result1 = runner.invoke(cli, "show --precise", input=SHORT_FILE_CONTENT)
-    assert result1.exit_code == 0
-    result = result1.output
-    assert "0.000000│ 0.894038│ 'e'\n" in result
+    code, output = my_invoke("show --precise", SHORT_FILE_CONTENT)
+    assert code == 0
+    assert "0.000000│ 0.894038│ 'e'\n" in output
 
 
 def test_cli_show_3():
-    runner = CliRunner()
-    result1 = runner.invoke(cli, "show --text", input=SHORT_FILE_CONTENT)
-    assert result1.exit_code == 0
-    result = result1.output
-    assert "0.000│ 0.89│ e" in result
+    code, output = my_invoke("show --text", SHORT_FILE_CONTENT)
+    assert code == 0
+    assert "0.000│ 0.89│ e" in output
 
 
 def test_cli_show_4():
-    runner = CliRunner()
-    result1 = runner.invoke(cli, "show --text --precise", input=SHORT_FILE_CONTENT)
-    assert result1.exit_code == 0
-    result = result1.output
-    assert "0.000000│ 0.894038│ e\n" in result
+    code, output = my_invoke("show --text --precise", SHORT_FILE_CONTENT)
+    assert code == 0
+    assert "0.000000│ 0.894038│ e\n" in output
 
 
 def test_cli_show_5():
-    runner = CliRunner()
-    result1 = runner.invoke(cli, "show --lines 2", input=SHORT_FILE_CONTENT)
-    assert result1.exit_code == 0
-    result = result1.output
-    assert "0.000│ 0.89│ 'e'\n" in result
+    code, output = my_invoke("show --lines 2", SHORT_FILE_CONTENT)
+    assert code == 0
+    assert "0.000│ 0.89│ 'e'\n" in output
 
 
 def test_cli_show_6():
-    runner = CliRunner()
-    result1 = runner.invoke(cli, "show -s 0.0", input=SHORT_FILE_CONTENT)
-    assert result1.exit_code == 0
-    result = result1.output
-    assert "0.000│ 0.89│ 'e'\n" in result
-    assert len(result.strip().split("\n")) == 22
+    code, output = my_invoke("show -s 0.0", SHORT_FILE_CONTENT)
+    assert code == 0
+    assert "0.000│ 0.89│ 'e'\n" in output
+    assert len(output.strip().split("\n")) == 22
 
 
 def test_cli_show_7():
-    runner = CliRunner()
-    result1 = runner.invoke(cli, "show -s 1.0", input=SHORT_FILE_CONTENT)
-    assert result1.exit_code == 0
-    result = result1.output
-    assert "0.000│ 0.89│ 'e'\n" not in result
-    assert len(result.strip().split("\n")) == 19
+    code, output = my_invoke("show -s 1.0", SHORT_FILE_CONTENT)
+    assert code == 0
+    assert "0.000│ 0.89│ 'e'\n" not in output
+    assert len(output.strip().split("\n")) == 19
 
 
 def test_cli_show_8():
-    runner = CliRunner()
-    result1 = runner.invoke(cli, "show -s 1.0 -e 2.0", input=SHORT_FILE_CONTENT)
-    assert result1.exit_code == 0
-    result = result1.output
-    assert "0.000│ 0.89│ 'e'\n" not in result
-    assert len(result.strip().split("\n")) == 3
+    code, output = my_invoke("show -s 1.0 -e 2.0", SHORT_FILE_CONTENT)
+    assert code == 0
+    assert "0.000│ 0.89│ 'e'\n" not in output
+    assert len(output.strip().split("\n")) == 3
 
 
 def test_cli_speed():
-    runner = CliRunner()
-    result1 = runner.invoke(cli, "speed 1.0", input=SHORT_FILE_CONTENT)
-    assert result1.exit_code == 0
-    result_cast = result1.output
-    result2 = runner.invoke(cli, "status", input=result_cast)
-    assert result2.exit_code == 0
-    result = result2.output
-    assert "Duration: 6.135993" in result
+    code, output = my_invoke("speed 1.0", SHORT_FILE_CONTENT)
+    assert code == 0
+    result_cast = output
+    code2, output2 = my_invoke("status ", result_cast)
+    assert code2 == 0
+    assert "Duration: 6.135993" in output2
 
 
 def test_cli_status():
-    runner = CliRunner()
-    result1 = runner.invoke(cli, "status", input=SHORT_FILE_CONTENT)
-    assert result1.exit_code == 0
-    result = result1.output
-    assert "Duration: 6.135993" in result
+    code, output = my_invoke("status", SHORT_FILE_CONTENT)
+    assert code == 0
+    assert "Duration: 6.135993" in output
+
+
+def test_timeout():
+    command = "status"
+    proc = subprocess.Popen(
+        shlex.split("sciine " + command),
+        stdin=subprocess.PIPE,
+        stdout=subprocess.PIPE,
+    )
+    time.sleep(2)
+    proc.stdin.close()
+    proc.wait()
+    assert proc.returncode == 0
+    output = proc.stdout.read().decode()
+    assert "Timeout while waiting" in output

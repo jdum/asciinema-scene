@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "asciinema_scene"
-version = "0.7.0"
+version = "0.7.1"
 description = "Toolbox to edit asciinema screencasts (sciine)."
 authors = ["Jerome Dumonteil <jerome.dumonteil@gmail.com>"]
 repository = "https://github.com/jdum/asciinema-scene"
@@ -95,6 +95,8 @@ ignore = [
     "E731",
     #Use specific rule codes when ignoring type issues
     "PGH003",
+    #check for execution of untrusted input
+    # "S603",
 ]
 
 [tool.ruff.per-file-ignores]

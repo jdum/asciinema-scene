@@ -1,9 +1,13 @@
 import importlib.metadata
+from collections.abc import Callable
+from functools import wraps
 from pprint import pformat
+from typing import Any
 
 import click
 
 from .scenelib.scene import Scene
+from .scenelib.utils import SceneStdinError
 
 __version__ = importlib.metadata.version("asciinema_scene")
 
@@ -42,6 +46,20 @@ adjust_option = click.option(
 )
 
 
+def stdin_timeout_handler(function: Callable) -> Callable:
+    @wraps(function)
+    def wrapped(*args: list[Any], **kwargs: dict[str, Any]) -> Any:
+        try:
+            function(*args, **kwargs)
+        except SceneStdinError:
+            print("Timeout while waiting for STDIN input.\n")
+            ctx = click.get_current_context()
+            click.echo(ctx.get_help())
+            ctx.exit()
+
+    return wrapped
+
+
 @click.group(invoke_without_command=True, no_args_is_help=True)
 @click.version_option(version=__version__)
 def cli() -> None:
@@ -49,6 +67,7 @@ def cli() -> None:
 
 
 @cli.command("status")
+@stdin_timeout_handler
 @input_option
 def info_cmd(input_file: str | None) -> None:
     """Print informations about the content (duration, ...)."""
@@ -57,6 +76,7 @@ def info_cmd(input_file: str | None) -> None:
 
 
 @cli.command("header")
+@stdin_timeout_handler
 @input_option
 def header_cmd(input_file: str | None) -> None:
     """Print the header field of the content."""
@@ -65,6 +85,7 @@ def header_cmd(input_file: str | None) -> None:
 
 
 @cli.command("show")
+@stdin_timeout_handler
 @start_option
 @end_option
 @click.option(
@@ -115,6 +136,7 @@ def show_cmd(
 
 
 @cli.command("cut")
+@stdin_timeout_handler
 @start_option
 @end_option
 @adjust_option
@@ -138,6 +160,7 @@ def cut_cmd(
 
 
 @cli.command("copy")
+@stdin_timeout_handler
 @start_option
 @end_option
 @input_option
@@ -156,6 +179,7 @@ def copy_cmd(
 
 
 @cli.command("speed")
+@stdin_timeout_handler
 @click.argument("speed", required=True, type=float)
 @start_option
 @end_option
@@ -181,6 +205,7 @@ def speed_cmd(
 
 
 @cli.command("maximum")
+@stdin_timeout_handler
 @click.argument("duration", required=True, type=float)
 @start_option
 @end_option
@@ -206,6 +231,7 @@ def maximum_cmd(
 
 
 @cli.command("minimum")
+@stdin_timeout_handler
 @click.argument("duration", required=True, type=float)
 @start_option
 @end_option
@@ -231,6 +257,7 @@ def minimum_cmd(
 
 
 @cli.command("quantize")
+@stdin_timeout_handler
 @click.argument("range_min", required=True, type=float)
 @click.argument("range_max", required=True, type=float)
 @click.argument("duration", required=True, type=float)
@@ -260,6 +287,7 @@ def quantize_cmd(
 
 
 @cli.command("insert")
+@stdin_timeout_handler
 @click.argument("timecode", required=True, type=float)
 @click.argument("duration", required=True, type=float)
 @click.argument("text", required=True, type=str)
@@ -287,6 +315,7 @@ def insert_cmd(
 
 
 @cli.command("delete")
+@stdin_timeout_handler
 @click.argument("timecode", required=True, type=float)
 @input_option
 @output_option
@@ -302,6 +331,7 @@ def delete_cmd(
 
 
 @cli.command("replace")
+@stdin_timeout_handler
 @click.argument("timecode", required=True, type=float)
 @click.argument("text", required=True, type=str)
 @input_option
@@ -319,6 +349,7 @@ def replace_cmd(
 
 
 @cli.command("include")
+@stdin_timeout_handler
 @click.argument("timecode", required=True, type=float)
 @click.argument("include_file", type=click.Path(exists=True), required=True)
 @input_option
