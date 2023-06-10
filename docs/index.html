@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>asciinema-scene</title>
+        <style>
+             /*
+"GitHub Flavor", a GitHub flavored CSS style sheet for Markdown documents.
+Based on Chris Patuzzo's github.css (https://gist.github.com/tuzz/3331384).
+
+
+author: Fabrizio Musacchio (https://www.fabriziomusacchio.com)
+date: 03.01.2020
+
+
+License:
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+ */
+
+/*Main body*/
+body {
+  font-family:      Helvetica, arial, sans-serif;
+  font-size:        14px;
+  line-height:      1.4em;
+  background-color: white;
+  padding-top:      10px;
+  padding-bottom:   10px;
+  padding-left:     25px;
+  padding-right:    25px; }
+
+body > *:first-child {
+  margin-top:   0 !important; }
+body > *:last-child {
+  margin-bottom:0 !important; }
+
+/* Smooth scrolling */
+@media screen and (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/*Links*/
+a {
+  color:            #3973ad;
+  text-decoration:  none;}
+a:hover{
+  /* text-decoration: underline; */
+  color:            #4183C4;
+}
+a.absent {
+  color:            #cc0000; }
+a.anchor {
+  display:          block;
+  padding-left:     30px;
+  margin-left:      -30px;
+  cursor:           pointer;
+  position:         absolute;
+  top:              0;
+  left:             0;
+  bottom:           0; }
+
+/*Headlines*/
+h1, h2, h3, h4, h5, h6 {
+  margin:       20px 0 10px;
+  padding:      0;
+  line-height:  1.4em;
+  font-weight:  bold;
+  -webkit-font-smoothing: antialiased;
+  cursor:       text;
+  position:   relative; }
+
+h1 tt, h1 code {
+  font-size: inherit; }
+
+h2 tt, h2 code {
+  font-size: inherit; }
+
+h3 tt, h3 code {
+  font-size: inherit; }
+
+h4 tt, h4 code {
+  font-size: inherit; }
+
+h5 tt, h5 code {
+  font-size: inherit; }
+
+h6 tt, h6 code {
+  font-size: inherit; }
+
+h1 {
+  font-size: 28px;
+  color: black; }
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #cccccc;
+  color: black; }
+
+h3 {
+  font-size: 18px; }
+
+h4 {
+  font-size: 16px; }
+
+h5 {
+  font-size: 14px; }
+
+h6 {
+  color: #777777;
+  font-size: 14px; }
+
+p, blockquote, ul, ol, dl, li, table, pre {
+  margin: 15px 0; }
+
+/*Margins and paddings of the first line content*/
+body > h2:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+body > h1:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+  body > h1:first-child + h2 {
+    margin-top: 0;
+    padding-top: 0; }
+body > h3:first-child, body > h4:first-child, body > h5:first-child, body > h6:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0; }
+
+h1 p, h2 p, h3 p, h4 p, h5 p, h6 p {
+  margin-top: 0;
+}
+
+/*Lists*/
+ul li,ol li{
+  margin-top:     .15em;
+  margin-bottom:  .15em;
+}
+ul li li{
+  margin-left:    -15px;
+}
+ul ul,ul ol,ol ol,ol ul{
+  margin-top:     0;
+  margin-bottom:  0em;
+}
+
+/*Footnotes*/
+a[href^="#fn:"]:after{
+    content:        ')';
+    font-size:      0.83em;
+    vertical-align: super;
+    line-height:    0;
+}
+/*Highlights the BG of current jumped-to footnote:*/
+li:target {
+    background-color: #e8fef6;
+}
+.footnotes > ol > li > p {
+    display:        inline;
+}
+.footnotes ol {
+    list-style:     none;
+    counter-reset:  footnotes;
+    padding-left:   15px;
+}
+.footnotes ol li {
+    counter-increment:footnotes;
+}
+.footnotes ol li:before {
+    /* background-color: #e8fef6; */
+    font-weight:      bold;
+    /* counter-reset: footnotes; */
+    content:          counters(footnotes, ".") ")";
+}
+.footnotes li {
+    padding-bottom:     0.45em;
+}
+.footnotes {
+    /* only use is for border, background-color of block */
+	/* border: dashed 0px #f4f5f8; */
+	background-color: #f4f5f8;
+	padding:          0em 0em 0.25em 0em;
+}
+/*.footnotes:before{
+    content:        "Footnotes";
+    font-size:      1.2em;
+    font-weight:    bold;
+    line-height:    2.5em;
+    padding-left:   0.5em;
+}*/
+
+/*TOC (for DEVONthink Markdown documents; for other editors, try e.g. ".toc")*/
+.TOC {
+    background:     #f4f5f8 none repeat scroll 0 0; //f3f6f6
+    border:         0px solid #aaa;
+    border-radius:  10px;
+    display:        table;
+    font-size:      95%;
+    margin-bottom:  1em;
+    padding-left:   2px;
+    padding-top:    2px;
+    padding-bottom: 2px;
+    padding-right:  2px;
+    width:          100%;
+}
+
+/*uncomment if you'd like to automatically add a title to your TOC:*/
+/*.TOC:before {
+    content:        "Table of Contents";
+    font-weight:    bold;
+    font-size:      1.1em;
+    color:          #3973ad;
+    padding-left:   1em;
+    margin-bottom: -1em;
+    line-height:    3em;
+}*/
+
+.TOC li, .TOC ul, .TOC ul li{
+    list-style:     decimal;
+}
+
+.top-link {
+  transition:       all .25s ease-in-out;
+  position:         fixed;
+  bottom:           0;
+  right:            0;
+  display:          inline-flex;
+  color:            #000000;
+
+  cursor:           pointer;
+  align-items:      center;
+  justify-content:  center;
+  margin:           0 2em 2em 0;
+  border-radius:    50%;
+  padding:          .25em;
+  width:            1em;
+  height:           1em;
+  background-color: #F8F8F8;
+}
+
+/*Check-Boxes/To-Do-Boxes (doesn't work in DEVONthink Markdown documents)*/
+/* ul li.checkbox {
+  appearance: none;
+  background-color: #fff;
+  margin: 0;
+  font: inherit;
+  color: #b2b2b2;
+  width: 1.15em;
+  height: 1.15em;
+  border: 0.15em solid #b2b2b2;
+  border-radius: 0.15em;
+} */
+
+/* input[type="checkbox"] {
+  appearance: none;
+  background-color: #fff;
+  margin: 0;
+  font: inherit;
+  color: #b2b2b2;
+  width: 1.15em;
+  height: 1.15em;
+  border: 0.15em solid #b2b2b2;
+  border-radius: 0.15em;
+}
+
+input[type="checkbox"]::before {
+  content: " ";
+  width: 0.65em;
+  height: 0.65em;
+  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+}
+
+input[type="checkbox"]:checked::after {
+  content: "_";
+  color: #cdef9a;
+  box-shadow: inset 4em 2em #cdef9a;
+}
+
+.task-list-item {
+  list-style-type: none;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.task-list-item input {
+  margin: 0 0.2em .25em -1.6em;
+  vertical-align: middle;
+  padding-bottom: 0px;
+  opacity: 1;
+} */
+
+/*Definition lists*/
+dl {
+  padding:            0; }
+  dl dt {
+    font-size:        14px;
+    font-weight:      bold;
+    font-style:       italic;
+    padding:          0;
+    margin:           15px 0 5px; }
+    dl dt:first-child {
+      padding:        0; }
+    dl dt > :first-child {
+      margin-top:     0; }
+    dl dt > :last-child {
+      margin-bottom:  0; }
+  dl dd {
+    margin:           0 0 15px;
+    padding:          0 15px; }
+    dl dd > :first-child {
+      margin-top:     0; }
+    dl dd > :last-child {
+      margin-bottom:  0; }
+
+/*Quotes*/
+blockquote {
+  border-left:        4px solid #dddddd;
+  padding:            0 15px;
+  font-style:         normal;
+  color:              #5598c1; }  /* 777777 */
+  blockquote > :first-child {
+    margin-top:       0; }
+  blockquote > :last-child {
+    margin-bottom:    0; }
+
+/*Tables*/
+table {
+  padding:            0;border-collapse: collapse;
+  margin-left:        auto;
+  margin-right:       auto;
+  text-align:         center;}
+  table tr {
+    /* border-top: 1px solid #cccccc; */
+    background-color: white;
+    margin:           0;
+    padding:          0; }
+    table tr:nth-child(2n) {
+      background-color: #f8f8f8; }
+    table tr th {
+      font-weight:    bold;
+      /* border: 0.5px solid #cccccc; */
+      /* border-left: 0.5px solid #cccccc;
+      border-right: 0.5px solid #cccccc; */
+      background-color: #eefbff;
+      font-size:      14px;
+      margin:         0;
+      padding:        0.4em 0.35em 0.4em 0.35em; }
+    table tr td {
+      /* border: 1px solid #cccccc; */
+      margin:         0;
+       font-size:     14px;
+       padding:       5px 5px; }
+    table tr th :first-child, table tr td :first-child {
+      margin-top:     0; }
+    table tr th :last-child, table tr td :last-child {
+      margin-bottom:  0; }
+
+/*Images*/
+img {
+  max-width: 100%;}
+/*Alternative: center Images*/
+/* img {
+    display: block;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto; }
+*/
+
+/*Span*/
+span.frame {
+  display:      block;
+  overflow:     hidden;
+}
+span.frame > span {
+    border:     1px solid #dddddd;
+    display:    block;
+    float:      left;
+    overflow:   hidden;
+    margin:     13px 0 0;
+    padding:    7px;
+    width:      auto;
+}
+span.frame span img {
+    display:    block;
+    float:      left;
+}
+span.frame span span {
+    clear:      both;
+    color:      #333333;
+    display:    block;
+    padding:    5px 0 0;
+}
+span.align-center {
+  display:      block;
+  overflow:     hidden;
+  clear:        both;
+}
+span.align-center > span {
+    display:    block;
+    overflow:   hidden;
+    margin:     13px auto 0;
+    text-align: center;
+}
+span.align-center span img {
+    margin:     0 auto;
+    text-align: center;
+}
+span.align-right {
+  display:      block;
+  overflow:     hidden;
+  clear:        both;
+}
+span.align-right > span {
+    display:    block;
+    overflow:   hidden;
+    margin:     13px 0 0;
+    text-align: right;
+}
+span.align-right span img {
+    margin:     0;
+    text-align: right;
+}
+span.float-left {
+  display:      block;
+  margin-right: 13px;
+  overflow:     hidden;
+  float:        left;
+}
+span.float-left span {
+    margin:     13px 0 0;
+}
+span.float-right {
+  display:      block;
+  margin-left:  13px;
+  overflow:     hidden;
+  float:        right;
+}
+span.float-right > span {
+    display:    block;
+    overflow:   hidden;
+    margin:     13px auto 0;
+    text-align: right;
+}
+
+/*Code blocks*/
+code, tt {
+    margin:             0 2px;
+    padding:            0 5px;
+    white-space:        nowrap;
+    border:             1px solid #eaeaea;
+    background-color:   #f8f8f8;
+    border-radius:      3px;
+}
+
+pre code {
+    margin:             0;
+    padding:            0;
+    white-space:        pre;
+    border:             none;
+    background:         transparent;
+}
+
+.highlight pre {
+    background-color:   #f8f8f8;
+    border:             1px solid #cccccc;
+    font-size:          13px;
+    line-height:        19px;
+    overflow:           auto;
+    padding:            6px 10px;
+    border-radius:      3px;
+}
+
+/*Preformatted text*/
+pre {
+    background-color:   #f8f8f8;
+    border:             1px solid #cccccc;
+    /*font-size:          13px;*/
+    font-size:          0.90em !important;
+    line-height:        1.6em !important; //19px
+    overflow:           auto;
+    padding:            6px 10px;
+    border-radius:      3px;
+}
+pre code, pre tt {
+    background-color:   transparent;
+    border:             none;
+}
+
+/*Superscript text*/
+sup {
+    font-size:          0.83em;
+    vertical-align:     super;
+    line-height:        0;
+}
+
+/*Subscript text*/
+sub {
+    font-size:          0.83em;
+    vertical-align:     sub;
+    line-height:        0;
+}
+
+/*Define keyboard input*/
+kbd {
+  display:            inline-block;
+  padding:            3px 5px;
+  font-size:          11px;
+  line-height:        10px;
+  color:              #555;
+  vertical-align:     middle;
+  background-color:   #fcfcfc;
+  border:             solid 1px #ccc;
+  border-bottom-color:#bbb;
+  border-radius:      3px;
+  box-shadow:         inset 0 -1px 0 #bbb
+}
+
+/*Color of highlighted text*/
+mark {
+  background-color: #fdfdcc;
+  color: black;
+}
+
+/*Adjustments for printing*/
+* {
+	-webkit-print-color-adjust: exact;
+}
+@media screen and (min-width: 914px) {
+    body {
+        width:              854px;
+        margin:             0 auto;
+    }
+}
+@media print {
+	table, pre {
+		page-break-inside:  avoid;
+	}
+	pre {
+		word-wrap:          break-word;
+	}
+  body {
+    padding:                2cm;
+  }
+}
+
+        </style>
+    </head>
+    <body>
+
+        <h1 id="asciinema-scene">asciinema-scene</h1>
+
+<p><a href="https://img.shields.io/github/v/release/jdum/asciinema-scene"><img src="https://img.shields.io/github/v/release/jdum/asciinema-scene" alt="Release" /></a>
+<a href="https://github.com/jdum/asciinema-scene/actions/workflows/main.yml?query=branch%3Amain"><img src="https://img.shields.io/github/actions/workflow/status/jdum/asciinema-scene/main.yml?branch=main" alt="Build status" /></a>
+<a href="https://codecov.io/gh/jdum/asciinema-scene"><img src="https://codecov.io/gh/jdum/asciinema-scene/branch/main/graph/badge.svg" alt="codecov" /></a>
+<a href="https://img.shields.io/github/commit-activity/m/jdum/asciinema-scene"><img src="https://img.shields.io/github/commit-activity/m/jdum/asciinema-scene" alt="Commit activity" /></a>
+<a href="https://img.shields.io/github/license/jdum/asciinema-scene"><img src="https://img.shields.io/github/license/jdum/asciinema-scene" alt="License" /></a></p>
+
+<p><code>asciinema-scene</code> provides the <code>sciine</code> command line toolkit for editing screen casts produced by <a href="https://asciinema.org/">asciinema</a>.</p>
+
+<p><code>sciine</code> takes as input the content of a screencast, apply a unitary transformation and returns the transformed content.</p>
+
+<h2 id="installation">Installation</h2>
+
+<p><code>asciinema-scene</code> is a python package:</p>
+
+<pre><code class="bash language-bash">pip install asciinema-scene
+</code></pre>
+
+<h2 id="usage">Usage</h2>
+
+<h3 id="commandes">Commandes</h3>
+
+<p>There are 3 types of commands:</p>
+
+<ul>
+<li><p>content information commands:</p>
+
+<ul>
+<li><a href="#command-status">status</a></li>
+<li><a href="#command-header">header</a></li>
+<li><a href="#command-show">show</a></li>
+</ul></li>
+<li><p>commands applying to a portion of the content:</p>
+
+<ul>
+<li><a href="#command-copy">copy</a></li>
+<li><a href="#command-cut">cut</a></li>
+<li><a href="#command-speed">speed</a></li>
+<li><a href="#command-minimum">minimum</a></li>
+<li><a href="#command-maximum">maximum</a></li>
+<li><a href="#command-quantize">quantize</a></li>
+<li><a href="#command-include">include</a></li>
+</ul></li>
+<li><p>command applying to a single frame:</p>
+
+<ul>
+<li><a href="#command-insert">insert</a></li>
+<li><a href="#command-replace">replace</a></li>
+<li><a href="#command-delete">delete</a></li>
+</ul></li>
+</ul>
+
+<pre><code class="script language-script">Usage: sciine [OPTIONS] COMMAND [ARGS]...
+
+Options:
+  --version  Show the version and exit.
+  --help     Show this message and exit.
+
+Commands:
+  copy      Copy content between START and END timecodes.
+  cut       Cut content between START and END timecodes.
+  delete    Delete the frame with timecode &gt;= TIMECODE.
+  header    Print the header field of the content.
+  include   Include the content of a .cast file at the timecode position.
+  insert    Insert a frame at the TIMECODE position.
+  maximum   Set maximum duration of each frame.
+  minimum   Set minimum duration of each frame.
+  quantize  Set the duration of frames in duration range to DURATION.
+  replace   Replace the text of frame with timecode &gt;= TIMECODE by TEXT.
+  show      Print detail of frames, from START to END (max LINES).
+  speed     Change the speed of the screen cast.
+  status    Print informations about the content (duration, ...).
+</code></pre>
+
+<hr />
+
+<h3 id="input-output">Input / output</h3>
+
+<p>By default, <code>sciine</code> reads content from standard input and returns the result to standard output. The <code>--input</code> and <code>--output</code> options allow reading/writing from files (<code>sciine</code> can also read from a compressed <code>.zip</code> or <code>.gz</code> file). <code>sciine</code> does not modify the input file.</p>
+
+<pre><code class="bash language-bash">-i, --input PATH   Input .cast file, default is stdin.
+-o, --output PATH  Output .cast file, default is stdout.
+</code></pre>
+
+<p>Example:</p>
+
+<p>Speed up a screencast and play a sub-part of it, using pipe redirection.</p>
+
+<pre><code class="bash language-bash">sciine speed 2.0 --input short.cast | sciine copy --start 1.4 --end 2.4| asciinema play -
+</code></pre>
+
+<hr />
+
+<h2 id="command-status">Command <code>status</code></h2>
+
+<pre><code class="script language-script">Usage: sciine status [OPTIONS]
+
+  Print informations about the content (duration, ...).
+
+Options:
+  -i, --input PATH  Input .cast file, default is stdin.
+  --help            Show this message and exit.
+</code></pre>
+
+<p>Example:</p>
+
+<p>Use <code>status</code> to see the number of frames and the duration of the screecast.</p>
+
+<pre><code class="bash language-bash">sciine status --input short.cast
+Input: short.cast
+Date: 2023-05-28 11:15:06+00:00
+Frames: 22
+Duration: 6.135993
+</code></pre>
+
+<hr />
+
+<h2 id="command-header">Command <code>header</code></h2>
+
+<pre><code class="script language-script">Usage: sciine header [OPTIONS]
+
+  Print the header field of the content.
+
+Options:
+  -i, --input PATH  Input .cast file, default is stdin.
+  --help            Show this message and exit.
+</code></pre>
+
+<p>Example:</p>
+
+<p>Display the original header.</p>
+
+<pre><code class="bash language-bash">sciine header -i short.cast
+{'env': {'SHELL': '/bin/bash', 'TERM': 'linux'},
+ 'height': 36,
+ 'timestamp': 1685272506,
+ 'version': 2,
+ 'width': 133}
+</code></pre>
+
+<hr />
+
+<h2 id="command-show">Command <code>show</code></h2>
+
+<pre><code class="script language-script">Usage: sciine show [OPTIONS]
+
+  Print detail of frames, from START to END (max LINES).
+
+  Each line prints the timecode, duration and text of the frame. If no START
+  timecode is provided, start from the beginning. If no END timecode is
+  provided, display all lines until the end, or LINES lines
+
+Options:
+  -s, --start FLOAT    Start timecode (sec), default is 0.0.
+  -e, --end FLOAT      End timecode (sec), default is EOF.
+  -l, --lines INTEGER  Number of lines to show.
+  -p, --precise        Show all digits of time codes.
+  -t, --text           Show message field as plain text.
+  -i, --input PATH     Input .cast file, default is stdin.
+  --help               Show this message and exit.
+</code></pre>
+
+<p>Example:</p>
+
+<p>Display the first 5 lines and the precise duration of the frames.</p>
+
+<pre><code class="bash language-bash">sciine show --lines 5 --precise  -i short.cast
+  0.000000│ 0.894038│ 'e'
+  0.894038│ 0.104510│ 'c'
+  0.998548│ 0.164761│ 'h'
+  1.163309│ 0.300601│ 'o'
+  1.463910│ 0.392259│ ' '
+</code></pre>
+
+<hr />
+
+<h2 id="command-copy">Command <code>copy</code></h2>
+
+<pre><code class="script language-script">Usage: sciine copy [OPTIONS]
+
+  Copy content between START and END timecodes.
+
+Options:
+  -s, --start FLOAT  Start timecode (sec), default is 0.0.
+  -e, --end FLOAT    End timecode (sec), default is EOF.
+  -i, --input PATH   Input .cast file, default is stdin.
+  -o, --output PATH  Output .cast file, default is stdout.
+  --help             Show this message and exit.
+</code></pre>
+
+<p>Example:</p>
+
+<p>Play content between 0.05 and 1.2 seconds.</p>
+
+<pre><code class="bash language-bash">sciine copy --start 0.05 --end 1.2 -i short.cast | asciinema play -
+</code></pre>
+
+<hr />
+
+<h2 id="command-cut">Command <code>cut</code></h2>
+
+<pre><code class="script language-script">Usage: sciine cut [OPTIONS]
+
+  Cut content between START and END timecodes.
+
+  If no START timecode is provided, cut from the beginning. If no END timecode
+  is provided, cut until the end.
+
+Options:
+  -s, --start FLOAT  Start timecode (sec), default is 0.0.
+  -e, --end FLOAT    End timecode (sec), default is EOF.
+  -a, --adjust       Adjust durations of frames at precise cut values.
+  -i, --input PATH   Input .cast file, default is stdin.
+  -o, --output PATH  Output .cast file, default is stdout.
+  --help             Show this message and exit.
+</code></pre>
+
+<p>Example:</p>
+
+<p>Cut end of content after 1.2 seconds.</p>
+
+<pre><code class="bash language-bash">sciine cut --start 1.2 &lt; short.cast | asciinema play -
+</code></pre>
+
+<hr />
+
+<h2 id="command-speed">Command <code>speed</code></h2>
+
+<pre><code class="script language-script">Usage: sciine speed [OPTIONS] SPEED
+
+  Change the speed of the screen cast.
+
+  SPEED is the factor of acceleration. Use number below 1.0 to to slow down.
+  If no START timecode is provided, modify speed from the beginning. If no END
+  timecode is provided, modify speed until the end.
+
+Options:
+  -s, --start FLOAT  Start timecode (sec), default is 0.0.
+  -e, --end FLOAT    End timecode (sec), default is EOF.
+  -i, --input PATH   Input .cast file, default is stdin.
+  -o, --output PATH  Output .cast file, default is stdout.
+  --help             Show this message and exit.
+</code></pre>
+
+<p>Example:</p>
+
+<p>Doubles the speed and displays the new duration.</p>
+
+<pre><code class="bash language-bash">sciine speed 2.0 -i short.cast|sciine status
+Input: sys.stdin
+Date: 2023-06-03 11:10:23+00:00
+Frames: 22
+Duration: 3.067996
+</code></pre>
+
+<hr />
+
+<h2 id="command-minimum">Command <code>minimum</code></h2>
+
+<pre><code class="script language-script">Usage: sciine minimum [OPTIONS] DURATION
+
+  Set minimum duration of each frame.
+
+  The minimum duration of frames will be set to DURATION seconds, the
+  timecodes will be adjusted accordingly. If no START timecode is provided,
+  apply from the beginning. If no END timecode is provided, apply until the
+  end.
+
+Options:
+  -s, --start FLOAT  Start timecode (sec), default is 0.0.
+  -e, --end FLOAT    End timecode (sec), default is EOF.
+  -i, --input PATH   Input .cast file, default is stdin.
+  -o, --output PATH  Output .cast file, default is stdout.
+  --help             Show this message and exit.
+</code></pre>
+
+<p>Example:</p>
+
+<p>Set the frame duration to a minimum of 0.2s and display the new durations.</p>
+
+<pre><code class="bash language-bash">sciine minimum 0.2 -i short.cast | sciine show -l 5 -p
+  0.000000│ 0.894038│ 'e'
+  0.894038│ 0.200000│ 'c'
+  1.094038│ 0.200000│ 'h'
+  1.294038│ 0.300601│ 'o'
+  1.594639│ 0.392259│ ' '
+</code></pre>
+
+<hr />
+
+<h2 id="command-maximum">Command <code>maximum</code></h2>
+
+<pre><code class="script language-script">Usage: sciine maximum [OPTIONS] DURATION
+
+  Set maximum duration of each frame.
+
+  The duration of frames will be limited to DURATION seconds, the timecodes
+  will be adjusted accordingly. If no START timecode is provided, apply from
+  the beginning. If no END timecode is provided, apply until the end.
+
+Options:
+  -s, --start FLOAT  Start timecode (sec), default is 0.0.
+  -e, --end FLOAT    End timecode (sec), default is EOF.
+  -i, --input PATH   Input .cast file, default is stdin.
+  -o, --output PATH  Output .cast file, default is stdout.
+  --help             Show this message and exit.
+</code></pre>
+
+<p>Example:</p>
+
+<p>Set the frame duration to a maximum of 0.2s and display the new durations.</p>
+
+<pre><code class="bash language-bash">sciine maximum 0.2 -i short.cast | sciine show -l 5 -p
+  0.000000│ 0.200000│ 'e'
+  0.200000│ 0.104510│ 'c'
+  0.304510│ 0.164761│ 'h'
+  0.469271│ 0.200000│ 'o'
+  0.669271│ 0.200000│ ' '
+</code></pre>
+
+<hr />
+
+<h2 id="command-quantize">Command <code>quantize</code></h2>
+
+<pre><code class="script language-script">Usage: sciine quantize [OPTIONS] RANGE_MIN RANGE_MAX DURATION
+
+  Set the duration of frames in duration range to DURATION.
+
+  Set the duration of frames to DURATION if their current duration is between
+  RANGE_MIN and RANGE_MAX. If no START timecode is provided, apply from the
+  beginning. If no END timecode is provided, apply until the end.
+
+Options:
+  -s, --start FLOAT  Start timecode (sec), default is 0.0.
+  -e, --end FLOAT    End timecode (sec), default is EOF.
+  -i, --input PATH   Input .cast file, default is stdin.
+  -o, --output PATH  Output .cast file, default is stdout.
+  --help             Show this message and exit.
+</code></pre>
+
+<p>Example:</p>
+
+<p>Set the frame duration to 0.2s for all frames lasting between 0.1 and 0.4s.</p>
+
+<pre><code class="bash language-bash">sciine quantize 0.1 0.4 0.2 -i short.cast | sciine show -l 5 -p
+  0.000000│ 0.894038│ 'e'
+  0.894038│ 0.200000│ 'c'
+  1.094038│ 0.200000│ 'h'
+  1.294038│ 0.200000│ 'o'
+  1.494038│ 0.200000│ ' '
+</code></pre>
+
+<hr />
+
+<h2 id="command-include">Command <code>include</code></h2>
+
+<pre><code class="script language-script">Usage: sciine include [OPTIONS] TIMECODE INCLUDE_FILE
+
+  Include the content of a .cast file at the timecode position.
+
+  All frames of the INCLUDE_FILE .cast file will be copied in the current
+  screen cast. The timecodes will be adjusted as required.
+
+Options:
+  -i, --input PATH   Input .cast file, default is stdin.
+  -o, --output PATH  Output .cast file, default is stdout.
+  --help             Show this message and exit.
+</code></pre>
+
+<p>Add the content of <code>long.cast</code> to the beginning of the screencast, and display the final duration.</p>
+
+<pre><code class="bash language-bash">sciine include 0.0 long.cast.gz  -i short.cast|sciine status
+Input: sys.stdin
+Date: 2023-06-03 12:14:22+00:00
+Frames: 71391
+Duration: 22.925312
+</code></pre>
+
+<hr />
+
+<h2 id="command-insert">Command <code>insert</code></h2>
+
+<pre><code class="script language-script">Usage: sciine insert [OPTIONS] TIMECODE DURATION TEXT [ETYPE]
+
+  Insert a frame at the TIMECODE position.
+
+  The frame will display TEXT during DURATION seconds. By default the event
+  type ETYPE is set to "o".
+
+Options:
+  -i, --input PATH   Input .cast file, default is stdin.
+  -o, --output PATH  Output .cast file, default is stdout.
+  --help             Show this message and exit.
+</code></pre>
+
+<p>Insert the string &#8216;xyz&#8217; at position 2.0 for a duration of 0.1s. View content before and after the change.</p>
+
+<pre><code class="bash language-bash">sciine show -l 8 -p -i short.cast
+  0.000000│ 0.894038│ 'e'
+  0.894038│ 0.104510│ 'c'
+  0.998548│ 0.164761│ 'h'
+  1.163309│ 0.300601│ 'o'
+  1.463910│ 0.392259│ ' '
+  1.856169│ 0.356967│ '"'
+  2.213136│ 0.150277│ 'a'
+  2.363413│ 0.511288│ ' '
+
+sciine insert 2.0 0.1 "xyz" -i short.cast | sciine show -l 8 -p
+  0.000000│ 0.894038│ 'e'
+  0.894038│ 0.104510│ 'c'
+  0.998548│ 0.164761│ 'h'
+  1.163309│ 0.300601│ 'o'
+  1.463910│ 0.392259│ ' '
+  1.856169│ 0.356967│ '"'
+  2.213136│ 0.100000│ 'xyz'
+  2.313136│ 0.150277│ 'a'
+</code></pre>
+
+<hr />
+
+<h2 id="command-replace">Command <code>replace</code></h2>
+
+<pre><code class="script language-script">Usage: sciine replace [OPTIONS] TIMECODE TEXT
+
+  Replace the text of frame with timecode &gt;= TIMECODE by TEXT.
+
+Options:
+  -i, --input PATH   Input .cast file, default is stdin.
+  -o, --output PATH  Output .cast file, default is stdout.
+  --help             Show this message and exit.
+</code></pre>
+
+<p>Replace the string &#8216;xyz&#8217; at position 2.0 for a duration of 0.1s. View content before and after the change.</p>
+
+<pre><code class="bash language-bash">sciine show -l 8 -p -i short.cast
+  0.000000│ 0.894038│ 'e'
+  0.894038│ 0.104510│ 'c'
+  0.998548│ 0.164761│ 'h'
+  1.163309│ 0.300601│ 'o'
+  1.463910│ 0.392259│ ' '
+  1.856169│ 0.356967│ '"'
+  2.213136│ 0.150277│ 'a'
+  2.363413│ 0.511288│ ' '
+
+sciine replace 2.0 "xyz" -i short.cast | sciine show -l 8 -p
+  0.000000│ 0.894038│ 'e'
+  0.894038│ 0.104510│ 'c'
+  0.998548│ 0.164761│ 'h'
+  1.163309│ 0.300601│ 'o'
+  1.463910│ 0.392259│ ' '
+  1.856169│ 0.356967│ '"'
+  2.213136│ 0.150277│ 'xyz'
+  2.363413│ 0.511288│ ' '
+</code></pre>
+
+<hr />
+
+<h2 id="command-delete">Command <code>delete</code></h2>
+
+<pre><code class="script language-script">Usage: sciine delete [OPTIONS] TIMECODE
+
+  Delete the frame with timecode &gt;= TIMECODE.
+
+Options:
+  -i, --input PATH   Input .cast file, default is stdin.
+  -o, --output PATH  Output .cast file, default is stdout.
+  --help             Show this message and exit.
+</code></pre>
+
+<p>Delete the frame at position 2.0. View content before and after the change.</p>
+
+<pre><code class="bash language-bash">sciine show -l 8 -p -i short.cast
+  0.000000│ 0.894038│ 'e'
+  0.894038│ 0.104510│ 'c'
+  0.998548│ 0.164761│ 'h'
+  1.163309│ 0.300601│ 'o'
+  1.463910│ 0.392259│ ' '
+  1.856169│ 0.356967│ '"'
+  2.213136│ 0.150277│ 'a'
+  2.363413│ 0.511288│ ' '
+
+sciine delete 2.0  -i short.cast | sciine show -l 8 -p
+  0.000000│ 0.894038│ 'e'
+  0.894038│ 0.104510│ 'c'
+  0.998548│ 0.164761│ 'h'
+  1.163309│ 0.300601│ 'o'
+  1.463910│ 0.392259│ ' '
+  1.856169│ 0.356967│ '"'
+  2.213136│ 0.511288│ ' '
+  2.724424│ 0.237965│ 's'
+</code></pre>
+
+<hr />
+
+<h2 id="code-source">Code source</h2>
+
+<p><strong>Github repository</strong>: <a href="https://github.com/jdum/asciinema-scene/">https://github.com/jdum/asciinema-scene/</a></p>
+
+<h2 id="license">License</h2>
+
+<p>This project is licensed under the MIT License (see the LICENSE file for details).</p>
+
+
+    </body>
+</html>
+
