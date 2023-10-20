@@ -2,7 +2,9 @@ import gzip
 from importlib import resources as rso
 
 LONG_FILE_CONTENT = gzip.decompress(
-    rso.read_binary("tests.files", "long.cast.gz")
+    rso.files("tests.files").joinpath("long.cast.gz").read_bytes()
 ).decode()
 
-SHORT_FILE_CONTENT = rso.read_text("tests.files", "short.cast", encoding="utf8")
+SHORT_FILE_CONTENT = (
+    rso.files("tests.files").joinpath("short.cast").read_text(encoding="utf8")
+)

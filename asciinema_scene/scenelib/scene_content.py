@@ -96,7 +96,9 @@ class SceneContent:
     @property
     def date(self) -> str:
         timestamp = self.header.get("timestamp", 0)
-        return datetime.fromtimestamp(timestamp, timezone.utc).isoformat(" ")
+        return datetime.fromtimestamp(timestamp, timezone.utc).isoformat(  # noqa: UP017
+            " "
+        )
 
     @property
     def length(self) -> int:
