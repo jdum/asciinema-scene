@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "asciinema_scene"
-version = "0.8.1"
+version = "0.8.2"
 description = "Toolbox to edit asciinema screencasts (sciine)."
 authors = ["Jerome Dumonteil <jerome.dumonteil@gmail.com>"]
 repository = "https://github.com/jdum/asciinema-scene"
@@ -24,15 +24,15 @@ sciine = "asciinema_scene.sciine:cli"
 
 [tool.poetry.dependencies]
 python = ">=3.10,<4.0"
-click = "^8"
+click = "~8"
 
 [tool.poetry.group.dev.dependencies]
-urllib3 = ">1.22,<2"
+urllib3 = "*"
 pytest = "*"
 pytest-cov = "*"
 deptry = "*"
 mypy = "*"
-pre-commit = "^2.20.0"
+pre-commit = "*"
 tox = "*"
 
 [build-system]
