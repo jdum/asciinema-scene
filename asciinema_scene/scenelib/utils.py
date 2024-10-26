@@ -9,6 +9,9 @@ class SceneStdinError(Exception):
 
 
 def detect_stdin_timeout() -> None:
+    if sys.platform == "win32":
+        # cant do that on windows
+        return
     selector = selectors.DefaultSelector()
     selector.register(sys.stdin, selectors.EVENT_READ)
     something = selector.select(timeout=STDIN_TIMEOUT)

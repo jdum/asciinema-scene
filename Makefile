@@ -16,6 +16,11 @@ check: ## Run code quality tools.
 	@echo "🚀 Checking for obsolete dependencies: Running deptry"
 	@poetry run deptry .
 
+.PHONY: lint
+lint:
+	isort asciinema_scene
+	ruff check --fix asciinema_scene
+
 .PHONY: test
 test: ## Test the code with pytest
 	@echo "🚀 Testing code: Running pytest"

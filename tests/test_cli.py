@@ -1,6 +1,7 @@
 import importlib.metadata
 import shlex
 import subprocess
+import sys
 import time
 from importlib import resources as rso
 
@@ -12,10 +13,20 @@ from .contents import SHORT_FILE_CONTENT
 
 __version__ = importlib.metadata.version("asciinema_scene")
 
+if sys.platform == "win32":
+    CR = "\r\n"
+else:
+    CR = "\n"
+
 
 def my_invoke(command: str, input_content: str):
+    cmd = "sciine " + command
+    if sys.platform == "win32":
+        args = cmd
+    else:
+        args = shlex.split(cmd)
     proc = subprocess.Popen(
-        shlex.split("sciine " + command),
+        args,
         stdin=subprocess.PIPE,
         stdout=subprocess.PIPE,
     )
@@ -156,13 +167,13 @@ def test_cli_quantize():
 def test_cli_show_1():
     code, output = my_invoke("show", SHORT_FILE_CONTENT)
     assert code == 0
-    assert "0.000│ 0.89│ 'e'\n" in output
+    assert f"0.000│ 0.89│ 'e'{CR}" in output
 
 
 def test_cli_show_2():
     code, output = my_invoke("show --precise", SHORT_FILE_CONTENT)
     assert code == 0
-    assert "0.000000│ 0.894038│ 'e'\n" in output
+    assert f"0.000000│ 0.894038│ 'e'{CR}" in output
 
 
 def test_cli_show_3():
@@ -174,34 +185,34 @@ def test_cli_show_3():
 def test_cli_show_4():
     code, output = my_invoke("show --text --precise", SHORT_FILE_CONTENT)
     assert code == 0
-    assert "0.000000│ 0.894038│ e\n" in output
+    assert f"0.000000│ 0.894038│ e{CR}" in output
 
 
 def test_cli_show_5():
     code, output = my_invoke("show --lines 2", SHORT_FILE_CONTENT)
     assert code == 0
-    assert "0.000│ 0.89│ 'e'\n" in output
+    assert f"0.000│ 0.89│ 'e'{CR}" in output
 
 
 def test_cli_show_6():
     code, output = my_invoke("show -s 0.0", SHORT_FILE_CONTENT)
     assert code == 0
-    assert "0.000│ 0.89│ 'e'\n" in output
-    assert len(output.strip().split("\n")) == 22
+    assert f"0.000│ 0.89│ 'e'{CR}" in output
+    assert len(output.strip().split(CR)) == 22
 
 
 def test_cli_show_7():
     code, output = my_invoke("show -s 1.0", SHORT_FILE_CONTENT)
     assert code == 0
-    assert "0.000│ 0.89│ 'e'\n" not in output
-    assert len(output.strip().split("\n")) == 19
+    assert f"0.000│ 0.89│ 'e'{CR}" not in output
+    assert len(output.strip().split(CR)) == 19
 
 
 def test_cli_show_8():
     code, output = my_invoke("show -s 1.0 -e 2.0", SHORT_FILE_CONTENT)
     assert code == 0
-    assert "0.000│ 0.89│ 'e'\n" not in output
-    assert len(output.strip().split("\n")) == 3
+    assert f"0.000│ 0.89│ 'e'{CR}" not in output
+    assert len(output.strip().split(CR)) == 3
 
 
 def test_cli_speed():
@@ -230,5 +241,6 @@ def test_timeout():
     proc.stdin.close()
     proc.wait()
     assert proc.returncode == 0
-    output = proc.stdout.read().decode()
-    assert "Timeout while waiting" in output
+    if sys.platform != "win32":
+        output = proc.stdout.read().decode()
+        assert "Timeout while waiting" in output
