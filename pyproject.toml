@@ -3,7 +3,6 @@ name = "asciinema_scene"
 version = "0.9.0"
 description = "Toolbox to edit asciinema screencasts (sciine)."
 authors = [{ name = "Jerome Dumonteil", email = "jerome.dumonteil@gmail.com" }]
-requires-python = ">=3.10,<4.0"
 readme = "README.md"
 license = "MIT"
 classifiers = [
@@ -15,6 +14,7 @@ classifiers = [
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
 ]
+requires-python = ">=3.10,<4.0"
 dependencies = ["click>=8.2.1,<9"]
 
 [project.urls]
@@ -39,22 +39,12 @@ dev = [
     "isort>=6.0.1",
 ]
 
-[tool.hatch.build.targets.sdist]
-include = ["asciinema_scene"]
-
-[tool.hatch.build.targets.wheel]
-include = ["asciinema_scene"]
-
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
-[tool.black]
-line-length = 88
-target-version = ['py312']
-
 [tool.mypy]
-files = ["asciinema_scene"]
+files = ["src/asciinema_scene"]
 disallow_untyped_defs = "True"
 disallow_any_unimported = "True"
 no_implicit_optional = "True"
@@ -64,8 +54,10 @@ warn_unused_ignores = "True"
 show_error_codes = "True"
 
 [tool.ruff]
-target-version = "py312"
+target-version = "py313"
+exclude = [".venv"]
 line-length = 88
+indent-width = 4
 fix = false
 lint.select = [
     # flake8-2020
