@@ -1,6 +1,6 @@
 # asciinema_scene Release Notes
 
-## [1.0.0] - 2025-06-xxxxxx
+## [1.0.0] - 2025-06-27
 
 -   Technical updates: migrate from `poetry` to `uv`.
 -   Add a changelog file.
