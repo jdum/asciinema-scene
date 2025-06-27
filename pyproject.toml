@@ -1,10 +1,9 @@
-[tool.poetry]
+[project]
 name = "asciinema_scene"
 version = "0.9.0"
 description = "Toolbox to edit asciinema screencasts (sciine)."
-authors = ["Jerome Dumonteil <jerome.dumonteil@gmail.com>"]
-repository = "https://github.com/jdum/asciinema-scene"
-documentation = "https://jdum.github.io/asciinema-scene/"
+authors = [{ name = "Jerome Dumonteil", email = "jerome.dumonteil@gmail.com" }]
+requires-python = ">=3.10,<4.0"
 readme = "README.md"
 license = "MIT"
 classifiers = [
@@ -16,28 +15,36 @@ classifiers = [
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
 ]
-packages = [{ include = "asciinema_scene" }]
+dependencies = ["click>=8,<9"]
 
-[tool.poetry.scripts]
+[project.urls]
+Repository = "https://github.com/jdum/asciinema-scene"
+Documentation = "https://jdum.github.io/asciinema-scene/"
+
+[project.scripts]
 sciine = "asciinema_scene.sciine:cli"
 
-[tool.poetry.dependencies]
-python = ">=3.10,<4.0"
-click = "~8"
+[dependency-groups]
+dev = [
+    "urllib3",
+    "pytest>=0.8.0",
+    "pytest-cov",
+    "deptry",
+    "mypy",
+    "tox",
+    "ruff>=0.7.0",
+    "isort>=5.13.2",
+]
 
-[tool.poetry.group.dev.dependencies]
-urllib3 = "*"
-pytest = ">=0.8.0"
-pytest-cov = "*"
-deptry = "*"
-mypy = "*"
-tox = "*"
-ruff = ">=0.7.0"
-isort = ">=5.13.2"
+[tool.hatch.build.targets.sdist]
+include = ["asciinema_scene"]
+
+[tool.hatch.build.targets.wheel]
+include = ["asciinema_scene"]
 
 [build-system]
-requires = ["poetry-core>=1.8.0"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
 [tool.black]
 line-length = 88
