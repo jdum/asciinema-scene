@@ -8,23 +8,6 @@ on:
         types: [opened, synchronize, reopened]
 
 jobs:
-    # quality:
-    #     runs-on: ubuntu-latest
-    #     steps:
-    #         - name: Check out
-    #           uses: actions/checkout@v4
-
-    #         - uses: actions/cache@v4
-    #           with:
-    #               path: ~/.cache/pre-commit
-    #               key: pre-commit-${{ hashFiles('.pre-commit-config.yaml') }}
-
-    #         - name: Set up the environment
-    #           uses: ./.github/actions/setup-poetry-env
-
-    #         - name: Run checks
-    #           run: make check
-
     tox:
         name: Tox with ${{ matrix.python-version }} on ${{ matrix.os }}
         runs-on: ${{ matrix.os }}
@@ -39,17 +22,23 @@ jobs:
               with:
                   fetch-depth: 0
 
+            - name: Install uv
+              uses: astral-sh/setup-uv@v5
+              with:
+                  # Install a specific version of uv.
+                  version: '0.6.16'
+
             - name: Setup python for test ${{ matrix.python-version }}
               uses: actions/setup-python@v5
               with:
                   python-version: ${{ matrix.python-version }}
 
             - name: Install dependencies
-              run: python -m pip install -U setuptools pip wheel "poetry>=1.8" "tox>=4" "tox-gh-actions>=3.2" 
+              run: uv sync --all-extras --dev
 
             - name: Test with tox
-              run: tox
+              run: uv run tox
 
             - name: Upload coverage reports to Codecov with GitHub Action on Python 3.13
-              uses: codecov/codecov-action@v4
+              uses: codecov/codecov-action@v5
               if: ${{ matrix.python-version == '3.13' }}

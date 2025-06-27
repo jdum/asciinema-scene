@@ -1,7 +1,7 @@
 [project]
 name = "asciinema_scene"
-version = "0.9.0"
-description = "Toolbox to edit asciinema screencasts (sciine)."
+version = "1.0.0"
+description = "Toolbox to edit asciinema screencasts (sciine)"
 authors = [{ name = "Jerome Dumonteil", email = "jerome.dumonteil@gmail.com" }]
 readme = "README.md"
 license = "MIT"
@@ -20,6 +20,7 @@ dependencies = ["click>=8.2.1,<9"]
 [project.urls]
 Repository = "https://github.com/jdum/asciinema-scene"
 Documentation = "https://jdum.github.io/asciinema-scene/"
+Changelog = "https://github.com/jdum/asciinema-scene/blob/master/CHANGES.md"
 
 [project.scripts]
 sciine = "asciinema_scene.sciine:cli"
@@ -45,13 +46,13 @@ build-backend = "hatchling.build"
 
 [tool.mypy]
 files = ["src/asciinema_scene"]
-disallow_untyped_defs = "True"
-disallow_any_unimported = "True"
-no_implicit_optional = "True"
-check_untyped_defs = "True"
-warn_return_any = "True"
-warn_unused_ignores = "True"
-show_error_codes = "True"
+disallow_untyped_defs = true
+disallow_any_unimported = true
+no_implicit_optional = true
+check_untyped_defs = true
+warn_return_any = true
+warn_unused_ignores = true
+show_error_codes = true
 
 [tool.ruff]
 target-version = "py313"
@@ -112,3 +113,7 @@ skip_empty = true
 [tool.coverage.run]
 branch = true
 source = ["asciinema_scene"]
+
+[tool.pytest.ini_options]
+minversion = "8.0"
+testpaths = ["tests"]

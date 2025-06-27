@@ -1,629 +1,1297 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>asciinema-scene</title>
-        <style>
-             /*
-"GitHub Flavor", a GitHub flavored CSS style sheet for Markdown documents.
-Based on Chris Patuzzo's github.css (https://gist.github.com/tuzz/3331384).
-
-
-author: Fabrizio Musacchio (https://www.fabriziomusacchio.com)
-date: 03.01.2020
-
-
-License:
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
- */
-
-/*Main body*/
-body {
-  font-family:      Helvetica, arial, sans-serif;
-  font-size:        14px;
-  line-height:      1.4em;
-  background-color: white;
-  padding-top:      10px;
-  padding-bottom:   10px;
-  padding-left:     25px;
-  padding-right:    25px; }
-
-body > *:first-child {
-  margin-top:   0 !important; }
-body > *:last-child {
-  margin-bottom:0 !important; }
-
-/* Smooth scrolling */
-@media screen and (prefers-reduced-motion: no-preference) {
-  html {
-    scroll-behavior: smooth;
-  }
+<!--
+Generated with md2html 0.5.2
+Homepage: https://github.com/Phuker/md2html
+-->
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+<title>README</title>
+<style type="text/css">
+.markdown-body .octicon {
+  display: inline-block;
+  fill: currentColor;
+  vertical-align: text-bottom;
 }
 
-/*Links*/
-a {
-  color:            #3973ad;
-  text-decoration:  none;}
-a:hover{
-  /* text-decoration: underline; */
-  color:            #4183C4;
-}
-a.absent {
-  color:            #cc0000; }
-a.anchor {
-  display:          block;
-  padding-left:     30px;
-  margin-left:      -30px;
-  cursor:           pointer;
-  position:         absolute;
-  top:              0;
-  left:             0;
-  bottom:           0; }
-
-/*Headlines*/
-h1, h2, h3, h4, h5, h6 {
-  margin:       20px 0 10px;
-  padding:      0;
-  line-height:  1.4em;
-  font-weight:  bold;
-  -webkit-font-smoothing: antialiased;
-  cursor:       text;
-  position:   relative; }
-
-h1 tt, h1 code {
-  font-size: inherit; }
-
-h2 tt, h2 code {
-  font-size: inherit; }
-
-h3 tt, h3 code {
-  font-size: inherit; }
-
-h4 tt, h4 code {
-  font-size: inherit; }
-
-h5 tt, h5 code {
-  font-size: inherit; }
-
-h6 tt, h6 code {
-  font-size: inherit; }
-
-h1 {
-  font-size: 28px;
-  color: black; }
-
-h2 {
-  font-size: 24px;
-  border-bottom: 1px solid #cccccc;
-  color: black; }
-
-h3 {
-  font-size: 18px; }
-
-h4 {
-  font-size: 16px; }
-
-h5 {
-  font-size: 14px; }
-
-h6 {
-  color: #777777;
-  font-size: 14px; }
-
-p, blockquote, ul, ol, dl, li, table, pre {
-  margin: 15px 0; }
-
-/*Margins and paddings of the first line content*/
-body > h2:first-child {
-  margin-top: 0;
-  padding-top: 0; }
-body > h1:first-child {
-  margin-top: 0;
-  padding-top: 0; }
-  body > h1:first-child + h2 {
-    margin-top: 0;
-    padding-top: 0; }
-body > h3:first-child, body > h4:first-child, body > h5:first-child, body > h6:first-child {
-  margin-top: 0;
-  padding-top: 0; }
-
-a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
-  margin-top: 0;
-  padding-top: 0; }
-
-h1 p, h2 p, h3 p, h4 p, h5 p, h6 p {
-  margin-top: 0;
+.markdown-body .anchor {
+  float: left;
+  line-height: 1;
+  margin-left: -20px;
+  padding-right: 4px;
 }
 
-/*Lists*/
-ul li,ol li{
-  margin-top:     .15em;
-  margin-bottom:  .15em;
-}
-ul li li{
-  margin-left:    -15px;
-}
-ul ul,ul ol,ol ol,ol ul{
-  margin-top:     0;
-  margin-bottom:  0em;
+.markdown-body .anchor:focus {
+  outline: none;
 }
 
-/*Footnotes*/
-a[href^="#fn:"]:after{
-    content:        ')';
-    font-size:      0.83em;
-    vertical-align: super;
-    line-height:    0;
-}
-/*Highlights the BG of current jumped-to footnote:*/
-li:target {
-    background-color: #e8fef6;
-}
-.footnotes > ol > li > p {
-    display:        inline;
-}
-.footnotes ol {
-    list-style:     none;
-    counter-reset:  footnotes;
-    padding-left:   15px;
-}
-.footnotes ol li {
-    counter-increment:footnotes;
-}
-.footnotes ol li:before {
-    /* background-color: #e8fef6; */
-    font-weight:      bold;
-    /* counter-reset: footnotes; */
-    content:          counters(footnotes, ".") ")";
-}
-.footnotes li {
-    padding-bottom:     0.45em;
-}
-.footnotes {
-    /* only use is for border, background-color of block */
-	/* border: dashed 0px #f4f5f8; */
-	background-color: #f4f5f8;
-	padding:          0em 0em 0.25em 0em;
-}
-/*.footnotes:before{
-    content:        "Footnotes";
-    font-size:      1.2em;
-    font-weight:    bold;
-    line-height:    2.5em;
-    padding-left:   0.5em;
-}*/
-
-/*TOC (for DEVONthink Markdown documents; for other editors, try e.g. ".toc")*/
-.TOC {
-    background:     #f4f5f8 none repeat scroll 0 0; //f3f6f6
-    border:         0px solid #aaa;
-    border-radius:  10px;
-    display:        table;
-    font-size:      95%;
-    margin-bottom:  1em;
-    padding-left:   2px;
-    padding-top:    2px;
-    padding-bottom: 2px;
-    padding-right:  2px;
-    width:          100%;
-}
-
-/*uncomment if you'd like to automatically add a title to your TOC:*/
-/*.TOC:before {
-    content:        "Table of Contents";
-    font-weight:    bold;
-    font-size:      1.1em;
-    color:          #3973ad;
-    padding-left:   1em;
-    margin-bottom: -1em;
-    line-height:    3em;
-}*/
-
-.TOC li, .TOC ul, .TOC ul li{
-    list-style:     decimal;
-}
-
-.top-link {
-  transition:       all .25s ease-in-out;
-  position:         fixed;
-  bottom:           0;
-  right:            0;
-  display:          inline-flex;
-  color:            #000000;
-
-  cursor:           pointer;
-  align-items:      center;
-  justify-content:  center;
-  margin:           0 2em 2em 0;
-  border-radius:    50%;
-  padding:          .25em;
-  width:            1em;
-  height:           1em;
-  background-color: #F8F8F8;
-}
-
-/*Check-Boxes/To-Do-Boxes (doesn't work in DEVONthink Markdown documents)*/
-/* ul li.checkbox {
-  appearance: none;
-  background-color: #fff;
-  margin: 0;
-  font: inherit;
-  color: #b2b2b2;
-  width: 1.15em;
-  height: 1.15em;
-  border: 0.15em solid #b2b2b2;
-  border-radius: 0.15em;
-} */
-
-/* input[type="checkbox"] {
-  appearance: none;
-  background-color: #fff;
-  margin: 0;
-  font: inherit;
-  color: #b2b2b2;
-  width: 1.15em;
-  height: 1.15em;
-  border: 0.15em solid #b2b2b2;
-  border-radius: 0.15em;
-}
-
-input[type="checkbox"]::before {
-  content: " ";
-  width: 0.65em;
-  height: 0.65em;
-  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
-}
-
-input[type="checkbox"]:checked::after {
-  content: "_";
-  color: #cdef9a;
-  box-shadow: inset 4em 2em #cdef9a;
-}
-
-.task-list-item {
-  list-style-type: none;
-  margin-top: 0px;
-  margin-bottom: 0px;
-}
-
-.task-list-item input {
-  margin: 0 0.2em .25em -1.6em;
+.markdown-body h1 .octicon-link,
+.markdown-body h2 .octicon-link,
+.markdown-body h3 .octicon-link,
+.markdown-body h4 .octicon-link,
+.markdown-body h5 .octicon-link,
+.markdown-body h6 .octicon-link {
+  color: #1b1f23;
   vertical-align: middle;
-  padding-bottom: 0px;
-  opacity: 1;
-} */
-
-/*Definition lists*/
-dl {
-  padding:            0; }
-  dl dt {
-    font-size:        14px;
-    font-weight:      bold;
-    font-style:       italic;
-    padding:          0;
-    margin:           15px 0 5px; }
-    dl dt:first-child {
-      padding:        0; }
-    dl dt > :first-child {
-      margin-top:     0; }
-    dl dt > :last-child {
-      margin-bottom:  0; }
-  dl dd {
-    margin:           0 0 15px;
-    padding:          0 15px; }
-    dl dd > :first-child {
-      margin-top:     0; }
-    dl dd > :last-child {
-      margin-bottom:  0; }
-
-/*Quotes*/
-blockquote {
-  border-left:        4px solid #dddddd;
-  padding:            0 15px;
-  font-style:         normal;
-  color:              #5598c1; }  /* 777777 */
-  blockquote > :first-child {
-    margin-top:       0; }
-  blockquote > :last-child {
-    margin-bottom:    0; }
-
-/*Tables*/
-table {
-  padding:            0;border-collapse: collapse;
-  margin-left:        auto;
-  margin-right:       auto;
-  text-align:         center;}
-  table tr {
-    /* border-top: 1px solid #cccccc; */
-    background-color: white;
-    margin:           0;
-    padding:          0; }
-    table tr:nth-child(2n) {
-      background-color: #f8f8f8; }
-    table tr th {
-      font-weight:    bold;
-      /* border: 0.5px solid #cccccc; */
-      /* border-left: 0.5px solid #cccccc;
-      border-right: 0.5px solid #cccccc; */
-      background-color: #eefbff;
-      font-size:      14px;
-      margin:         0;
-      padding:        0.4em 0.35em 0.4em 0.35em; }
-    table tr td {
-      /* border: 1px solid #cccccc; */
-      margin:         0;
-       font-size:     14px;
-       padding:       5px 5px; }
-    table tr th :first-child, table tr td :first-child {
-      margin-top:     0; }
-    table tr th :last-child, table tr td :last-child {
-      margin-bottom:  0; }
-
-/*Images*/
-img {
-  max-width: 100%;}
-/*Alternative: center Images*/
-/* img {
-    display: block;
-    max-width: 100%;
-    margin-left: auto;
-    margin-right: auto; }
-*/
-
-/*Span*/
-span.frame {
-  display:      block;
-  overflow:     hidden;
-}
-span.frame > span {
-    border:     1px solid #dddddd;
-    display:    block;
-    float:      left;
-    overflow:   hidden;
-    margin:     13px 0 0;
-    padding:    7px;
-    width:      auto;
-}
-span.frame span img {
-    display:    block;
-    float:      left;
-}
-span.frame span span {
-    clear:      both;
-    color:      #333333;
-    display:    block;
-    padding:    5px 0 0;
-}
-span.align-center {
-  display:      block;
-  overflow:     hidden;
-  clear:        both;
-}
-span.align-center > span {
-    display:    block;
-    overflow:   hidden;
-    margin:     13px auto 0;
-    text-align: center;
-}
-span.align-center span img {
-    margin:     0 auto;
-    text-align: center;
-}
-span.align-right {
-  display:      block;
-  overflow:     hidden;
-  clear:        both;
-}
-span.align-right > span {
-    display:    block;
-    overflow:   hidden;
-    margin:     13px 0 0;
-    text-align: right;
-}
-span.align-right span img {
-    margin:     0;
-    text-align: right;
-}
-span.float-left {
-  display:      block;
-  margin-right: 13px;
-  overflow:     hidden;
-  float:        left;
-}
-span.float-left span {
-    margin:     13px 0 0;
-}
-span.float-right {
-  display:      block;
-  margin-left:  13px;
-  overflow:     hidden;
-  float:        right;
-}
-span.float-right > span {
-    display:    block;
-    overflow:   hidden;
-    margin:     13px auto 0;
-    text-align: right;
+  visibility: hidden;
 }
 
-/*Code blocks*/
-code, tt {
-    margin:             0 2px;
-    padding:            0 5px;
-    white-space:        nowrap;
-    border:             1px solid #eaeaea;
-    background-color:   #f8f8f8;
-    border-radius:      3px;
+.markdown-body h1:hover .anchor,
+.markdown-body h2:hover .anchor,
+.markdown-body h3:hover .anchor,
+.markdown-body h4:hover .anchor,
+.markdown-body h5:hover .anchor,
+.markdown-body h6:hover .anchor {
+  text-decoration: none;
 }
 
-pre code {
-    margin:             0;
-    padding:            0;
-    white-space:        pre;
-    border:             none;
-    background:         transparent;
+.markdown-body h1:hover .anchor .octicon-link,
+.markdown-body h2:hover .anchor .octicon-link,
+.markdown-body h3:hover .anchor .octicon-link,
+.markdown-body h4:hover .anchor .octicon-link,
+.markdown-body h5:hover .anchor .octicon-link,
+.markdown-body h6:hover .anchor .octicon-link {
+  visibility: visible;
 }
 
-.highlight pre {
-    background-color:   #f8f8f8;
-    border:             1px solid #cccccc;
-    font-size:          13px;
-    line-height:        19px;
-    overflow:           auto;
-    padding:            6px 10px;
-    border-radius:      3px;
+.markdown-body h1:hover .anchor .octicon-link:before,
+.markdown-body h2:hover .anchor .octicon-link:before,
+.markdown-body h3:hover .anchor .octicon-link:before,
+.markdown-body h4:hover .anchor .octicon-link:before,
+.markdown-body h5:hover .anchor .octicon-link:before,
+.markdown-body h6:hover .anchor .octicon-link:before {
+  width: 16px;
+  height: 16px;
+  content: ' ';
+  display: inline-block;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' version='1.1' width='16' height='16' aria-hidden='true'%3E%3Cpath fill-rule='evenodd' d='M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z'%3E%3C/path%3E%3C/svg%3E");
+}.markdown-body {
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  line-height: 1.5;
+  color: #24292e;
+  font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+  font-size: 16px;
+  line-height: 1.5;
+  word-wrap: break-word;
 }
 
-/*Preformatted text*/
-pre {
-    background-color:   #f8f8f8;
-    border:             1px solid #cccccc;
-    /*font-size:          13px;*/
-    font-size:          0.90em !important;
-    line-height:        1.6em !important; //19px
-    overflow:           auto;
-    padding:            6px 10px;
-    border-radius:      3px;
-}
-pre code, pre tt {
-    background-color:   transparent;
-    border:             none;
+.markdown-body details {
+  display: block;
 }
 
-/*Superscript text*/
-sup {
-    font-size:          0.83em;
-    vertical-align:     super;
-    line-height:        0;
+.markdown-body summary {
+  display: list-item;
 }
 
-/*Subscript text*/
-sub {
-    font-size:          0.83em;
-    vertical-align:     sub;
-    line-height:        0;
+.markdown-body a {
+  background-color: initial;
 }
 
-/*Define keyboard input*/
-kbd {
-  display:            inline-block;
-  padding:            3px 5px;
-  font-size:          11px;
-  line-height:        10px;
-  color:              #555;
-  vertical-align:     middle;
-  background-color:   #fcfcfc;
-  border:             solid 1px #ccc;
-  border-bottom-color:#bbb;
-  border-radius:      3px;
-  box-shadow:         inset 0 -1px 0 #bbb
+.markdown-body a:active,
+.markdown-body a:hover {
+  outline-width: 0;
 }
 
-/*Color of highlighted text*/
-mark {
-  background-color: #fdfdcc;
-  color: black;
+.markdown-body strong {
+  font-weight: inherit;
+  font-weight: bolder;
 }
 
-/*Adjustments for printing*/
+.markdown-body h1 {
+  font-size: 2em;
+  margin: .67em 0;
+}
+
+.markdown-body img {
+  border-style: none;
+}
+
+.markdown-body code,
+.markdown-body kbd,
+.markdown-body pre {
+  font-family: monospace,monospace;
+  font-size: 1em;
+}
+
+.markdown-body hr {
+  box-sizing: initial;
+  height: 0;
+  overflow: visible;
+}
+
+.markdown-body input {
+  font: inherit;
+  margin: 0;
+}
+
+.markdown-body input {
+  overflow: visible;
+}
+
+.markdown-body [type=checkbox] {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+.markdown-body * {
+  box-sizing: border-box;
+}
+
+.markdown-body input {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.markdown-body a {
+  color: #0366d6;
+  text-decoration: none;
+}
+
+.markdown-body a:hover {
+  text-decoration: underline;
+}
+
+.markdown-body strong {
+  font-weight: 600;
+}
+
+.markdown-body hr {
+  height: 0;
+  margin: 15px 0;
+  overflow: hidden;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid #dfe2e5;
+}
+
+.markdown-body hr:after,
+.markdown-body hr:before {
+  display: table;
+  content: "";
+}
+
+.markdown-body hr:after {
+  clear: both;
+}
+
+.markdown-body table {
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+.markdown-body td,
+.markdown-body th {
+  padding: 0;
+}
+
+.markdown-body details summary {
+  cursor: pointer;
+}
+
+.markdown-body kbd {
+  display: inline-block;
+  padding: 3px 5px;
+  font: 11px SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
+  line-height: 10px;
+  color: #444d56;
+  vertical-align: middle;
+  background-color: #fafbfc;
+  border: 1px solid #d1d5da;
+  border-radius: 3px;
+  box-shadow: inset 0 -1px 0 #d1d5da;
+}
+
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.markdown-body h1 {
+  font-size: 32px;
+}
+
+.markdown-body h1,
+.markdown-body h2 {
+  font-weight: 600;
+}
+
+.markdown-body h2 {
+  font-size: 24px;
+}
+
+.markdown-body h3 {
+  font-size: 20px;
+}
+
+.markdown-body h3,
+.markdown-body h4 {
+  font-weight: 600;
+}
+
+.markdown-body h4 {
+  font-size: 16px;
+}
+
+.markdown-body h5 {
+  font-size: 14px;
+}
+
+.markdown-body h5,
+.markdown-body h6 {
+  font-weight: 600;
+}
+
+.markdown-body h6 {
+  font-size: 12px;
+}
+
+.markdown-body p {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.markdown-body blockquote {
+  margin: 0;
+}
+
+.markdown-body ol,
+.markdown-body ul {
+  padding-left: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.markdown-body ol ol,
+.markdown-body ul ol {
+  list-style-type: lower-roman;
+}
+
+.markdown-body ol ol ol,
+.markdown-body ol ul ol,
+.markdown-body ul ol ol,
+.markdown-body ul ul ol {
+  list-style-type: lower-alpha;
+}
+
+.markdown-body dd {
+  margin-left: 0;
+}
+
+.markdown-body code,
+.markdown-body pre {
+  font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
+  font-size: 12px;
+}
+
+.markdown-body pre {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.markdown-body input::-webkit-inner-spin-button,
+.markdown-body input::-webkit-outer-spin-button {
+  margin: 0;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.markdown-body :checked+.radio-label {
+  position: relative;
+  z-index: 1;
+  border-color: #0366d6;
+}
+
+.markdown-body .border {
+  border: 1px solid #e1e4e8!important;
+}
+
+.markdown-body .border-0 {
+  border: 0!important;
+}
+
+.markdown-body .border-bottom {
+  border-bottom: 1px solid #e1e4e8!important;
+}
+
+.markdown-body .rounded-1 {
+  border-radius: 3px!important;
+}
+
+.markdown-body .bg-white {
+  background-color: #fff!important;
+}
+
+.markdown-body .bg-gray-light {
+  background-color: #fafbfc!important;
+}
+
+.markdown-body .text-gray-light {
+  color: #6a737d!important;
+}
+
+.markdown-body .mb-0 {
+  margin-bottom: 0!important;
+}
+
+.markdown-body .my-2 {
+  margin-top: 8px!important;
+  margin-bottom: 8px!important;
+}
+
+.markdown-body .pl-0 {
+  padding-left: 0!important;
+}
+
+.markdown-body .py-0 {
+  padding-top: 0!important;
+  padding-bottom: 0!important;
+}
+
+.markdown-body .pl-1 {
+  padding-left: 4px!important;
+}
+
+.markdown-body .pl-2 {
+  padding-left: 8px!important;
+}
+
+.markdown-body .py-2 {
+  padding-top: 8px!important;
+  padding-bottom: 8px!important;
+}
+
+.markdown-body .pl-3,
+.markdown-body .px-3 {
+  padding-left: 16px!important;
+}
+
+.markdown-body .px-3 {
+  padding-right: 16px!important;
+}
+
+.markdown-body .pl-4 {
+  padding-left: 24px!important;
+}
+
+.markdown-body .pl-5 {
+  padding-left: 32px!important;
+}
+
+.markdown-body .pl-6 {
+  padding-left: 40px!important;
+}
+
+.markdown-body .f6 {
+  font-size: 12px!important;
+}
+
+.markdown-body .lh-condensed {
+  line-height: 1.25!important;
+}
+
+.markdown-body .text-bold {
+  font-weight: 600!important;
+}
+
+.markdown-body .pl-c {
+  color: #6a737d;
+}
+
+.markdown-body .pl-c1,
+.markdown-body .pl-s .pl-v {
+  color: #005cc5;
+}
+
+.markdown-body .pl-e,
+.markdown-body .pl-en {
+  color: #6f42c1;
+}
+
+.markdown-body .pl-s .pl-s1,
+.markdown-body .pl-smi {
+  color: #24292e;
+}
+
+.markdown-body .pl-ent {
+  color: #22863a;
+}
+
+.markdown-body .pl-k {
+  color: #d73a49;
+}
+
+.markdown-body .pl-pds,
+.markdown-body .pl-s,
+.markdown-body .pl-s .pl-pse .pl-s1,
+.markdown-body .pl-sr,
+.markdown-body .pl-sr .pl-cce,
+.markdown-body .pl-sr .pl-sra,
+.markdown-body .pl-sr .pl-sre {
+  color: #032f62;
+}
+
+.markdown-body .pl-smw,
+.markdown-body .pl-v {
+  color: #e36209;
+}
+
+.markdown-body .pl-bu {
+  color: #b31d28;
+}
+
+.markdown-body .pl-ii {
+  color: #fafbfc;
+  background-color: #b31d28;
+}
+
+.markdown-body .pl-c2 {
+  color: #fafbfc;
+  background-color: #d73a49;
+}
+
+.markdown-body .pl-c2:before {
+  content: "^M";
+}
+
+.markdown-body .pl-sr .pl-cce {
+  font-weight: 700;
+  color: #22863a;
+}
+
+.markdown-body .pl-ml {
+  color: #735c0f;
+}
+
+.markdown-body .pl-mh,
+.markdown-body .pl-mh .pl-en,
+.markdown-body .pl-ms {
+  font-weight: 700;
+  color: #005cc5;
+}
+
+.markdown-body .pl-mi {
+  font-style: italic;
+  color: #24292e;
+}
+
+.markdown-body .pl-mb {
+  font-weight: 700;
+  color: #24292e;
+}
+
+.markdown-body .pl-md {
+  color: #b31d28;
+  background-color: #ffeef0;
+}
+
+.markdown-body .pl-mi1 {
+  color: #22863a;
+  background-color: #f0fff4;
+}
+
+.markdown-body .pl-mc {
+  color: #e36209;
+  background-color: #ffebda;
+}
+
+.markdown-body .pl-mi2 {
+  color: #f6f8fa;
+  background-color: #005cc5;
+}
+
+.markdown-body .pl-mdr {
+  font-weight: 700;
+  color: #6f42c1;
+}
+
+.markdown-body .pl-ba {
+  color: #586069;
+}
+
+.markdown-body .pl-sg {
+  color: #959da5;
+}
+
+.markdown-body .pl-corl {
+  text-decoration: underline;
+  color: #032f62;
+}
+
+.markdown-body .mb-0 {
+  margin-bottom: 0!important;
+}
+
+.markdown-body .my-2 {
+  margin-bottom: 8px!important;
+}
+
+.markdown-body .my-2 {
+  margin-top: 8px!important;
+}
+
+.markdown-body .pl-0 {
+  padding-left: 0!important;
+}
+
+.markdown-body .py-0 {
+  padding-top: 0!important;
+  padding-bottom: 0!important;
+}
+
+.markdown-body .pl-1 {
+  padding-left: 4px!important;
+}
+
+.markdown-body .pl-2 {
+  padding-left: 8px!important;
+}
+
+.markdown-body .py-2 {
+  padding-top: 8px!important;
+  padding-bottom: 8px!important;
+}
+
+.markdown-body .pl-3 {
+  padding-left: 16px!important;
+}
+
+.markdown-body .pl-4 {
+  padding-left: 24px!important;
+}
+
+.markdown-body .pl-5 {
+  padding-left: 32px!important;
+}
+
+.markdown-body .pl-6 {
+  padding-left: 40px!important;
+}
+
+.markdown-body .pl-7 {
+  padding-left: 48px!important;
+}
+
+.markdown-body .pl-8 {
+  padding-left: 64px!important;
+}
+
+.markdown-body .pl-9 {
+  padding-left: 80px!important;
+}
+
+.markdown-body .pl-10 {
+  padding-left: 96px!important;
+}
+
+.markdown-body .pl-11 {
+  padding-left: 112px!important;
+}
+
+.markdown-body .pl-12 {
+  padding-left: 128px!important;
+}
+
+.markdown-body hr {
+  border-bottom-color: #eee;
+}
+
+.markdown-body kbd {
+  display: inline-block;
+  padding: 3px 5px;
+  font: 11px SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
+  line-height: 10px;
+  color: #444d56;
+  vertical-align: middle;
+  background-color: #fafbfc;
+  border: 1px solid #d1d5da;
+  border-radius: 3px;
+  box-shadow: inset 0 -1px 0 #d1d5da;
+}
+
+.markdown-body:after,
+.markdown-body:before {
+  display: table;
+  content: "";
+}
+
+.markdown-body:after {
+  clear: both;
+}
+
+.markdown-body>:first-child {
+  margin-top: 0!important;
+}
+
+.markdown-body>:last-child {
+  margin-bottom: 0!important;
+}
+
+.markdown-body a:not([href]) {
+  color: inherit;
+  text-decoration: none;
+}
+
+.markdown-body blockquote,
+.markdown-body details,
+.markdown-body dl,
+.markdown-body ol,
+.markdown-body p,
+.markdown-body pre,
+.markdown-body table,
+.markdown-body ul {
+  margin-top: 0;
+  margin-bottom: 16px;
+}
+
+.markdown-body hr {
+  height: .25em;
+  padding: 0;
+  margin: 24px 0;
+  background-color: #e1e4e8;
+  border: 0;
+}
+
+.markdown-body blockquote {
+  padding: 0 1em;
+  color: #6a737d;
+  border-left: .25em solid #dfe2e5;
+}
+
+.markdown-body blockquote>:first-child {
+  margin-top: 0;
+}
+
+.markdown-body blockquote>:last-child {
+  margin-bottom: 0;
+}
+
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
+  margin-top: 24px;
+  margin-bottom: 16px;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.markdown-body h1 {
+  font-size: 2em;
+}
+
+.markdown-body h1,
+.markdown-body h2 {
+  padding-bottom: .3em;
+  border-bottom: 1px solid #eaecef;
+}
+
+.markdown-body h2 {
+  font-size: 1.5em;
+}
+
+.markdown-body h3 {
+  font-size: 1.25em;
+}
+
+.markdown-body h4 {
+  font-size: 1em;
+}
+
+.markdown-body h5 {
+  font-size: .875em;
+}
+
+.markdown-body h6 {
+  font-size: .85em;
+  color: #6a737d;
+}
+
+.markdown-body ol,
+.markdown-body ul {
+  padding-left: 2em;
+}
+
+.markdown-body ol ol,
+.markdown-body ol ul,
+.markdown-body ul ol,
+.markdown-body ul ul {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.markdown-body li {
+  word-wrap: break-all;
+}
+
+.markdown-body li>p {
+  margin-top: 16px;
+}
+
+.markdown-body li+li {
+  margin-top: .25em;
+}
+
+.markdown-body dl {
+  padding: 0;
+}
+
+.markdown-body dl dt {
+  padding: 0;
+  margin-top: 16px;
+  font-size: 1em;
+  font-style: italic;
+  font-weight: 600;
+}
+
+.markdown-body dl dd {
+  padding: 0 16px;
+  margin-bottom: 16px;
+}
+
+.markdown-body table {
+  display: block;
+  width: 100%;
+  overflow: auto;
+}
+
+.markdown-body table th {
+  font-weight: 600;
+}
+
+.markdown-body table td,
+.markdown-body table th {
+  padding: 6px 13px;
+  border: 1px solid #dfe2e5;
+}
+
+.markdown-body table tr {
+  background-color: #fff;
+  border-top: 1px solid #c6cbd1;
+}
+
+.markdown-body table tr:nth-child(2n) {
+  background-color: #f6f8fa;
+}
+
+.markdown-body img {
+  max-width: 100%;
+  box-sizing: initial;
+  background-color: #fff;
+}
+
+.markdown-body img[align=right] {
+  padding-left: 20px;
+}
+
+.markdown-body img[align=left] {
+  padding-right: 20px;
+}
+
+.markdown-body code {
+  padding: .2em .4em;
+  margin: 0;
+  font-size: 85%;
+  background-color: rgba(27,31,35,.05);
+  border-radius: 3px;
+}
+
+.markdown-body pre {
+  word-wrap: normal;
+}
+
+.markdown-body pre>code {
+  padding: 0;
+  margin: 0;
+  font-size: 100%;
+  word-break: normal;
+  white-space: pre;
+  background: transparent;
+  border: 0;
+}
+
+.markdown-body .highlight {
+  margin-bottom: 16px;
+}
+
+.markdown-body .highlight pre {
+  margin-bottom: 0;
+  word-break: normal;
+}
+
+.markdown-body .highlight pre,
+.markdown-body pre {
+  padding: 16px;
+  overflow: auto;
+  font-size: 85%;
+  line-height: 1.45;
+  background-color: #f6f8fa;
+  border-radius: 3px;
+}
+
+.markdown-body pre code {
+  display: inline;
+  max-width: auto;
+  padding: 0;
+  margin: 0;
+  overflow: visible;
+  line-height: inherit;
+  word-wrap: normal;
+  background-color: initial;
+  border: 0;
+}
+
+.markdown-body .commit-tease-sha {
+  display: inline-block;
+  font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
+  font-size: 90%;
+  color: #444d56;
+}
+
+.markdown-body .full-commit .btn-outline:not(:disabled):hover {
+  color: #005cc5;
+  border-color: #005cc5;
+}
+
+.markdown-body .blob-wrapper {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.markdown-body .blob-wrapper-embedded {
+  max-height: 240px;
+  overflow-y: auto;
+}
+
+.markdown-body .blob-num {
+  width: 1%;
+  min-width: 50px;
+  padding-right: 10px;
+  padding-left: 10px;
+  font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
+  font-size: 12px;
+  line-height: 20px;
+  color: rgba(27,31,35,.3);
+  text-align: right;
+  white-space: nowrap;
+  vertical-align: top;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.markdown-body .blob-num:hover {
+  color: rgba(27,31,35,.6);
+}
+
+.markdown-body .blob-num:before {
+  content: attr(data-line-number);
+}
+
+.markdown-body .blob-code {
+  position: relative;
+  padding-right: 10px;
+  padding-left: 10px;
+  line-height: 20px;
+  vertical-align: top;
+}
+
+.markdown-body .blob-code-inner {
+  overflow: visible;
+  font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
+  font-size: 12px;
+  color: #24292e;
+  word-wrap: normal;
+  white-space: pre;
+}
+
+.markdown-body .pl-token.active,
+.markdown-body .pl-token:hover {
+  cursor: pointer;
+  background: #ffea7f;
+}
+
+.markdown-body .tab-size[data-tab-size="1"] {
+  -moz-tab-size: 1;
+  tab-size: 1;
+}
+
+.markdown-body .tab-size[data-tab-size="2"] {
+  -moz-tab-size: 2;
+  tab-size: 2;
+}
+
+.markdown-body .tab-size[data-tab-size="3"] {
+  -moz-tab-size: 3;
+  tab-size: 3;
+}
+
+.markdown-body .tab-size[data-tab-size="4"] {
+  -moz-tab-size: 4;
+  tab-size: 4;
+}
+
+.markdown-body .tab-size[data-tab-size="5"] {
+  -moz-tab-size: 5;
+  tab-size: 5;
+}
+
+.markdown-body .tab-size[data-tab-size="6"] {
+  -moz-tab-size: 6;
+  tab-size: 6;
+}
+
+.markdown-body .tab-size[data-tab-size="7"] {
+  -moz-tab-size: 7;
+  tab-size: 7;
+}
+
+.markdown-body .tab-size[data-tab-size="8"] {
+  -moz-tab-size: 8;
+  tab-size: 8;
+}
+
+.markdown-body .tab-size[data-tab-size="9"] {
+  -moz-tab-size: 9;
+  tab-size: 9;
+}
+
+.markdown-body .tab-size[data-tab-size="10"] {
+  -moz-tab-size: 10;
+  tab-size: 10;
+}
+
+.markdown-body .tab-size[data-tab-size="11"] {
+  -moz-tab-size: 11;
+  tab-size: 11;
+}
+
+.markdown-body .tab-size[data-tab-size="12"] {
+  -moz-tab-size: 12;
+  tab-size: 12;
+}
+
+.markdown-body .task-list-item {
+  list-style-type: none;
+}
+
+.markdown-body .task-list-item+.task-list-item {
+  margin-top: 3px;
+}
+
+.markdown-body .task-list-item input {
+  margin: 0 .2em .25em -1.6em;
+  vertical-align: middle;
+}
+
+</style>
+<style type="text/css">
+.highlight .hll { background-color: #ffffcc }
+/* .highlight { background: #f8f8f8; } */ /* copy & modify */
+.highlight .c { color: #408080; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #008000; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .ch { color: #408080; font-style: italic } /* Comment.Hashbang */
+.highlight .cm { color: #408080; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #BC7A00 } /* Comment.Preproc */
+.highlight .cpf { color: #408080; font-style: italic } /* Comment.PreprocFile */
+.highlight .c1 { color: #408080; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #408080; font-style: italic } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0044DD } /* Generic.Traceback */
+.highlight .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #008000 } /* Keyword.Pseudo */
+.highlight .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #B00040 } /* Keyword.Type */
+.highlight .m { color: #666666 } /* Literal.Number */
+.highlight .s { color: #BA2121 } /* Literal.String */
+.highlight .na { color: #7D9029 } /* Name.Attribute */
+.highlight .nb { color: #008000 } /* Name.Builtin */
+.highlight .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.highlight .no { color: #880000 } /* Name.Constant */
+.highlight .nd { color: #AA22FF } /* Name.Decorator */
+.highlight .ni { color: #999999; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #0000FF } /* Name.Function */
+.highlight .nl { color: #A0A000 } /* Name.Label */
+.highlight .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #19177C } /* Name.Variable */
+.highlight .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mb { color: #666666 } /* Literal.Number.Bin */
+.highlight .mf { color: #666666 } /* Literal.Number.Float */
+.highlight .mh { color: #666666 } /* Literal.Number.Hex */
+.highlight .mi { color: #666666 } /* Literal.Number.Integer */
+.highlight .mo { color: #666666 } /* Literal.Number.Oct */
+.highlight .sa { color: #BA2121 } /* Literal.String.Affix */
+.highlight .sb { color: #BA2121 } /* Literal.String.Backtick */
+.highlight .sc { color: #BA2121 } /* Literal.String.Char */
+.highlight .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.highlight .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #BA2121 } /* Literal.String.Double */
+.highlight .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.highlight .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.highlight .sx { color: #008000 } /* Literal.String.Other */
+.highlight .sr { color: #BB6688 } /* Literal.String.Regex */
+.highlight .s1 { color: #BA2121 } /* Literal.String.Single */
+.highlight .ss { color: #19177C } /* Literal.String.Symbol */
+.highlight .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.highlight .fm { color: #0000FF } /* Name.Function.Magic */
+.highlight .vc { color: #19177C } /* Name.Variable.Class */
+.highlight .vg { color: #19177C } /* Name.Variable.Global */
+.highlight .vi { color: #19177C } /* Name.Variable.Instance */
+.highlight .vm { color: #19177C } /* Name.Variable.Magic */
+.highlight .il { color: #666666 } /* Literal.Number.Integer.Long */
+
+</style>
+<style type="text/css">
 * {
-	-webkit-print-color-adjust: exact;
+    box-sizing: border-box;
 }
-@media screen and (min-width: 914px) {
+body {
+    width: 75%;
+    font-size: 87.5%;
+    margin: 0 auto;
+    padding: 2em;
+}
+
+.markdown-body {
+    font-size: unset;
+    
+    /* Safari not supported */
+    /* overflow-wrap: anywhere; */
+    /* word-break: normal; */
+    word-break: break-word;
+}
+
+.markdown-body, .markdown-body * {
+    font-family: Consolas, Monaco, "Droid Sans Mono", "Courier New", "Microsoft YaHei", "PingFang SC", "WenQuanYi Micro Hei", sans-serif !important;
+}
+
+.markdown-body a.headerlink {
+    color: #000;
+    margin-left: 0.5em;
+    visibility: hidden;
+    vertical-align: text-top;
+    text-decoration: none;
+}
+.markdown-body h1:hover a.headerlink,
+.markdown-body h2:hover a.headerlink,
+.markdown-body h3:hover a.headerlink,
+.markdown-body h4:hover a.headerlink,
+.markdown-body h5:hover a.headerlink,
+.markdown-body h6:hover a.headerlink {
+    visibility: visible;
+}
+
+.markdown-body img.inline {
+    display: inline;
+    vertical-align: text-bottom;
+    max-height: 2em;
+}
+
+/* 
+Admonition alerts
+Modified from Bootstrap v4.5.2 CSS .alert
+*/
+.admonition {
+    position: relative;
+    padding: 0.5em 1.5em;
+    margin-bottom: 1em;
+    border: 1px solid transparent;
+    border-radius: 3px;
+}
+.admonition p {
+    margin: 0.5em 0;
+}
+.admonition-title {
+    font-weight: bolder;
+}
+.admonition.success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}
+.admonition.info {
+    color: #0c5460;
+    background-color: #d1ecf1;
+    border-color: #bee5eb;
+}
+.admonition.warning {
+    color: #856404;
+    background-color: #fff3cd;
+    border-color: #ffeeba;
+}
+.admonition.danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+
+/* [TOC] Table of Contents */
+div.toc {
+    width: fit-content;
+    min-width: 33%;
+
+    padding: 1.5em 1.5em;
+    margin: 1em 0;
+
+    border: 1px solid #EAEAEA;
+    border-radius: 3px;
+    background-color: #F8F8F8;
+
+    font-family: Consolas, Monaco, "Droid Sans Mono", "Courier New", "Microsoft YaHei", "PingFang SC", "WenQuanYi Micro Hei", sans-serif;
+}
+div.toc > span.toctitle {
+    border-bottom: 2px solid #EAEAEA;
+    display: block;
+    margin-bottom: 0.5em;
+    padding-bottom: 0.5em;
+}
+div.toc a:link, div.toc a:visited {
+    text-decoration: none;
+}
+div.toc a:hover, div.toc a:active {
+    text-decoration: underline;
+}
+div.toc ul {
+    list-style: none;
+    padding: 0;
+}
+div.toc li {
+    padding: 0;
+}
+div.toc > ul {
+    margin: 0;
+}
+div.toc > ul > li {
+    margin: 0.6em 0;
+}
+div.toc li > ul {
+    margin: 0 0 0 1.5em;
+}
+div.toc li > ul > li {
+    margin: 0.1em 0;
+}
+
+/* footnote */
+sup {
+    /* Restore browser defaults */
+    vertical-align: super;
+    font-size: smaller;
+}
+a.footnote-backref {
+    font-family: monospace; /* avoid emoji in all devices, especially iOS */
+}
+
+/* GFM task list */
+ul.task-list, ol.task-list {
+    padding-left: 1.6em;
+}
+
+/* @media - Small */
+@media(max-width:767px) {
     body {
-        width:              854px;
-        margin:             0 auto;
+        width: 100%;
+        padding: 1.5em;
     }
 }
-@media print {
-	table, pre {
-		page-break-inside:  avoid;
-	}
-	pre {
-		word-wrap:          break-word;
-	}
-  body {
-    padding:                2cm;
-  }
+
+/* @media - Medium */
+@media(min-width:768px) and (max-width:1199px){
+    body {
+        width: 90%;
+    }
 }
 
-        </style>
-    </head>
-    <body>
+/* @media - Large */
+@media(min-width:1200px){
 
-        <h1 id="asciinema-scene">asciinema-scene</h1>
+}
 
-<p><a href="https://img.shields.io/github/v/release/jdum/asciinema-scene"><img src="https://img.shields.io/github/v/release/jdum/asciinema-scene" alt="Release" /></a>
-<a href="https://github.com/jdum/asciinema-scene/actions/workflows/main.yml?query=branch%3Amain"><img src="https://img.shields.io/github/actions/workflow/status/jdum/asciinema-scene/main.yml?branch=main" alt="Build status" /></a>
-<a href="https://codecov.io/gh/jdum/asciinema-scene"><img src="https://codecov.io/gh/jdum/asciinema-scene/branch/main/graph/badge.svg" alt="codecov" /></a>
-<a href="https://img.shields.io/github/commit-activity/m/jdum/asciinema-scene"><img src="https://img.shields.io/github/commit-activity/m/jdum/asciinema-scene" alt="Commit activity" /></a>
-<a href="https://img.shields.io/github/license/jdum/asciinema-scene"><img src="https://img.shields.io/github/license/jdum/asciinema-scene" alt="License" /></a></p>
-
-<p><code>asciinema-scene</code> provides the <code>sciine</code> command line toolkit for editing screen casts produced by <a href="https://asciinema.org/">asciinema</a>.</p>
-
+</style>
+</head>
+<body>
+<div class="markdown-body">
+<h1 id="asciinema-scene">asciinema-scene<a class="headerlink" href="#asciinema-scene" title="Permanent link">&para;</a></h1>
+<p><a href="https://img.shields.io/github/v/release/jdum/asciinema-scene" referrerpolicy="no-referrer" rel="noopener noreferrer" target="_blank" title=""><img alt="Release" src="https://img.shields.io/github/v/release/jdum/asciinema-scene" /></a><br />
+<a href="https://github.com/jdum/asciinema-scene/actions/workflows/main.yml?query=branch%3Amain" referrerpolicy="no-referrer" rel="noopener noreferrer" target="_blank" title=""><img alt="Build status" src="https://img.shields.io/github/actions/workflow/status/jdum/asciinema-scene/main.yml?branch=main" /></a><br />
+<a href="https://codecov.io/gh/jdum/asciinema-scene" referrerpolicy="no-referrer" rel="noopener noreferrer" target="_blank" title=""><img alt="codecov" src="https://codecov.io/gh/jdum/asciinema-scene/branch/main/graph/badge.svg" /></a><br />
+<a href="https://img.shields.io/github/commit-activity/m/jdum/asciinema-scene" referrerpolicy="no-referrer" rel="noopener noreferrer" target="_blank" title=""><img alt="Commit activity" src="https://img.shields.io/github/commit-activity/m/jdum/asciinema-scene" /></a><br />
+<a href="https://img.shields.io/github/license/jdum/asciinema-scene" referrerpolicy="no-referrer" rel="noopener noreferrer" target="_blank" title=""><img alt="License" src="https://img.shields.io/github/license/jdum/asciinema-scene" /></a></p>
+<p><code>asciinema-scene</code> provides the <code>sciine</code> command line toolkit for editing screen casts produced by <a href="https://asciinema.org/" referrerpolicy="no-referrer" rel="noopener noreferrer" target="_blank" title="asciinema">asciinema</a>.</p>
 <p><code>sciine</code> takes as input the content of a screencast, apply a unitary transformation and returns the transformed content.</p>
+<h2 id="Installation">Installation<a class="headerlink" href="#Installation" title="Permanent link">&para;</a></h2>
+<p>Installation from Pypi (recommended):</p>
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>asciinema-scene
+</code></pre></div>
 
-<h2 id="installation">Installation</h2>
+<p>Installation from sources:</p>
+<div class="highlight"><pre><span></span><code>uv<span class="w"> </span>sync
+</code></pre></div>
 
-<p><code>asciinema-scene</code> is a python package:</p>
+<p>After installation from sources, you can check everything is working</p>
+<div class="highlight"><pre><span></span><code>uv<span class="w"> </span>run<span class="w"> </span>pytest
+</code></pre></div>
 
-<pre><code class="bash language-bash">pip install asciinema-scene
-</code></pre>
-
-<h2 id="usage">Usage</h2>
-
-<h3 id="commandes">Commandes</h3>
-
+<h2 id="Usage">Usage<a class="headerlink" href="#Usage" title="Permanent link">&para;</a></h2>
+<h3 id="Commandes">Commandes<a class="headerlink" href="#Commandes" title="Permanent link">&para;</a></h3>
 <p>There are 3 types of commands:</p>
-
 <ul>
-<li><p>content information commands:</p>
-
+<li>
+<p>content information commands:</p>
 <ul>
-<li><a href="#command-status">status</a></li>
-<li><a href="#command-header">header</a></li>
-<li><a href="#command-show">show</a></li>
-</ul></li>
-<li><p>commands applying to a portion of the content:</p>
-
-<ul>
-<li><a href="#command-copy">copy</a></li>
-<li><a href="#command-cut">cut</a></li>
-<li><a href="#command-speed">speed</a></li>
-<li><a href="#command-minimum">minimum</a></li>
-<li><a href="#command-maximum">maximum</a></li>
-<li><a href="#command-quantize">quantize</a></li>
-<li><a href="#command-include">include</a></li>
-</ul></li>
-<li><p>command applying to a single frame:</p>
-
-<ul>
-<li><a href="#command-insert">insert</a></li>
-<li><a href="#command-replace">replace</a></li>
-<li><a href="#command-delete">delete</a></li>
-</ul></li>
+<li><a href="#command-status" title="status">status</a></li>
+<li><a href="#command-header" title="header">header</a></li>
+<li><a href="#command-show" title="show">show</a></li>
 </ul>
-
-<pre><code class="script language-script">Usage: sciine [OPTIONS] COMMAND [ARGS]...
+</li>
+<li>
+<p>commands applying to a portion of the content:</p>
+<ul>
+<li><a href="#command-copy" title="copy">copy</a></li>
+<li><a href="#command-cut" title="cut">cut</a></li>
+<li><a href="#command-speed" title="speed">speed</a></li>
+<li><a href="#command-minimum" title="minimum">minimum</a></li>
+<li><a href="#command-maximum" title="maximum">maximum</a></li>
+<li><a href="#command-quantize" title="quantize">quantize</a></li>
+<li><a href="#command-include" title="include">include</a></li>
+</ul>
+</li>
+<li>
+<p>command applying to a single frame:</p>
+<ul>
+<li><a href="#command-insert" title="insert">insert</a></li>
+<li><a href="#command-replace" title="replace">replace</a></li>
+<li><a href="#command-delete" title="delete">delete</a></li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code>Usage: sciine [OPTIONS] COMMAND [ARGS]...
 
 Options:
   --version  Show the version and exit.
@@ -643,79 +1311,64 @@ Commands:
   show      Print detail of frames, from START to END (max LINES).
   speed     Change the speed of the screen cast.
   status    Print informations about the content (duration, ...).
-</code></pre>
+</code></pre></div>
 
 <hr />
-
-<h3 id="input-output">Input / output</h3>
-
+<h3 id="Input-%2F-output">Input / output<a class="headerlink" href="#Input-%2F-output" title="Permanent link">&para;</a></h3>
 <p>By default, <code>sciine</code> reads content from standard input and returns the result to standard output. The <code>--input</code> and <code>--output</code> options allow reading/writing from files (<code>sciine</code> can also read from a compressed <code>.zip</code> or <code>.gz</code> file). <code>sciine</code> does not modify the input file.</p>
-
-<pre><code class="bash language-bash">-i, --input PATH   Input .cast file, default is stdin.
--o, --output PATH  Output .cast file, default is stdout.
-</code></pre>
+<div class="highlight"><pre><span></span><code>-i,<span class="w"> </span>--input<span class="w"> </span>PATH<span class="w">   </span>Input<span class="w"> </span>.cast<span class="w"> </span>file,<span class="w"> </span>default<span class="w"> </span>is<span class="w"> </span>stdin.
+-o,<span class="w"> </span>--output<span class="w"> </span>PATH<span class="w">  </span>Output<span class="w"> </span>.cast<span class="w"> </span>file,<span class="w"> </span>default<span class="w"> </span>is<span class="w"> </span>stdout.
+</code></pre></div>
 
 <p>Example:</p>
-
 <p>Speed up a screencast and play a sub-part of it, using pipe redirection.</p>
-
-<pre><code class="bash language-bash">sciine speed 2.0 --input short.cast | sciine copy --start 1.4 --end 2.4| asciinema play -
-</code></pre>
+<div class="highlight"><pre><span></span><code>sciine<span class="w"> </span>speed<span class="w"> </span><span class="m">2</span>.0<span class="w"> </span>--input<span class="w"> </span>short.cast<span class="w"> </span><span class="p">|</span><span class="w"> </span>sciine<span class="w"> </span>copy<span class="w"> </span>--start<span class="w"> </span><span class="m">1</span>.4<span class="w"> </span>--end<span class="w"> </span><span class="m">2</span>.4<span class="p">|</span><span class="w"> </span>asciinema<span class="w"> </span>play<span class="w"> </span>-
+</code></pre></div>
 
 <hr />
-
-<h2 id="command-status">Command <code>status</code></h2>
-
-<pre><code class="script language-script">Usage: sciine status [OPTIONS]
+<h2 id="Command-status">Command <code>status</code><a class="headerlink" href="#Command-status" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>Usage: sciine status [OPTIONS]
 
   Print informations about the content (duration, ...).
 
 Options:
   -i, --input PATH  Input .cast file, default is stdin.
   --help            Show this message and exit.
-</code></pre>
+</code></pre></div>
 
 <p>Example:</p>
-
 <p>Use <code>status</code> to see the number of frames and the duration of the screecast.</p>
-
-<pre><code class="bash language-bash">sciine status --input short.cast
-Input: short.cast
-Date: 2023-05-28 11:15:06+00:00
-Frames: 22
-Duration: 6.135993
-</code></pre>
+<div class="highlight"><pre><span></span><code>sciine<span class="w"> </span>status<span class="w"> </span>--input<span class="w"> </span>short.cast
+Input:<span class="w"> </span>short.cast
+Date:<span class="w"> </span><span class="m">2023</span>-05-28<span class="w"> </span><span class="m">11</span>:15:06+00:00
+Frames:<span class="w"> </span><span class="m">22</span>
+Duration:<span class="w"> </span><span class="m">6</span>.135993
+</code></pre></div>
 
 <hr />
-
-<h2 id="command-header">Command <code>header</code></h2>
-
-<pre><code class="script language-script">Usage: sciine header [OPTIONS]
+<h2 id="Command-header">Command <code>header</code><a class="headerlink" href="#Command-header" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>Usage: sciine header [OPTIONS]
 
   Print the header field of the content.
 
 Options:
   -i, --input PATH  Input .cast file, default is stdin.
   --help            Show this message and exit.
-</code></pre>
+</code></pre></div>
 
 <p>Example:</p>
-
 <p>Display the original header.</p>
-
-<pre><code class="bash language-bash">sciine header -i short.cast
-{'env': {'SHELL': '/bin/bash', 'TERM': 'linux'},
- 'height': 36,
- 'timestamp': 1685272506,
- 'version': 2,
- 'width': 133}
-</code></pre>
+<div class="highlight"><pre><span></span><code>sciine<span class="w"> </span>header<span class="w"> </span>-i<span class="w"> </span>short.cast
+<span class="o">{</span><span class="s1">&#39;env&#39;</span>:<span class="w"> </span><span class="o">{</span><span class="s1">&#39;SHELL&#39;</span>:<span class="w"> </span><span class="s1">&#39;/bin/bash&#39;</span>,<span class="w"> </span><span class="s1">&#39;TERM&#39;</span>:<span class="w"> </span><span class="s1">&#39;linux&#39;</span><span class="o">}</span>,
+<span class="w"> </span><span class="s1">&#39;height&#39;</span>:<span class="w"> </span><span class="m">36</span>,
+<span class="w"> </span><span class="s1">&#39;timestamp&#39;</span>:<span class="w"> </span><span class="m">1685272506</span>,
+<span class="w"> </span><span class="s1">&#39;version&#39;</span>:<span class="w"> </span><span class="m">2</span>,
+<span class="w"> </span><span class="s1">&#39;width&#39;</span>:<span class="w"> </span><span class="m">133</span><span class="o">}</span>
+</code></pre></div>
 
 <hr />
-
-<h2 id="command-show">Command <code>show</code></h2>
-
-<pre><code class="script language-script">Usage: sciine show [OPTIONS]
+<h2 id="Command-show">Command <code>show</code><a class="headerlink" href="#Command-show" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>Usage: sciine show [OPTIONS]
 
   Print detail of frames, from START to END (max LINES).
 
@@ -731,25 +1384,21 @@ Options:
   -t, --text           Show message field as plain text.
   -i, --input PATH     Input .cast file, default is stdin.
   --help               Show this message and exit.
-</code></pre>
+</code></pre></div>
 
 <p>Example:</p>
-
 <p>Display the first 5 lines and the precise duration of the frames.</p>
-
-<pre><code class="bash language-bash">sciine show --lines 5 --precise  -i short.cast
-  0.000000│ 0.894038│ 'e'
-  0.894038│ 0.104510│ 'c'
-  0.998548│ 0.164761│ 'h'
-  1.163309│ 0.300601│ 'o'
-  1.463910│ 0.392259│ ' '
-</code></pre>
+<div class="highlight"><pre><span></span><code>sciine<span class="w"> </span>show<span class="w"> </span>--lines<span class="w"> </span><span class="m">5</span><span class="w"> </span>--precise<span class="w">  </span>-i<span class="w"> </span>short.cast
+<span class="w">  </span><span class="m">0</span>.000000│<span class="w"> </span><span class="m">0</span>.894038│<span class="w"> </span><span class="s1">&#39;e&#39;</span>
+<span class="w">  </span><span class="m">0</span>.894038│<span class="w"> </span><span class="m">0</span>.104510│<span class="w"> </span><span class="s1">&#39;c&#39;</span>
+<span class="w">  </span><span class="m">0</span>.998548│<span class="w"> </span><span class="m">0</span>.164761│<span class="w"> </span><span class="s1">&#39;h&#39;</span>
+<span class="w">  </span><span class="m">1</span>.163309│<span class="w"> </span><span class="m">0</span>.300601│<span class="w"> </span><span class="s1">&#39;o&#39;</span>
+<span class="w">  </span><span class="m">1</span>.463910│<span class="w"> </span><span class="m">0</span>.392259│<span class="w"> </span><span class="s1">&#39; &#39;</span>
+</code></pre></div>
 
 <hr />
-
-<h2 id="command-copy">Command <code>copy</code></h2>
-
-<pre><code class="script language-script">Usage: sciine copy [OPTIONS]
+<h2 id="Command-copy">Command <code>copy</code><a class="headerlink" href="#Command-copy" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>Usage: sciine copy [OPTIONS]
 
   Copy content between START and END timecodes.
 
@@ -759,20 +1408,16 @@ Options:
   -i, --input PATH   Input .cast file, default is stdin.
   -o, --output PATH  Output .cast file, default is stdout.
   --help             Show this message and exit.
-</code></pre>
+</code></pre></div>
 
 <p>Example:</p>
-
 <p>Play content between 0.05 and 1.2 seconds.</p>
-
-<pre><code class="bash language-bash">sciine copy --start 0.05 --end 1.2 -i short.cast | asciinema play -
-</code></pre>
+<div class="highlight"><pre><span></span><code>sciine<span class="w"> </span>copy<span class="w"> </span>--start<span class="w"> </span><span class="m">0</span>.05<span class="w"> </span>--end<span class="w"> </span><span class="m">1</span>.2<span class="w"> </span>-i<span class="w"> </span>short.cast<span class="w"> </span><span class="p">|</span><span class="w"> </span>asciinema<span class="w"> </span>play<span class="w"> </span>-
+</code></pre></div>
 
 <hr />
-
-<h2 id="command-cut">Command <code>cut</code></h2>
-
-<pre><code class="script language-script">Usage: sciine cut [OPTIONS]
+<h2 id="Command-cut">Command <code>cut</code><a class="headerlink" href="#Command-cut" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>Usage: sciine cut [OPTIONS]
 
   Cut content between START and END timecodes.
 
@@ -786,20 +1431,16 @@ Options:
   -i, --input PATH   Input .cast file, default is stdin.
   -o, --output PATH  Output .cast file, default is stdout.
   --help             Show this message and exit.
-</code></pre>
+</code></pre></div>
 
 <p>Example:</p>
-
 <p>Cut end of content after 1.2 seconds.</p>
-
-<pre><code class="bash language-bash">sciine cut --start 1.2 &lt; short.cast | asciinema play -
-</code></pre>
+<div class="highlight"><pre><span></span><code>sciine<span class="w"> </span>cut<span class="w"> </span>--start<span class="w"> </span><span class="m">1</span>.2<span class="w"> </span>&lt;<span class="w"> </span>short.cast<span class="w"> </span><span class="p">|</span><span class="w"> </span>asciinema<span class="w"> </span>play<span class="w"> </span>-
+</code></pre></div>
 
 <hr />
-
-<h2 id="command-speed">Command <code>speed</code></h2>
-
-<pre><code class="script language-script">Usage: sciine speed [OPTIONS] SPEED
+<h2 id="Command-speed">Command <code>speed</code><a class="headerlink" href="#Command-speed" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>Usage: sciine speed [OPTIONS] SPEED
 
   Change the speed of the screen cast.
 
@@ -813,24 +1454,20 @@ Options:
   -i, --input PATH   Input .cast file, default is stdin.
   -o, --output PATH  Output .cast file, default is stdout.
   --help             Show this message and exit.
-</code></pre>
+</code></pre></div>
 
 <p>Example:</p>
-
 <p>Doubles the speed and displays the new duration.</p>
-
-<pre><code class="bash language-bash">sciine speed 2.0 -i short.cast|sciine status
-Input: sys.stdin
-Date: 2023-06-03 11:10:23+00:00
-Frames: 22
-Duration: 3.067996
-</code></pre>
+<div class="highlight"><pre><span></span><code>sciine<span class="w"> </span>speed<span class="w"> </span><span class="m">2</span>.0<span class="w"> </span>-i<span class="w"> </span>short.cast<span class="p">|</span>sciine<span class="w"> </span>status
+Input:<span class="w"> </span>sys.stdin
+Date:<span class="w"> </span><span class="m">2023</span>-06-03<span class="w"> </span><span class="m">11</span>:10:23+00:00
+Frames:<span class="w"> </span><span class="m">22</span>
+Duration:<span class="w"> </span><span class="m">3</span>.067996
+</code></pre></div>
 
 <hr />
-
-<h2 id="command-minimum">Command <code>minimum</code></h2>
-
-<pre><code class="script language-script">Usage: sciine minimum [OPTIONS] DURATION
+<h2 id="Command-minimum">Command <code>minimum</code><a class="headerlink" href="#Command-minimum" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>Usage: sciine minimum [OPTIONS] DURATION
 
   Set minimum duration of each frame.
 
@@ -845,25 +1482,21 @@ Options:
   -i, --input PATH   Input .cast file, default is stdin.
   -o, --output PATH  Output .cast file, default is stdout.
   --help             Show this message and exit.
-</code></pre>
+</code></pre></div>
 
 <p>Example:</p>
-
 <p>Set the frame duration to a minimum of 0.2s and display the new durations.</p>
-
-<pre><code class="bash language-bash">sciine minimum 0.2 -i short.cast | sciine show -l 5 -p
-  0.000000│ 0.894038│ 'e'
-  0.894038│ 0.200000│ 'c'
-  1.094038│ 0.200000│ 'h'
-  1.294038│ 0.300601│ 'o'
-  1.594639│ 0.392259│ ' '
-</code></pre>
+<div class="highlight"><pre><span></span><code>sciine<span class="w"> </span>minimum<span class="w"> </span><span class="m">0</span>.2<span class="w"> </span>-i<span class="w"> </span>short.cast<span class="w"> </span><span class="p">|</span><span class="w"> </span>sciine<span class="w"> </span>show<span class="w"> </span>-l<span class="w"> </span><span class="m">5</span><span class="w"> </span>-p
+<span class="w">  </span><span class="m">0</span>.000000│<span class="w"> </span><span class="m">0</span>.894038│<span class="w"> </span><span class="s1">&#39;e&#39;</span>
+<span class="w">  </span><span class="m">0</span>.894038│<span class="w"> </span><span class="m">0</span>.200000│<span class="w"> </span><span class="s1">&#39;c&#39;</span>
+<span class="w">  </span><span class="m">1</span>.094038│<span class="w"> </span><span class="m">0</span>.200000│<span class="w"> </span><span class="s1">&#39;h&#39;</span>
+<span class="w">  </span><span class="m">1</span>.294038│<span class="w"> </span><span class="m">0</span>.300601│<span class="w"> </span><span class="s1">&#39;o&#39;</span>
+<span class="w">  </span><span class="m">1</span>.594639│<span class="w"> </span><span class="m">0</span>.392259│<span class="w"> </span><span class="s1">&#39; &#39;</span>
+</code></pre></div>
 
 <hr />
-
-<h2 id="command-maximum">Command <code>maximum</code></h2>
-
-<pre><code class="script language-script">Usage: sciine maximum [OPTIONS] DURATION
+<h2 id="Command-maximum">Command <code>maximum</code><a class="headerlink" href="#Command-maximum" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>Usage: sciine maximum [OPTIONS] DURATION
 
   Set maximum duration of each frame.
 
@@ -877,25 +1510,21 @@ Options:
   -i, --input PATH   Input .cast file, default is stdin.
   -o, --output PATH  Output .cast file, default is stdout.
   --help             Show this message and exit.
-</code></pre>
+</code></pre></div>
 
 <p>Example:</p>
-
 <p>Set the frame duration to a maximum of 0.2s and display the new durations.</p>
-
-<pre><code class="bash language-bash">sciine maximum 0.2 -i short.cast | sciine show -l 5 -p
-  0.000000│ 0.200000│ 'e'
-  0.200000│ 0.104510│ 'c'
-  0.304510│ 0.164761│ 'h'
-  0.469271│ 0.200000│ 'o'
-  0.669271│ 0.200000│ ' '
-</code></pre>
+<div class="highlight"><pre><span></span><code>sciine<span class="w"> </span>maximum<span class="w"> </span><span class="m">0</span>.2<span class="w"> </span>-i<span class="w"> </span>short.cast<span class="w"> </span><span class="p">|</span><span class="w"> </span>sciine<span class="w"> </span>show<span class="w"> </span>-l<span class="w"> </span><span class="m">5</span><span class="w"> </span>-p
+<span class="w">  </span><span class="m">0</span>.000000│<span class="w"> </span><span class="m">0</span>.200000│<span class="w"> </span><span class="s1">&#39;e&#39;</span>
+<span class="w">  </span><span class="m">0</span>.200000│<span class="w"> </span><span class="m">0</span>.104510│<span class="w"> </span><span class="s1">&#39;c&#39;</span>
+<span class="w">  </span><span class="m">0</span>.304510│<span class="w"> </span><span class="m">0</span>.164761│<span class="w"> </span><span class="s1">&#39;h&#39;</span>
+<span class="w">  </span><span class="m">0</span>.469271│<span class="w"> </span><span class="m">0</span>.200000│<span class="w"> </span><span class="s1">&#39;o&#39;</span>
+<span class="w">  </span><span class="m">0</span>.669271│<span class="w"> </span><span class="m">0</span>.200000│<span class="w"> </span><span class="s1">&#39; &#39;</span>
+</code></pre></div>
 
 <hr />
-
-<h2 id="command-quantize">Command <code>quantize</code></h2>
-
-<pre><code class="script language-script">Usage: sciine quantize [OPTIONS] RANGE_MIN RANGE_MAX DURATION
+<h2 id="Command-quantize">Command <code>quantize</code><a class="headerlink" href="#Command-quantize" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>Usage: sciine quantize [OPTIONS] RANGE_MIN RANGE_MAX DURATION
 
   Set the duration of frames in duration range to DURATION.
 
@@ -909,25 +1538,21 @@ Options:
   -i, --input PATH   Input .cast file, default is stdin.
   -o, --output PATH  Output .cast file, default is stdout.
   --help             Show this message and exit.
-</code></pre>
+</code></pre></div>
 
 <p>Example:</p>
-
 <p>Set the frame duration to 0.2s for all frames lasting between 0.1 and 0.4s.</p>
-
-<pre><code class="bash language-bash">sciine quantize 0.1 0.4 0.2 -i short.cast | sciine show -l 5 -p
-  0.000000│ 0.894038│ 'e'
-  0.894038│ 0.200000│ 'c'
-  1.094038│ 0.200000│ 'h'
-  1.294038│ 0.200000│ 'o'
-  1.494038│ 0.200000│ ' '
-</code></pre>
+<div class="highlight"><pre><span></span><code>sciine<span class="w"> </span>quantize<span class="w"> </span><span class="m">0</span>.1<span class="w"> </span><span class="m">0</span>.4<span class="w"> </span><span class="m">0</span>.2<span class="w"> </span>-i<span class="w"> </span>short.cast<span class="w"> </span><span class="p">|</span><span class="w"> </span>sciine<span class="w"> </span>show<span class="w"> </span>-l<span class="w"> </span><span class="m">5</span><span class="w"> </span>-p
+<span class="w">  </span><span class="m">0</span>.000000│<span class="w"> </span><span class="m">0</span>.894038│<span class="w"> </span><span class="s1">&#39;e&#39;</span>
+<span class="w">  </span><span class="m">0</span>.894038│<span class="w"> </span><span class="m">0</span>.200000│<span class="w"> </span><span class="s1">&#39;c&#39;</span>
+<span class="w">  </span><span class="m">1</span>.094038│<span class="w"> </span><span class="m">0</span>.200000│<span class="w"> </span><span class="s1">&#39;h&#39;</span>
+<span class="w">  </span><span class="m">1</span>.294038│<span class="w"> </span><span class="m">0</span>.200000│<span class="w"> </span><span class="s1">&#39;o&#39;</span>
+<span class="w">  </span><span class="m">1</span>.494038│<span class="w"> </span><span class="m">0</span>.200000│<span class="w"> </span><span class="s1">&#39; &#39;</span>
+</code></pre></div>
 
 <hr />
-
-<h2 id="command-include">Command <code>include</code></h2>
-
-<pre><code class="script language-script">Usage: sciine include [OPTIONS] TIMECODE INCLUDE_FILE
+<h2 id="Command-include">Command <code>include</code><a class="headerlink" href="#Command-include" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>Usage: sciine include [OPTIONS] TIMECODE INCLUDE_FILE
 
   Include the content of a .cast file at the timecode position.
 
@@ -938,62 +1563,56 @@ Options:
   -i, --input PATH   Input .cast file, default is stdin.
   -o, --output PATH  Output .cast file, default is stdout.
   --help             Show this message and exit.
-</code></pre>
+</code></pre></div>
 
 <p>Add the content of <code>long.cast</code> to the beginning of the screencast, and display the final duration.</p>
-
-<pre><code class="bash language-bash">sciine include 0.0 long.cast.gz  -i short.cast|sciine status
-Input: sys.stdin
-Date: 2023-06-03 12:14:22+00:00
-Frames: 71391
-Duration: 22.925312
-</code></pre>
+<div class="highlight"><pre><span></span><code>sciine<span class="w"> </span>include<span class="w"> </span><span class="m">0</span>.0<span class="w"> </span>long.cast.gz<span class="w">  </span>-i<span class="w"> </span>short.cast<span class="p">|</span>sciine<span class="w"> </span>status
+Input:<span class="w"> </span>sys.stdin
+Date:<span class="w"> </span><span class="m">2023</span>-06-03<span class="w"> </span><span class="m">12</span>:14:22+00:00
+Frames:<span class="w"> </span><span class="m">71391</span>
+Duration:<span class="w"> </span><span class="m">22</span>.925312
+</code></pre></div>
 
 <hr />
-
-<h2 id="command-insert">Command <code>insert</code></h2>
-
-<pre><code class="script language-script">Usage: sciine insert [OPTIONS] TIMECODE DURATION TEXT [ETYPE]
+<h2 id="Command-insert">Command <code>insert</code><a class="headerlink" href="#Command-insert" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>Usage: sciine insert [OPTIONS] TIMECODE DURATION TEXT [ETYPE]
 
   Insert a frame at the TIMECODE position.
 
   The frame will display TEXT during DURATION seconds. By default the event
-  type ETYPE is set to "o".
+  type ETYPE is set to &quot;o&quot;.
 
 Options:
   -i, --input PATH   Input .cast file, default is stdin.
   -o, --output PATH  Output .cast file, default is stdout.
   --help             Show this message and exit.
-</code></pre>
+</code></pre></div>
 
-<p>Insert the string &#8216;xyz&#8217; at position 2.0 for a duration of 0.1s. View content before and after the change.</p>
+<p>Insert the string 'xyz' at position 2.0 for a duration of 0.1s. View content before and after the change.</p>
+<div class="highlight"><pre><span></span><code>sciine<span class="w"> </span>show<span class="w"> </span>-l<span class="w"> </span><span class="m">8</span><span class="w"> </span>-p<span class="w"> </span>-i<span class="w"> </span>short.cast
+<span class="w">  </span><span class="m">0</span>.000000│<span class="w"> </span><span class="m">0</span>.894038│<span class="w"> </span><span class="s1">&#39;e&#39;</span>
+<span class="w">  </span><span class="m">0</span>.894038│<span class="w"> </span><span class="m">0</span>.104510│<span class="w"> </span><span class="s1">&#39;c&#39;</span>
+<span class="w">  </span><span class="m">0</span>.998548│<span class="w"> </span><span class="m">0</span>.164761│<span class="w"> </span><span class="s1">&#39;h&#39;</span>
+<span class="w">  </span><span class="m">1</span>.163309│<span class="w"> </span><span class="m">0</span>.300601│<span class="w"> </span><span class="s1">&#39;o&#39;</span>
+<span class="w">  </span><span class="m">1</span>.463910│<span class="w"> </span><span class="m">0</span>.392259│<span class="w"> </span><span class="s1">&#39; &#39;</span>
+<span class="w">  </span><span class="m">1</span>.856169│<span class="w"> </span><span class="m">0</span>.356967│<span class="w"> </span><span class="s1">&#39;&quot;&#39;</span>
+<span class="w">  </span><span class="m">2</span>.213136│<span class="w"> </span><span class="m">0</span>.150277│<span class="w"> </span><span class="s1">&#39;a&#39;</span>
+<span class="w">  </span><span class="m">2</span>.363413│<span class="w"> </span><span class="m">0</span>.511288│<span class="w"> </span><span class="s1">&#39; &#39;</span>
 
-<pre><code class="bash language-bash">sciine show -l 8 -p -i short.cast
-  0.000000│ 0.894038│ 'e'
-  0.894038│ 0.104510│ 'c'
-  0.998548│ 0.164761│ 'h'
-  1.163309│ 0.300601│ 'o'
-  1.463910│ 0.392259│ ' '
-  1.856169│ 0.356967│ '"'
-  2.213136│ 0.150277│ 'a'
-  2.363413│ 0.511288│ ' '
-
-sciine insert 2.0 0.1 "xyz" -i short.cast | sciine show -l 8 -p
-  0.000000│ 0.894038│ 'e'
-  0.894038│ 0.104510│ 'c'
-  0.998548│ 0.164761│ 'h'
-  1.163309│ 0.300601│ 'o'
-  1.463910│ 0.392259│ ' '
-  1.856169│ 0.356967│ '"'
-  2.213136│ 0.100000│ 'xyz'
-  2.313136│ 0.150277│ 'a'
-</code></pre>
+sciine<span class="w"> </span>insert<span class="w"> </span><span class="m">2</span>.0<span class="w"> </span><span class="m">0</span>.1<span class="w"> </span><span class="s2">&quot;xyz&quot;</span><span class="w"> </span>-i<span class="w"> </span>short.cast<span class="w"> </span><span class="p">|</span><span class="w"> </span>sciine<span class="w"> </span>show<span class="w"> </span>-l<span class="w"> </span><span class="m">8</span><span class="w"> </span>-p
+<span class="w">  </span><span class="m">0</span>.000000│<span class="w"> </span><span class="m">0</span>.894038│<span class="w"> </span><span class="s1">&#39;e&#39;</span>
+<span class="w">  </span><span class="m">0</span>.894038│<span class="w"> </span><span class="m">0</span>.104510│<span class="w"> </span><span class="s1">&#39;c&#39;</span>
+<span class="w">  </span><span class="m">0</span>.998548│<span class="w"> </span><span class="m">0</span>.164761│<span class="w"> </span><span class="s1">&#39;h&#39;</span>
+<span class="w">  </span><span class="m">1</span>.163309│<span class="w"> </span><span class="m">0</span>.300601│<span class="w"> </span><span class="s1">&#39;o&#39;</span>
+<span class="w">  </span><span class="m">1</span>.463910│<span class="w"> </span><span class="m">0</span>.392259│<span class="w"> </span><span class="s1">&#39; &#39;</span>
+<span class="w">  </span><span class="m">1</span>.856169│<span class="w"> </span><span class="m">0</span>.356967│<span class="w"> </span><span class="s1">&#39;&quot;&#39;</span>
+<span class="w">  </span><span class="m">2</span>.213136│<span class="w"> </span><span class="m">0</span>.100000│<span class="w"> </span><span class="s1">&#39;xyz&#39;</span>
+<span class="w">  </span><span class="m">2</span>.313136│<span class="w"> </span><span class="m">0</span>.150277│<span class="w"> </span><span class="s1">&#39;a&#39;</span>
+</code></pre></div>
 
 <hr />
-
-<h2 id="command-replace">Command <code>replace</code></h2>
-
-<pre><code class="script language-script">Usage: sciine replace [OPTIONS] TIMECODE TEXT
+<h2 id="Command-replace">Command <code>replace</code><a class="headerlink" href="#Command-replace" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>Usage: sciine replace [OPTIONS] TIMECODE TEXT
 
   Replace the text of frame with timecode &gt;= TIMECODE by TEXT.
 
@@ -1001,36 +1620,33 @@ Options:
   -i, --input PATH   Input .cast file, default is stdin.
   -o, --output PATH  Output .cast file, default is stdout.
   --help             Show this message and exit.
-</code></pre>
+</code></pre></div>
 
-<p>Replace the string &#8216;xyz&#8217; at position 2.0 for a duration of 0.1s. View content before and after the change.</p>
+<p>Replace the string 'xyz' at position 2.0 for a duration of 0.1s. View content before and after the change.</p>
+<div class="highlight"><pre><span></span><code>sciine<span class="w"> </span>show<span class="w"> </span>-l<span class="w"> </span><span class="m">8</span><span class="w"> </span>-p<span class="w"> </span>-i<span class="w"> </span>short.cast
+<span class="w">  </span><span class="m">0</span>.000000│<span class="w"> </span><span class="m">0</span>.894038│<span class="w"> </span><span class="s1">&#39;e&#39;</span>
+<span class="w">  </span><span class="m">0</span>.894038│<span class="w"> </span><span class="m">0</span>.104510│<span class="w"> </span><span class="s1">&#39;c&#39;</span>
+<span class="w">  </span><span class="m">0</span>.998548│<span class="w"> </span><span class="m">0</span>.164761│<span class="w"> </span><span class="s1">&#39;h&#39;</span>
+<span class="w">  </span><span class="m">1</span>.163309│<span class="w"> </span><span class="m">0</span>.300601│<span class="w"> </span><span class="s1">&#39;o&#39;</span>
+<span class="w">  </span><span class="m">1</span>.463910│<span class="w"> </span><span class="m">0</span>.392259│<span class="w"> </span><span class="s1">&#39; &#39;</span>
+<span class="w">  </span><span class="m">1</span>.856169│<span class="w"> </span><span class="m">0</span>.356967│<span class="w"> </span><span class="s1">&#39;&quot;&#39;</span>
+<span class="w">  </span><span class="m">2</span>.213136│<span class="w"> </span><span class="m">0</span>.150277│<span class="w"> </span><span class="s1">&#39;a&#39;</span>
+<span class="w">  </span><span class="m">2</span>.363413│<span class="w"> </span><span class="m">0</span>.511288│<span class="w"> </span><span class="s1">&#39; &#39;</span>
 
-<pre><code class="bash language-bash">sciine show -l 8 -p -i short.cast
-  0.000000│ 0.894038│ 'e'
-  0.894038│ 0.104510│ 'c'
-  0.998548│ 0.164761│ 'h'
-  1.163309│ 0.300601│ 'o'
-  1.463910│ 0.392259│ ' '
-  1.856169│ 0.356967│ '"'
-  2.213136│ 0.150277│ 'a'
-  2.363413│ 0.511288│ ' '
-
-sciine replace 2.0 "xyz" -i short.cast | sciine show -l 8 -p
-  0.000000│ 0.894038│ 'e'
-  0.894038│ 0.104510│ 'c'
-  0.998548│ 0.164761│ 'h'
-  1.163309│ 0.300601│ 'o'
-  1.463910│ 0.392259│ ' '
-  1.856169│ 0.356967│ '"'
-  2.213136│ 0.150277│ 'xyz'
-  2.363413│ 0.511288│ ' '
-</code></pre>
+sciine<span class="w"> </span>replace<span class="w"> </span><span class="m">2</span>.0<span class="w"> </span><span class="s2">&quot;xyz&quot;</span><span class="w"> </span>-i<span class="w"> </span>short.cast<span class="w"> </span><span class="p">|</span><span class="w"> </span>sciine<span class="w"> </span>show<span class="w"> </span>-l<span class="w"> </span><span class="m">8</span><span class="w"> </span>-p
+<span class="w">  </span><span class="m">0</span>.000000│<span class="w"> </span><span class="m">0</span>.894038│<span class="w"> </span><span class="s1">&#39;e&#39;</span>
+<span class="w">  </span><span class="m">0</span>.894038│<span class="w"> </span><span class="m">0</span>.104510│<span class="w"> </span><span class="s1">&#39;c&#39;</span>
+<span class="w">  </span><span class="m">0</span>.998548│<span class="w"> </span><span class="m">0</span>.164761│<span class="w"> </span><span class="s1">&#39;h&#39;</span>
+<span class="w">  </span><span class="m">1</span>.163309│<span class="w"> </span><span class="m">0</span>.300601│<span class="w"> </span><span class="s1">&#39;o&#39;</span>
+<span class="w">  </span><span class="m">1</span>.463910│<span class="w"> </span><span class="m">0</span>.392259│<span class="w"> </span><span class="s1">&#39; &#39;</span>
+<span class="w">  </span><span class="m">1</span>.856169│<span class="w"> </span><span class="m">0</span>.356967│<span class="w"> </span><span class="s1">&#39;&quot;&#39;</span>
+<span class="w">  </span><span class="m">2</span>.213136│<span class="w"> </span><span class="m">0</span>.150277│<span class="w"> </span><span class="s1">&#39;xyz&#39;</span>
+<span class="w">  </span><span class="m">2</span>.363413│<span class="w"> </span><span class="m">0</span>.511288│<span class="w"> </span><span class="s1">&#39; &#39;</span>
+</code></pre></div>
 
 <hr />
-
-<h2 id="command-delete">Command <code>delete</code></h2>
-
-<pre><code class="script language-script">Usage: sciine delete [OPTIONS] TIMECODE
+<h2 id="Command-delete">Command <code>delete</code><a class="headerlink" href="#Command-delete" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>Usage: sciine delete [OPTIONS] TIMECODE
 
   Delete the frame with timecode &gt;= TIMECODE.
 
@@ -1038,42 +1654,35 @@ Options:
   -i, --input PATH   Input .cast file, default is stdin.
   -o, --output PATH  Output .cast file, default is stdout.
   --help             Show this message and exit.
-</code></pre>
+</code></pre></div>
 
 <p>Delete the frame at position 2.0. View content before and after the change.</p>
+<div class="highlight"><pre><span></span><code>sciine<span class="w"> </span>show<span class="w"> </span>-l<span class="w"> </span><span class="m">8</span><span class="w"> </span>-p<span class="w"> </span>-i<span class="w"> </span>short.cast
+<span class="w">  </span><span class="m">0</span>.000000│<span class="w"> </span><span class="m">0</span>.894038│<span class="w"> </span><span class="s1">&#39;e&#39;</span>
+<span class="w">  </span><span class="m">0</span>.894038│<span class="w"> </span><span class="m">0</span>.104510│<span class="w"> </span><span class="s1">&#39;c&#39;</span>
+<span class="w">  </span><span class="m">0</span>.998548│<span class="w"> </span><span class="m">0</span>.164761│<span class="w"> </span><span class="s1">&#39;h&#39;</span>
+<span class="w">  </span><span class="m">1</span>.163309│<span class="w"> </span><span class="m">0</span>.300601│<span class="w"> </span><span class="s1">&#39;o&#39;</span>
+<span class="w">  </span><span class="m">1</span>.463910│<span class="w"> </span><span class="m">0</span>.392259│<span class="w"> </span><span class="s1">&#39; &#39;</span>
+<span class="w">  </span><span class="m">1</span>.856169│<span class="w"> </span><span class="m">0</span>.356967│<span class="w"> </span><span class="s1">&#39;&quot;&#39;</span>
+<span class="w">  </span><span class="m">2</span>.213136│<span class="w"> </span><span class="m">0</span>.150277│<span class="w"> </span><span class="s1">&#39;a&#39;</span>
+<span class="w">  </span><span class="m">2</span>.363413│<span class="w"> </span><span class="m">0</span>.511288│<span class="w"> </span><span class="s1">&#39; &#39;</span>
 
-<pre><code class="bash language-bash">sciine show -l 8 -p -i short.cast
-  0.000000│ 0.894038│ 'e'
-  0.894038│ 0.104510│ 'c'
-  0.998548│ 0.164761│ 'h'
-  1.163309│ 0.300601│ 'o'
-  1.463910│ 0.392259│ ' '
-  1.856169│ 0.356967│ '"'
-  2.213136│ 0.150277│ 'a'
-  2.363413│ 0.511288│ ' '
-
-sciine delete 2.0  -i short.cast | sciine show -l 8 -p
-  0.000000│ 0.894038│ 'e'
-  0.894038│ 0.104510│ 'c'
-  0.998548│ 0.164761│ 'h'
-  1.163309│ 0.300601│ 'o'
-  1.463910│ 0.392259│ ' '
-  1.856169│ 0.356967│ '"'
-  2.213136│ 0.511288│ ' '
-  2.724424│ 0.237965│ 's'
-</code></pre>
+sciine<span class="w"> </span>delete<span class="w"> </span><span class="m">2</span>.0<span class="w">  </span>-i<span class="w"> </span>short.cast<span class="w"> </span><span class="p">|</span><span class="w"> </span>sciine<span class="w"> </span>show<span class="w"> </span>-l<span class="w"> </span><span class="m">8</span><span class="w"> </span>-p
+<span class="w">  </span><span class="m">0</span>.000000│<span class="w"> </span><span class="m">0</span>.894038│<span class="w"> </span><span class="s1">&#39;e&#39;</span>
+<span class="w">  </span><span class="m">0</span>.894038│<span class="w"> </span><span class="m">0</span>.104510│<span class="w"> </span><span class="s1">&#39;c&#39;</span>
+<span class="w">  </span><span class="m">0</span>.998548│<span class="w"> </span><span class="m">0</span>.164761│<span class="w"> </span><span class="s1">&#39;h&#39;</span>
+<span class="w">  </span><span class="m">1</span>.163309│<span class="w"> </span><span class="m">0</span>.300601│<span class="w"> </span><span class="s1">&#39;o&#39;</span>
+<span class="w">  </span><span class="m">1</span>.463910│<span class="w"> </span><span class="m">0</span>.392259│<span class="w"> </span><span class="s1">&#39; &#39;</span>
+<span class="w">  </span><span class="m">1</span>.856169│<span class="w"> </span><span class="m">0</span>.356967│<span class="w"> </span><span class="s1">&#39;&quot;&#39;</span>
+<span class="w">  </span><span class="m">2</span>.213136│<span class="w"> </span><span class="m">0</span>.511288│<span class="w"> </span><span class="s1">&#39; &#39;</span>
+<span class="w">  </span><span class="m">2</span>.724424│<span class="w"> </span><span class="m">0</span>.237965│<span class="w"> </span><span class="s1">&#39;s&#39;</span>
+</code></pre></div>
 
 <hr />
-
-<h2 id="code-source">Code source</h2>
-
-<p><strong>Github repository</strong>: <a href="https://github.com/jdum/asciinema-scene/">https://github.com/jdum/asciinema-scene/</a></p>
-
-<h2 id="license">License</h2>
-
+<h2 id="Code-source">Code source<a class="headerlink" href="#Code-source" title="Permanent link">&para;</a></h2>
+<p><strong>Github repository</strong>: <a href="https://github.com/jdum/asciinema-scene/" referrerpolicy="no-referrer" rel="noopener noreferrer" target="_blank" title="https://github.com/jdum/asciinema-scene/">https://github.com/jdum/asciinema-scene/</a></p>
+<h2 id="License">License<a class="headerlink" href="#License" title="Permanent link">&para;</a></h2>
 <p>This project is licensed under the MIT License (see the LICENSE file for details).</p>
-
-
-    </body>
+</div>
+</body>
 </html>
-

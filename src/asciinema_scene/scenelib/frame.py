@@ -8,7 +8,7 @@ from .constants import PRECISION, PRECISION_DECI
 
 
 class Frame:
-    __slots__ = ["timecode", "duration", "tpe", "text"]
+    __slots__ = ["duration", "text", "timecode", "tpe"]
     timecode: int
     duration: int
     tpe: str
@@ -26,7 +26,7 @@ class Frame:
     @classmethod
     def parse(cls, frame_list: list[Any]) -> Frame:
         frame = cls()
-        frame.timecode = int(round(frame_list[0] * PRECISION))
+        frame.timecode = round(frame_list[0] * PRECISION)
         frame.tpe = frame_list[1]
         frame.text = frame_list[2]
         return frame
@@ -69,7 +69,7 @@ class Frame:
         )
 
     def set_duration(self, seconds: float) -> None:
-        self.duration = int(round(seconds * PRECISION))
+        self.duration = round(seconds * PRECISION)
 
     def dumps(self) -> str:
         return json.dumps(

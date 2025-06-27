@@ -187,7 +187,7 @@ class Scene(SceneContent):
         tcode_start, tcode_end = self.start_end(start, end)
         idx1, idx2 = self._split_parts(tcode_start, tcode_end)
         for frame in self.frames[idx1:idx2]:
-            frame.duration = int(round(frame.duration * factor))
+            frame.duration = round(frame.duration * factor)
         self.set_timecodes()
         self.post_normalize()
 
@@ -294,6 +294,6 @@ class Scene(SceneContent):
 
     def include(self, timecode: float, inc_file: str | Path) -> None:
         assert timecode >= 0.0  # noqa: S101
-        tcode_insert = int(round(timecode * PRECISION))
+        tcode_insert = round(timecode * PRECISION)
         inc_scene = Scene.parse(inc_file)
         self.include_scene(tcode_insert, inc_scene)

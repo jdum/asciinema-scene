@@ -13,10 +13,22 @@
 
 ## Installation
 
-`asciinema-scene` is a python package:
+Installation from Pypi (recommended):
 
 ``` bash
 pip install asciinema-scene
+```
+
+Installation from sources:
+
+```bash
+uv sync
+```
+
+After installation from sources, you can check everything is working
+
+```bash
+uv run pytest
 ```
 
 ## Usage
