@@ -15,7 +15,7 @@ classifiers = [
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
 ]
-dependencies = ["click>=8,<9"]
+dependencies = ["click>=8.2.1,<9"]
 
 [project.urls]
 Repository = "https://github.com/jdum/asciinema-scene"
@@ -26,14 +26,17 @@ sciine = "asciinema_scene.sciine:cli"
 
 [dependency-groups]
 dev = [
-    "urllib3",
-    "pytest>=0.8.0",
-    "pytest-cov",
-    "deptry",
-    "mypy",
-    "tox",
-    "ruff>=0.7.0",
-    "isort>=5.13.2",
+    "pytest>=8.4.1",
+    "pytest-cov>=6.2.1",
+    "coverage>=7.9.1",
+    "deptry>=0.23.0",
+    "mypy>=1.16.1",
+    "mypy-extensions>=1.1.0",
+    "typing-extensions>=4.14.0",
+    "tox>=4.27.0",
+    "tox-gh-actions>=3.3.0",
+    "ruff>=0.12.0",
+    "isort>=6.0.1",
 ]
 
 [tool.hatch.build.targets.sdist]
