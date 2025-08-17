@@ -2,9 +2,12 @@ from __future__ import annotations
 
 import json
 from math import floor
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 from .constants import PRECISION, PRECISION_DECI
+
+if TYPE_CHECKING:
+    from re import Pattern
 
 
 class Frame:
@@ -85,3 +88,8 @@ class Frame:
         frame.tpe = self.tpe
         frame.text = self.text
         return frame
+
+    def match(self, regex: Pattern) -> bool:
+        if self.tpe != "o":
+            return False
+        return regex.search(self.text) is not None

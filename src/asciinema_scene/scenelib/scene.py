@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import re
 import sys
 from pathlib import Path
 
@@ -297,3 +298,33 @@ class Scene(SceneContent):
         tcode_insert = round(timecode * PRECISION)
         inc_scene = Scene.parse(inc_file)
         self.include_scene(tcode_insert, inc_scene)
+
+    def _text_delete_frames(
+        self,
+        text: str,
+        tcode_start: int,
+        tcode_end: int,
+    ) -> list[Frame]:
+        result: list[Frame] = []
+        regex = re.compile(text)
+        for frame in self.frames:
+            if frame.timecode >= tcode_start:
+                break
+            result.append(frame)
+        for frame in self.frames[len(result) :]:
+            if frame.timecode < tcode_end and frame.match(regex):
+                continue
+            result.append(frame)
+        return result
+
+    def text_delete_frames(
+        self,
+        text: str,
+        start: float | None = None,
+        end: float | None = None,
+    ) -> None:
+        self.pre_normalize()
+        tcode_start, tcode_end = self.start_end(start, end)
+        self.frames = self._text_delete_frames(text, tcode_start, tcode_end)
+        self.set_timecodes()
+        self.post_normalize()

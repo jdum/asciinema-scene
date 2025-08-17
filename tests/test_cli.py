@@ -1,4 +1,5 @@
 import importlib.metadata
+import re
 import shlex
 import subprocess
 import sys
@@ -9,7 +10,7 @@ from click.testing import CliRunner
 
 from asciinema_scene.sciine import cli
 
-from .contents import SHORT_FILE_CONTENT
+from .contents import BACK_FILE_CONTENT, SHORT_FILE_CONTENT
 
 __version__ = importlib.metadata.version("asciinema_scene")
 
@@ -52,19 +53,20 @@ def test_cli_help():
     result = runner.invoke(cli, "--help")
     assert result.exit_code == 0
     for text in (
-        "copy      Copy content",
-        "cut       Cut content",
-        "header    Print the header",
-        "include   Include the content",
-        "insert    Insert a frame",
-        "maximum   Set maximum",
-        "minimum   Set minimum",
-        "quantize  Set the duration",
-        "show      Print detail",
-        "speed     Change the speed",
-        "status    Print information",
+        r"copy *Copy content",
+        r"cut *Cut content",
+        r"header *Print the header",
+        r"include *Include the content",
+        r"insert *Insert a frame",
+        r"maximum *Set maximum",
+        r"minimum *Set minimum",
+        r"quantize *Set the duration",
+        r"show *Print detail",
+        r"speed *Change the speed",
+        r"status *Print information",
+        r"text-delete *Delete frame matching",
     ):
-        assert text in result.output
+        assert re.search(text, result.output) is not None
 
 
 def test_cli_cut():
@@ -222,6 +224,16 @@ def test_cli_speed():
     code2, output2 = my_invoke("status ", result_cast)
     assert code2 == 0
     assert "Duration: 6.135993" in output2
+
+
+def test_cli_text_delete():
+    code, output = my_invoke("text-delete -s 1.0 {server}", BACK_FILE_CONTENT)
+    assert code == 0
+    result_cast = output
+    print(output)
+    code2, output2 = my_invoke("status ", result_cast)
+    assert code2 == 0
+    assert "Frames: 6" in output2
 
 
 def test_cli_status():

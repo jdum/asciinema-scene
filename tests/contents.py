@@ -8,3 +8,7 @@ LONG_FILE_CONTENT = gzip.decompress(
 SHORT_FILE_CONTENT = (
     rso.files("tests.files").joinpath("short.cast").read_text(encoding="utf8")
 )
+
+BACK_FILE_CONTENT = (
+    rso.files("tests.files").joinpath("back.cast").read_text(encoding="utf8")
+)

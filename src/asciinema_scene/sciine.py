@@ -364,3 +364,27 @@ def include_cmd(
     scene = Scene.parse(input_file)
     scene.include(timecode, include_file)
     scene.dump(output_file)
+
+
+@cli.command("text-delete")
+@stdin_timeout_handler
+@click.argument("text", required=True, type=str)
+@start_option
+@end_option
+@input_option
+@output_option
+def text_delete_cmd(
+    text: str,
+    start: float | None,
+    end: float | None,
+    input_file: str | None,
+    output_file: str | None,
+) -> None:
+    """Delete frame matching the text regex between START and END.
+
+    If no START timecode is provided, delete from the beginning. If no END
+    timecode is provided, delete until the end.
+    """
+    scene = Scene.parse(input_file)
+    scene.text_delete_frames(text, start=start, end=end)
+    scene.dump(output_file)
