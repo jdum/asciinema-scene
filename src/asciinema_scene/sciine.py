@@ -120,10 +120,9 @@ def show_cmd(
 ) -> None:
     """Print detail of frames, from START to END (max LINES).
 
-    Each line prints the timecode, duration and text of the frame.
-    If no START timecode is provided, start from the beginning.
-    If no END timecode is provided, display all lines until the end,
-    or LINES lines
+    Each line prints the timecode, duration and text of the frame. If no START
+    timecode is provided, start from the beginning. If no END timecode is
+    provided, display all lines until the end, or LINES lines
     """
     scene = Scene.parse(input_file)
     scene.show(
@@ -151,8 +150,8 @@ def cut_cmd(
 ) -> None:
     """Cut content between START and END timecodes.
 
-    If no START timecode is provided, cut from the beginning.
-    If no END timecode is provided, cut until the end.
+    If no START timecode is provided, cut from the beginning. If no END
+    timecode is provided, cut until the end.
     """
     scene = Scene.parse(input_file)
     scene.cut_frames(start=start, end=end, adjust=adjust)
@@ -194,10 +193,9 @@ def speed_cmd(
 ) -> None:
     """Change the speed of the screen cast.
 
-    SPEED is the factor of acceleration. Use number below 1.0
-    to to slow down.
-    If no START timecode is provided, modify speed from the beginning.
-    If no END timecode is provided, modify speed until the end.
+    SPEED is the factor of acceleration. Use number below 1.0 to to slow down.
+    If no START timecode is provided, modify speed from the beginning. If no
+    END timecode is provided, modify speed until the end.
     """
     scene = Scene.parse(input_file)
     scene.speed(speed, start=start, end=end)
@@ -220,10 +218,9 @@ def maximum_cmd(
 ) -> None:
     """Set maximum duration of each frame.
 
-    The duration of frames will be limited to DURATION seconds,
-    the timecodes will be adjusted accordingly.
-    If no START timecode is provided, apply from the beginning.
-    If no END timecode is provided, apply until the end.
+    The duration of frames will be limited to DURATION seconds, the timecodes
+    will be adjusted accordingly. If no START timecode is provided, apply from
+    the beginning. If no END timecode is provided, apply until the end.
     """
     scene = Scene.parse(input_file)
     scene.maximum(duration, start=start, end=end)
@@ -246,10 +243,10 @@ def minimum_cmd(
 ) -> None:
     """Set minimum duration of each frame.
 
-    The minimum duration of frames will be set to DURATION seconds,
-    the timecodes will be adjusted accordingly.
-    If no START timecode is provided, apply from the beginning.
-    If no END timecode is provided, apply until the end.
+    The minimum duration of frames will be set to DURATION seconds, the
+    timecodes will be adjusted accordingly. If no START timecode is provided,
+    apply from the beginning. If no END timecode is provided, apply until the
+    end.
     """
     scene = Scene.parse(input_file)
     scene.minimum(duration, start=start, end=end)
@@ -276,10 +273,9 @@ def quantize_cmd(
 ) -> None:
     """Set the duration of frames in duration range to DURATION.
 
-    Set the duration of frames to DURATION if their current
-    duration is between RANGE_MIN and RANGE_MAX.
-    If no START timecode is provided, apply from the beginning.
-    If no END timecode is provided, apply until the end.
+    Set the duration of frames to DURATION if their current duration is between
+    RANGE_MIN and RANGE_MAX. If no START timecode is provided, apply from the
+    beginning. If no END timecode is provided, apply until the end.
     """
     scene = Scene.parse(input_file)
     scene.quantize(range_min, range_max, duration, start=start, end=end)
@@ -304,8 +300,8 @@ def insert_cmd(
 ) -> None:
     """Insert a frame at the TIMECODE position.
 
-    The frame will display TEXT during DURATION seconds. By default
-    the event type ETYPE is set to "o".
+    The frame will display TEXT during DURATION seconds. By default the event
+    type ETYPE is set to "o".
     """
     scene = Scene.parse(input_file)
     if not etype:
@@ -362,8 +358,8 @@ def include_cmd(
 ) -> None:
     """Include the content of a .cast file at the timecode position.
 
-    All frames of the INCLUDE_FILE .cast file will be copied in the
-    current screen cast. The timecodes will be adjusted as required.
+    All frames of the INCLUDE_FILE .cast file will be copied in the current
+    screen cast. The timecodes will be adjusted as required.
     """
     scene = Scene.parse(input_file)
     scene.include(timecode, include_file)
