@@ -1,5 +1,21 @@
 # asciinema_scene Release Notes
 
+## [1.1.0] - 2025-08-17
+
+-   Add 3 commands using text match by regex: `text-delete`, `text-merge`, `text-replace`.
+-   Update dependencies.
+-   Technical updates: migrate build system from `hatchling` to `uv_build`.
+
+### Changed
+
+-   Update dependencies.
+-   Migrate oo `uv_build` build system.
+
+### Added
+
+-   Add 3 commands: `text-delete`, `text-merge`, `text-replace`.
+
+
 ## [1.0.0] - 2025-06-27
 
 -   Technical updates: migrate from `poetry` to `uv`.

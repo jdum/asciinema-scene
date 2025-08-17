@@ -2,6 +2,10 @@
 install:
 	uv sync
 
+.PHONY: lock
+lock:
+	uv lock --upgrade
+
 .PHONY: check
 check: ## Run code quality tools.
 	uv run tox -e lint
@@ -9,10 +13,10 @@ check: ## Run code quality tools.
 
 .PHONY: lint
 lint:
-	uvx ruff check src
+	uv run ruff check src
 
 .PHONY: test
 test: ## Test the code with pytest
-	uv run pytest --cov-report=xml
+	uv run pytest --cov --cov-report=xml
 
 .DEFAULT_GOAL := help
