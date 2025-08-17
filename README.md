@@ -37,7 +37,7 @@ uv run pytest
 ### Commandes
 
 
-There are 3 types of commands:
+There are 4 types of commands:
 
 - content information commands:
     - [status](#command-status)
@@ -61,6 +61,12 @@ There are 3 types of commands:
     - [delete](#command-delete)
 
 
+- command modifying content via regular expressions:
+    - [text-delete](#command-text-delete)
+    - [text-merge](#command-text-merge)
+    - [text-replace](#command-text-replace)
+
+
 ``` script
 Usage: sciine [OPTIONS] COMMAND [ARGS]...
 
@@ -69,19 +75,22 @@ Options:
   --help     Show this message and exit.
 
 Commands:
-  copy      Copy content between START and END timecodes.
-  cut       Cut content between START and END timecodes.
-  delete    Delete the frame with timecode >= TIMECODE.
-  header    Print the header field of the content.
-  include   Include the content of a .cast file at the timecode position.
-  insert    Insert a frame at the TIMECODE position.
-  maximum   Set maximum duration of each frame.
-  minimum   Set minimum duration of each frame.
-  quantize  Set the duration of frames in duration range to DURATION.
-  replace   Replace the text of frame with timecode >= TIMECODE by TEXT.
-  show      Print detail of frames, from START to END (max LINES).
-  speed     Change the speed of the screen cast.
-  status    Print informations about the content (duration, ...).
+  copy          Copy content between START and END timecodes.
+  cut           Cut content between START and END timecodes.
+  delete        Delete the frame with timecode >= TIMECODE.
+  header        Print the header field of the content.
+  include       Include the content of a .cast file at the timecode...
+  insert        Insert a frame at the TIMECODE position.
+  maximum       Set maximum duration of each frame.
+  minimum       Set minimum duration of each frame.
+  quantize      Set the duration of frames in duration range to DURATION.
+  replace       Replace the text of frame with timecode >= TIMECODE by TEXT.
+  show          Print detail of frames, from START to END (max LINES).
+  speed         Change the speed of the screen cast.
+  status        Print informations about the content (duration, ...).
+  text-delete   Delete frames matching the text regex between START and END.
+  text-merge    Merge successive frames matching the regex between START...
+  text-replace  Replace text in frames matching the regex between START...
 ```
 
 ---
@@ -402,6 +411,8 @@ Options:
   --help             Show this message and exit.
 ```
 
+Example:
+
 Add the content of `long.cast` to the beginning of the screencast, and display the final duration.
 
 ``` bash
@@ -429,6 +440,8 @@ Options:
   -o, --output PATH  Output .cast file, default is stdout.
   --help             Show this message and exit.
 ```
+
+Example:
 
 Insert the string 'xyz' at position 2.0 for a duration of 0.1s. View content before and after the change.
 
@@ -469,6 +482,8 @@ Options:
   --help             Show this message and exit.
 ```
 
+Example:
+
 Replace the string 'xyz' at position 2.0 for a duration of 0.1s. View content before and after the change.
 
 ``` bash
@@ -508,6 +523,8 @@ Options:
   --help             Show this message and exit.
 ```
 
+Example:
+
 Delete the frame at position 2.0. View content before and after the change.
 
 ``` bash
@@ -534,9 +551,142 @@ sciine delete 2.0  -i short.cast | sciine show -l 8 -p
 
 ---
 
+## Command `text-delete`
+
+``` script
+Usage: sciine text-delete [OPTIONS] TEXT
+
+  Delete frames matching the text regex between START and END.
+
+  If no START timecode is provided, delete from the beginning. If no END
+  timecode is provided, delete until the end.
+
+Options:
+  -s, --start FLOAT  Start timecode (sec), default is 0.0.
+  -e, --end FLOAT    End timecode (sec), default is EOF.
+  -i, --input PATH   Input .cast file, default is stdin.
+  -o, --output PATH  Output .cast file, default is stdout.
+  --help             Show this message and exit.
+```
+
+Example:
+
+Delete the frames from 3.0 seconds that match '{server}'. View content before and after the change.
+
+``` bash
+sciine show -s3 -i back.cast
+  3.057│ 0.20│ '\x1b[K    \\ {server}\r'
+  3.258│ 0.21│ '\x1b[K    | {server}\r'
+  3.463│ 0.21│ '\x1b[K    / {server}\r'
+  3.668│ 0.20│ '\x1b[K    - {server}\r'
+  3.871│ 0.20│ '\x1b[K    \\ {server}\r'
+  4.073│ 0.20│ '\x1b[K    | {server}\r'
+  4.275│ 0.21│ '\x1b[K    / {server}\r'
+  4.480│ 0.20│ '\x1b[K    - {server}\r'
+  4.682│ 0.18│ '\x1b[K    \\ {server}\r'
+  4.861│ 0.00│ '\x1b[K    \x1b[0m[\x1b[1mserver\x1b[0m] \x1b[32mSuccess\x1b[0m\r\n'
+
+sciine text-delete -s3 -i back.cast '.*{server}' | sciine show -s3
+  3.057│ 0.00│ '\x1b[K    \x1b[0m[\x1b[1mserver\x1b[0m] \x1b[32mSuccess\x1b[0m\r\n'
+```
+
+---
+
+## Command `text-replace`
+
+``` script
+Usage: sciine text-replace [OPTIONS] TEXT REPLACEMENT
+
+  Replace text in frames matching the regex between START and END.
+
+  If no START timecode is provided, replace from the beginning. If no END
+  timecode is provided, replace until the end.
+
+Options:
+  -s, --start FLOAT  Start timecode (sec), default is 0.0.
+  -e, --end FLOAT    End timecode (sec), default is EOF.
+  -i, --input PATH   Input .cast file, default is stdin.
+  -o, --output PATH  Output .cast file, default is stdout.
+  --help             Show this message and exit.
+```
+
+Example:
+
+Replace in the frames from 3.0 seconds '. {server}' by 'box '. View content before and after the change.
+
+``` bash
+sciine show -s3 -i back.cast
+  3.057│ 0.20│ '\x1b[K    \\ {server}\r'
+  3.258│ 0.21│ '\x1b[K    | {server}\r'
+  3.463│ 0.21│ '\x1b[K    / {server}\r'
+  3.668│ 0.20│ '\x1b[K    - {server}\r'
+  3.871│ 0.20│ '\x1b[K    \\ {server}\r'
+  4.073│ 0.20│ '\x1b[K    | {server}\r'
+  4.275│ 0.21│ '\x1b[K    / {server}\r'
+  4.480│ 0.20│ '\x1b[K    - {server}\r'
+  4.682│ 0.18│ '\x1b[K    \\ {server}\r'
+  4.861│ 0.00│ '\x1b[K    \x1b[0m[\x1b[1mserver\x1b[0m] \x1b[32mSuccess\x1b[0m\r\n'
+
+sciine text-replace -s3 -i back.cast '. {server}' 'box' | sciine show -s3
+  3.057│ 0.20│ '\x1b[K    box\r'
+  3.258│ 0.21│ '\x1b[K    box\r'
+  3.463│ 0.21│ '\x1b[K    box\r'
+  3.668│ 0.20│ '\x1b[K    box\r'
+  3.871│ 0.20│ '\x1b[K    box\r'
+  4.073│ 0.20│ '\x1b[K    box\r'
+  4.275│ 0.21│ '\x1b[K    box\r'
+  4.480│ 0.20│ '\x1b[K    box\r'
+  4.682│ 0.18│ '\x1b[K    box\r'
+  4.861│ 0.00│ '\x1b[K    \x1b[0m[\x1b[1mserver\x1b[0m] \x1b[32mSuccess\x1b[0m\r\n'
+```
+
+---
+
+## Command `text-merge`
+
+``` script
+Usage: sciine text-merge [OPTIONS] TEXT
+
+  Merge successive frames matching the regex between START and END.
+
+  If no START timecode is provided, merge from the beginning. If no END
+  timecode is provided, merge until the end.
+
+Options:
+  -s, --start FLOAT  Start timecode (sec), default is 0.0.
+  -e, --end FLOAT    End timecode (sec), default is EOF.
+  -i, --input PATH   Input .cast file, default is stdin.
+  -o, --output PATH  Output .cast file, default is stdout.
+  --help             Show this message and exit.
+```
+
+Example:
+
+Merge frames from 3.0 seconds matching '. {server}', keeping total duration. View content before and after the change.
+
+``` bash
+sciine show -s3 -i back.cast
+  3.057│ 0.20│ '\x1b[K    \\ {server}\r'
+  3.258│ 0.21│ '\x1b[K    | {server}\r'
+  3.463│ 0.21│ '\x1b[K    / {server}\r'
+  3.668│ 0.20│ '\x1b[K    - {server}\r'
+  3.871│ 0.20│ '\x1b[K    \\ {server}\r'
+  4.073│ 0.20│ '\x1b[K    | {server}\r'
+  4.275│ 0.21│ '\x1b[K    / {server}\r'
+  4.480│ 0.20│ '\x1b[K    - {server}\r'
+  4.682│ 0.18│ '\x1b[K    \\ {server}\r'
+  4.861│ 0.00│ '\x1b[K    \x1b[0m[\x1b[1mserver\x1b[0m] \x1b[32mSuccess\x1b[0m\r\n'
+
+sciine text-merge -s3 -i back.cast '. {server}' | sciine show -s3
+  3.057│ 1.80│ '\x1b[K    \\ {server}\r'
+  4.861│ 0.00│ '\x1b[K    \x1b[0m[\x1b[1mserver\x1b[0m] \x1b[32mSuccess\x1b[0m\r\n'
+```
+
+---
+
 ## Code source
 
-**Github repository**: <https://github.com/jdum/asciinema-scene/>
+**Github repository**: [https://github.com/jdum/asciinema-scene](https://github.com/jdum/asciinema-scene)
 
 ## License
 
