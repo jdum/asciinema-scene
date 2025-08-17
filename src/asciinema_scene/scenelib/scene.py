@@ -328,3 +328,76 @@ class Scene(SceneContent):
         self.frames = self._text_delete_frames(text, tcode_start, tcode_end)
         self.set_timecodes()
         self.post_normalize()
+
+    def _text_replace_frames(
+        self,
+        text: str,
+        replacement: str,
+        tcode_start: int,
+        tcode_end: int,
+    ) -> list[Frame]:
+        result: list[Frame] = []
+        regex = re.compile(text)
+        for frame in self.frames:
+            if frame.timecode >= tcode_start:
+                break
+            result.append(frame)
+        for frame in self.frames[len(result) :]:
+            if frame.timecode < tcode_end:
+                frame.replace(regex, replacement)
+            result.append(frame)
+        return result
+
+    def text_replace_frames(
+        self,
+        text: str,
+        replacement: str,
+        start: float | None = None,
+        end: float | None = None,
+    ) -> None:
+        self.pre_normalize()
+        tcode_start, tcode_end = self.start_end(start, end)
+        self.frames = self._text_replace_frames(
+            text, replacement, tcode_start, tcode_end
+        )
+        self.set_timecodes()
+        self.post_normalize()
+
+    def _text_merge_frames(
+        self,
+        text: str,
+        tcode_start: int,
+        tcode_end: int,
+    ) -> list[Frame]:
+        result: list[Frame] = []
+        regex = re.compile(text)
+        for frame in self.frames:
+            if frame.timecode >= tcode_start:
+                break
+            result.append(frame)
+        found = False
+        for frame in self.frames[len(result) :]:
+            if frame.timecode < tcode_end:
+                if frame.match(regex):
+                    if found:
+                        # second match, delete frame
+                        continue
+                    else:
+                        found = True
+                else:
+                    found = False
+            result.append(frame)
+        return result
+
+    def text_merge_frames(
+        self,
+        text: str,
+        start: float | None = None,
+        end: float | None = None,
+    ) -> None:
+        self.pre_normalize()
+        tcode_start, tcode_end = self.start_end(start, end)
+        self.frames = self._text_merge_frames(text, tcode_start, tcode_end)
+        self.set_durations()
+        self.set_timecodes()
+        self.post_normalize()

@@ -93,3 +93,8 @@ class Frame:
         if self.tpe != "o":
             return False
         return regex.search(self.text) is not None
+
+    def replace(self, regex: Pattern, replacement: str) -> None:
+        if self.tpe != "o":
+            return
+        self.text = regex.sub(replacement, self.text)

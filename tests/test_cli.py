@@ -64,7 +64,9 @@ def test_cli_help():
         r"show *Print detail",
         r"speed *Change the speed",
         r"status *Print information",
-        r"text-delete *Delete frame matching",
+        r"text-delete *Delete frames matching",
+        r"text-replace *Replace text in frames",
+        r"text-merge *Merge successive frames",
     ):
         assert re.search(text, result.output) is not None
 
@@ -230,10 +232,24 @@ def test_cli_text_delete():
     code, output = my_invoke("text-delete -s 1.0 {server}", BACK_FILE_CONTENT)
     assert code == 0
     result_cast = output
-    print(output)
     code2, output2 = my_invoke("status ", result_cast)
     assert code2 == 0
     assert "Frames: 6" in output2
+
+
+def test_cli_text_replace():
+    code, output = my_invoke("text-replace -s 1.0 {server} box", BACK_FILE_CONTENT)
+    assert code == 0
+    result_cast = output
+    assert result_cast.count("server") == 6
+    assert result_cast.count("box") == 19
+
+
+def test_cli_text_merge():
+    code, output = my_invoke("text-merge nothing", BACK_FILE_CONTENT)
+    assert code == 0
+    result_cast = output
+    assert result_cast.count("server") == 25
 
 
 def test_cli_status():
