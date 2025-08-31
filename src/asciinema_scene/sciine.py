@@ -288,6 +288,13 @@ def quantize_cmd(
 @click.argument("duration", required=True, type=float)
 @click.argument("text", required=True, type=str)
 @click.argument("etype", required=False, type=str)
+@click.option(
+    "--line-break",
+    "-b",
+    is_flag=True,
+    default=False,
+    help="Add line break at end of text.",
+)
 @input_option
 @output_option
 def insert_cmd(
@@ -295,6 +302,7 @@ def insert_cmd(
     duration: float,
     text: str,
     etype: str,
+    line_break: bool,
     input_file: str | None,
     output_file: str | None,
 ) -> None:
@@ -306,7 +314,7 @@ def insert_cmd(
     scene = Scene.parse(input_file)
     if not etype:
         etype = "o"
-    scene.insert(timecode, duration, text, etype)
+    scene.insert(timecode, duration, text, etype, line_break)
     scene.dump(output_file)
 
 

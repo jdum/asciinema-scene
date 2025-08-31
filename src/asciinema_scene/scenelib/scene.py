@@ -237,6 +237,10 @@ class Scene(SceneContent):
             if last.tpe == "o" and last.text == "\r\n":
                 self.frames = self.frames[:-1]
         self.frames.append(new_frame)
+        last_frame = Frame()
+        last_frame.tpe = "o"
+        last_frame.text = "\r\n"
+        self.frames.append(last_frame)
 
     def insert(
         self,
@@ -244,9 +248,12 @@ class Scene(SceneContent):
         duration: float,
         text: str,
         tpe: str = "o",
+        line_break: bool = False,
     ) -> None:
         assert timecode >= 0.0  # noqa: S101
         assert duration >= 0.0  # noqa: S101
+        if line_break:
+            text += "\r\n"
         new_frame = Frame.parse([timecode, tpe, text])
         new_frame.set_duration(duration)
         tc = new_frame.timecode

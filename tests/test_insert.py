@@ -43,6 +43,30 @@ def test_insert_last():
     assert scene.duration == 7.135993
 
 
+def test_insert_last_final():
+    scene = Scene()
+    scene.parse_content(SHORT_FILE_CONTENT)
+    scene.insert(99999.0, 1.0, "last")
+    last = scene.frames[-1]
+    assert last.text == "\r\n"
+
+
+def test_insert_last_no_lb():
+    scene = Scene()
+    scene.parse_content(SHORT_FILE_CONTENT)
+    scene.insert(99999.0, 1.0, "last")
+    previous = scene.frames[-2]
+    assert previous.text == "last"
+
+
+def test_insert_last_lb():
+    scene = Scene()
+    scene.parse_content(SHORT_FILE_CONTENT)
+    scene.insert(99999.0, 1.0, "last", "o", True)
+    previous = scene.frames[-2]
+    assert previous.text == "last\r\n"
+
+
 def test_insert_empty():
     scene = Scene()
     scene.insert(99999.0, 1.0, "last")
