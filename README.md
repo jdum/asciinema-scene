@@ -436,6 +436,7 @@ Usage: sciine insert [OPTIONS] TIMECODE DURATION TEXT [ETYPE]
   type ETYPE is set to "o".
 
 Options:
+  -b, --line-break   Add line break at end of text.
   -i, --input PATH   Input .cast file, default is stdin.
   -o, --output PATH  Output .cast file, default is stdout.
   --help             Show this message and exit.
