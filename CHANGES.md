@@ -1,5 +1,17 @@
 # asciinema_scene Release Notes
 
+## [1.2.0] - 2025-08-31
+
+-   Add an option to the 'insert' command to make it easier to add a line break to the cast.
+
+### Changed
+
+-   Update dependencies.
+
+### Added
+
+-   Add option `--line-break` to command `insert`.
+
 ## [1.1.0] - 2025-08-17
 
 -   Add 3 commands using text match by regex: `text-delete`, `text-merge`, `text-replace`.
