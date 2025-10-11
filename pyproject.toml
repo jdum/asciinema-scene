@@ -1,6 +1,6 @@
 [project]
 name = "asciinema_scene"
-version = "1.2.0"
+version = "1.2.1"
 description = "Toolbox to edit asciinema screencasts (sciine)"
 authors = [{ name = "Jerome Dumonteil", email = "jerome.dumonteil@gmail.com" }]
 readme = "README.md"
@@ -13,9 +13,10 @@ classifiers = [
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
 ]
 requires-python = ">=3.10,<4.0"
-dependencies = ["click>=8.2.1,<9"]
+dependencies = ["click>=8.3.0,<9"]
 
 [project.urls]
 Repository = "https://github.com/jdum/asciinema-scene"
@@ -27,22 +28,22 @@ sciine = "asciinema_scene.sciine:cli"
 
 [dependency-groups]
 dev = [
-    "pytest>=8.4.1",
+    "pytest>=8.4.2",
     "pytest-cov>=6.2.1",
-    "coverage>=7.10.6",
+    "coverage>=7.10.7",
     "deptry>=0.23.0",
-    "mypy>=1.16.1",
+    "mypy>=1.18.2",
     "mypy-extensions>=1.1.0",
     "typing-extensions>=4.15.0",
-    "tox>=4.29.0",
-    "tox-gh-actions>=3.3.0",
-    "ruff>=0.12.11",
-    "isort>=6.0.1",
+    "tox>=4.31.0",
+    "tox-gh-actions>=3.4.0",
+    "ruff>=0.14.0",
+    "isort>=6.1.0",
     "docformatter>=1.7.7",
 ]
 
 [build-system]
-requires = ["uv_build>=0.8.6,<0.9.0"]
+requires = ["uv_build>=0.9.0,<0.10.0"]
 build-backend = "uv_build"
 
 [tool.mypy]

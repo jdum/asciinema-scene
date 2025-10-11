@@ -1,5 +1,13 @@
 # asciinema_scene Release Notes
 
+## [1.2.1] - 2025-10-11
+
+-   Add support for Python 3.14.
+
+### Changed
+
+-   Update dependencies.
+
 ## [1.2.0] - 2025-08-31
 
 -   Add an option to the 'insert' command to make it easier to add a line break to the cast.
