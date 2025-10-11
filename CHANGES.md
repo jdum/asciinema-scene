@@ -1,5 +1,13 @@
 # asciinema_scene Release Notes
 
+## [1.2.2] - 2025-10-11
+
+-   Fix dev environment for Python 3.14.
+
+### Changed
+
+-   Update dependencies, removing docformatter.
+
 ## [1.2.1] - 2025-10-11
 
 -   Add support for Python 3.14.

@@ -1,6 +1,6 @@
 [project]
 name = "asciinema_scene"
-version = "1.2.1"
+version = "1.2.2"
 description = "Toolbox to edit asciinema screencasts (sciine)"
 authors = [{ name = "Jerome Dumonteil", email = "jerome.dumonteil@gmail.com" }]
 readme = "README.md"
@@ -39,7 +39,6 @@ dev = [
     "tox-gh-actions>=3.4.0",
     "ruff>=0.14.0",
     "isort>=6.1.0",
-    "docformatter>=1.7.7",
 ]
 
 [build-system]
