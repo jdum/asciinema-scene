@@ -2,11 +2,12 @@
 
 ## [1.2.3] - 2026-02-07
 
-Check dependencies.
+Update dependencies and coverage configuration.
 
 ### Changed
 
 -   Update dependencies.
+-   Fix `test_cli.py`for coverage count.
 -   Use `__all__` in project `__init__.py` files.
 
 ## [1.2.2] - 2025-10-11

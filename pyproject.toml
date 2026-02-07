@@ -30,17 +30,17 @@ sciine = "asciinema_scene.sciine:cli"
 
 [dependency-groups]
 dev = [
-    "pytest>=8.4.2",
-    "pytest-cov>=6.2.1",
-    "coverage>=7.10.7",
+    "pytest>=8.4.2,<9",
+    "pytest-cov>=7.0.0",
+    "coverage>=7.13.3",
     "deptry>=0.23.0",
     "mypy>=1.18.2",
     "mypy-extensions>=1.1.0",
     "typing-extensions>=4.15.0",
     "tox>=4.31.0",
     "tox-gh-actions>=3.4.0",
-    "ruff>=0.14.0",
-    "isort>=6.1.0",
+    "ruff>=0.15.0",
+    "isort>=7.0.0",
 ]
 
 [build-system]
@@ -110,12 +110,17 @@ lint.ignore = [
 [tool.ruff.lint.per-file-ignores]
 "tests/*" = ["S101"]
 
-[tool.coverage.report]
-skip_empty = true
-
 [tool.coverage.run]
+parallel = true
 branch = true
 source = ["asciinema_scene"]
+
+[tool.coverage.report]
+skip_empty = true
+exclude_also = [
+    "if TYPE_CHECKING:",
+    'if __name__ == "__main__":'
+]
 
 [tool.pytest.ini_options]
 minversion = "8.0"

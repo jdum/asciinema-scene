@@ -1,4 +1,5 @@
 import importlib.metadata
+import os
 import re
 import shlex
 import subprocess
@@ -6,6 +7,7 @@ import sys
 import time
 from importlib import resources as rso
 
+import pytest
 from click.testing import CliRunner
 
 from asciinema_scene.sciine import cli
@@ -21,15 +23,26 @@ else:
 
 
 def my_invoke(command: str, input_content: str):
-    cmd = "sciine " + command
     if sys.platform == "win32":
-        args = cmd
+        args = [command]
     else:
-        args = shlex.split(cmd)
+        args = shlex.split(command)
+    sciine_executable = os.path.join(sys.prefix, "bin", "sciine")
+    coverage_command_prefix = [
+        sys.executable,
+        "-m",
+        "coverage",
+        "run",
+        sciine_executable,
+    ]
+    # full_command_args = shlex.split(command)
+    cmd_to_execute = coverage_command_prefix + args
+    env = os.environ.copy()
     proc = subprocess.Popen(
-        args,
+        cmd_to_execute,
         stdin=subprocess.PIPE,
         stdout=subprocess.PIPE,
+        env=env,
     )
     proc.stdin.write(input_content.encode())
     proc.stdin.close()
@@ -71,6 +84,7 @@ def test_cli_help():
         assert re.search(text, result.output) is not None
 
 
+@pytest.mark.skipif(sys.platform == "win32", reason="not for windows")
 def test_cli_cut():
     code, output = my_invoke("cut -e 3.0", SHORT_FILE_CONTENT)
     assert code == 0
@@ -79,6 +93,7 @@ def test_cli_cut():
     assert "Duration: 3.023" in output2
 
 
+@pytest.mark.skipif(sys.platform == "win32", reason="not for windows")
 def test_cli_copy():
     code, output = my_invoke("copy -e 1.0", SHORT_FILE_CONTENT)
     assert code == 0
@@ -87,12 +102,14 @@ def test_cli_copy():
     assert "Duration: 1.163" in output2
 
 
+@pytest.mark.skipif(sys.platform == "win32", reason="not for windows")
 def test_cli_header():
     code, output = my_invoke("header", SHORT_FILE_CONTENT)
     assert code == 0
     assert "/bin/bash" in output
 
 
+@pytest.mark.skipif(sys.platform == "win32", reason="not for windows")
 def test_cli_include():
     code = output = None
     for file in rso.files("tests.files").iterdir():
@@ -109,6 +126,7 @@ def test_cli_include():
     assert "Duration: 12.271986" in output2
 
 
+@pytest.mark.skipif(sys.platform == "win32", reason="not for windows")
 def test_cli_insert():
     code, output = my_invoke("insert 1.0 5.0 message", SHORT_FILE_CONTENT)
     assert code == 0
@@ -117,6 +135,7 @@ def test_cli_insert():
     assert "Duration: 11.135993" in output2
 
 
+@pytest.mark.skipif(sys.platform == "win32", reason="not for windows")
 def test_cli_delete():
     code, output = my_invoke("delete 1.16", SHORT_FILE_CONTENT)
     assert code == 0
@@ -125,6 +144,7 @@ def test_cli_delete():
     assert "Duration: 5.835392" in output2
 
 
+@pytest.mark.skipif(sys.platform == "win32", reason="not for windows")
 def test_cli_replace():
     code, output = my_invoke("replace 1.16 abc", SHORT_FILE_CONTENT)
     assert code == 0
@@ -136,6 +156,7 @@ def test_cli_replace():
     assert "abc" in output3.strip()
 
 
+@pytest.mark.skipif(sys.platform == "win32", reason="not for windows")
 def test_cli_insert_o():
     code, output = my_invoke("insert 1.0 5.0 message o", SHORT_FILE_CONTENT)
     assert code == 0
@@ -144,6 +165,7 @@ def test_cli_insert_o():
     assert "Duration: 11.135993" in output2
 
 
+@pytest.mark.skipif(sys.platform == "win32", reason="not for windows")
 def test_cli_maximum():
     code, output = my_invoke("maximum 0.1", SHORT_FILE_CONTENT)
     assert code == 0
@@ -152,6 +174,7 @@ def test_cli_maximum():
     assert "Duration: 2.000" in output2
 
 
+@pytest.mark.skipif(sys.platform == "win32", reason="not for windows")
 def test_cli_minimum():
     code, output = my_invoke("minimum 10.0", SHORT_FILE_CONTENT)
     assert code == 0
@@ -160,6 +183,7 @@ def test_cli_minimum():
     assert "Duration: 210.000" in output2
 
 
+@pytest.mark.skipif(sys.platform == "win32", reason="not for windows")
 def test_cli_quantize():
     code, output = my_invoke("quantize 0.1 3.0 20.0", SHORT_FILE_CONTENT)
     assert code == 0
@@ -168,36 +192,42 @@ def test_cli_quantize():
     assert "Duration: 400.000" in output2
 
 
+@pytest.mark.skipif(sys.platform == "win32", reason="not for windows")
 def test_cli_show_1():
     code, output = my_invoke("show", SHORT_FILE_CONTENT)
     assert code == 0
     assert f"0.000│ 0.89│ 'e'{CR}" in output
 
 
+@pytest.mark.skipif(sys.platform == "win32", reason="not for windows")
 def test_cli_show_2():
     code, output = my_invoke("show --precise", SHORT_FILE_CONTENT)
     assert code == 0
     assert f"0.000000│ 0.894038│ 'e'{CR}" in output
 
 
+@pytest.mark.skipif(sys.platform == "win32", reason="not for windows")
 def test_cli_show_3():
     code, output = my_invoke("show --text", SHORT_FILE_CONTENT)
     assert code == 0
     assert "0.000│ 0.89│ e" in output
 
 
+@pytest.mark.skipif(sys.platform == "win32", reason="not for windows")
 def test_cli_show_4():
     code, output = my_invoke("show --text --precise", SHORT_FILE_CONTENT)
     assert code == 0
     assert f"0.000000│ 0.894038│ e{CR}" in output
 
 
+@pytest.mark.skipif(sys.platform == "win32", reason="not for windows")
 def test_cli_show_5():
     code, output = my_invoke("show --lines 2", SHORT_FILE_CONTENT)
     assert code == 0
     assert f"0.000│ 0.89│ 'e'{CR}" in output
 
 
+@pytest.mark.skipif(sys.platform == "win32", reason="not for windows")
 def test_cli_show_6():
     code, output = my_invoke("show -s 0.0", SHORT_FILE_CONTENT)
     assert code == 0
@@ -205,6 +235,7 @@ def test_cli_show_6():
     assert len(output.strip().split(CR)) == 22
 
 
+@pytest.mark.skipif(sys.platform == "win32", reason="not for windows")
 def test_cli_show_7():
     code, output = my_invoke("show -s 1.0", SHORT_FILE_CONTENT)
     assert code == 0
@@ -212,6 +243,7 @@ def test_cli_show_7():
     assert len(output.strip().split(CR)) == 19
 
 
+@pytest.mark.skipif(sys.platform == "win32", reason="not for windows")
 def test_cli_show_8():
     code, output = my_invoke("show -s 1.0 -e 2.0", SHORT_FILE_CONTENT)
     assert code == 0
@@ -219,6 +251,7 @@ def test_cli_show_8():
     assert len(output.strip().split(CR)) == 3
 
 
+@pytest.mark.skipif(sys.platform == "win32", reason="not for windows")
 def test_cli_speed():
     code, output = my_invoke("speed 1.0", SHORT_FILE_CONTENT)
     assert code == 0
@@ -228,6 +261,7 @@ def test_cli_speed():
     assert "Duration: 6.135993" in output2
 
 
+@pytest.mark.skipif(sys.platform == "win32", reason="not for windows")
 def test_cli_text_delete():
     code, output = my_invoke("text-delete -s 1.0 {server}", BACK_FILE_CONTENT)
     assert code == 0
@@ -237,6 +271,7 @@ def test_cli_text_delete():
     assert "Frames: 6" in output2
 
 
+@pytest.mark.skipif(sys.platform == "win32", reason="not for windows")
 def test_cli_text_replace():
     code, output = my_invoke("text-replace -s 1.0 {server} box", BACK_FILE_CONTENT)
     assert code == 0
@@ -245,6 +280,7 @@ def test_cli_text_replace():
     assert result_cast.count("box") == 19
 
 
+@pytest.mark.skipif(sys.platform == "win32", reason="not for windows")
 def test_cli_text_merge():
     code, output = my_invoke("text-merge nothing", BACK_FILE_CONTENT)
     assert code == 0
@@ -252,18 +288,31 @@ def test_cli_text_merge():
     assert result_cast.count("server") == 25
 
 
+@pytest.mark.skipif(sys.platform == "win32", reason="not for windows")
 def test_cli_status():
     code, output = my_invoke("status", SHORT_FILE_CONTENT)
     assert code == 0
     assert "Duration: 6.135993" in output
 
 
+@pytest.mark.skipif(sys.platform == "win32", reason="not for windows")
 def test_timeout():
-    command = "status"
+    sciine_executable = os.path.join(sys.prefix, "bin", "sciine")
+    coverage_command_prefix = [
+        sys.executable,
+        "-m",
+        "coverage",
+        "run",
+        sciine_executable,
+    ]
+    cmd_to_execute = coverage_command_prefix
+    cmd_to_execute.append("status")
+    env = os.environ.copy()
     proc = subprocess.Popen(
-        shlex.split("sciine " + command),
+        cmd_to_execute,
         stdin=subprocess.PIPE,
         stdout=subprocess.PIPE,
+        env=env,
     )
     time.sleep(2)
     proc.stdin.close()
