@@ -1,6 +1,6 @@
 [project]
 name = "asciinema_scene"
-version = "1.2.2"
+version = "1.2.3"
 description = "Toolbox to edit asciinema screencasts (sciine)"
 authors = [{ name = "Jerome Dumonteil", email = "jerome.dumonteil@gmail.com" }]
 readme = "README.md"
@@ -16,7 +16,9 @@ classifiers = [
     "Programming Language :: Python :: 3.14",
 ]
 requires-python = ">=3.10,<4.0"
-dependencies = ["click>=8.3.0,<9"]
+dependencies = [
+    "click>=8.3.0,<9",
+]
 
 [project.urls]
 Repository = "https://github.com/jdum/asciinema-scene"

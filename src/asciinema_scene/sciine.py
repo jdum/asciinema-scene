@@ -6,8 +6,7 @@ from typing import Any
 
 import click
 
-from .scenelib.scene import Scene
-from .scenelib.utils import SceneStdinError
+from .scenelib import Scene, SceneStdinError
 
 __version__ = importlib.metadata.version("asciinema_scene")
 
