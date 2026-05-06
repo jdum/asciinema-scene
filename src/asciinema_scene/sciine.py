@@ -99,14 +99,14 @@ output_option = click.option(
 start_option = click.option(
     "--start",
     "-s",
-    type=float,
-    help="Start timecode (sec), default is 0.0.",
+    type=TIMECODE,
+    help="Start timecode (seconds or [H:]M:S), default is 0.0.",
 )
 end_option = click.option(
     "--end",
     "-e",
-    type=float,
-    help="End timecode (sec), default is EOF.",
+    type=TIMECODE,
+    help="End timecode (seconds or [H:]M:S), default is EOF.",
 )
 adjust_option = click.option(
     "--adjust",
