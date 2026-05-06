@@ -20,8 +20,8 @@ class TimecodeParamType(click.ParamType):
         param: click.Parameter | None,
         ctx: click.Context | None,
     ) -> float:
-        if isinstance(value, float):
-            return value
+        if isinstance(value, (int, float)):
+            return float(value)
         parts = str(value).split(":")
         if len(parts) == 1:
             try:
@@ -32,6 +32,7 @@ class TimecodeParamType(click.ParamType):
                     param,
                     ctx,
                 )
+                return 0.0  # unreachable but satisfies mypy
         if len(parts) == 2:
             try:
                 minutes = float(parts[0])
@@ -42,12 +43,14 @@ class TimecodeParamType(click.ParamType):
                     param,
                     ctx,
                 )
+                return 0.0  # unreachable but satisfies mypy
             if minutes < 0 or seconds < 0 or seconds >= 60:
                 self.fail(
                     f"{value!r}: minutes must be >= 0 and seconds must be in [0, 60)",
                     param,
                     ctx,
                 )
+                return 0.0  # unreachable but satisfies mypy
             return minutes * 60 + seconds
         if len(parts) == 3:
             try:
@@ -60,18 +63,21 @@ class TimecodeParamType(click.ParamType):
                     param,
                     ctx,
                 )
+                return 0.0  # unreachable but satisfies mypy
             if hours < 0 or minutes < 0 or minutes >= 60 or seconds < 0 or seconds >= 60:
                 self.fail(
                     f"{value!r}: hours >= 0, minutes in [0, 60), seconds in [0, 60)",
                     param,
                     ctx,
                 )
+                return 0.0  # unreachable but satisfies mypy
             return hours * 3600 + minutes * 60 + seconds
         self.fail(
             f"{value!r} is not a valid timecode (use seconds or [H:]M:S)",
             param,
             ctx,
         )
+        return 0.0  # unreachable but satisfies mypy
 
 
 TIMECODE = TimecodeParamType()

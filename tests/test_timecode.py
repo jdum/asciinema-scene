@@ -7,7 +7,7 @@ TIMECODE = TimecodeParamType()
 
 
 def convert(value: str) -> float:
-    return TIMECODE.convert(value, param=None, ctx=None)  # type: ignore[arg-type]
+    return TIMECODE.convert(value, param=None, ctx=None)
 
 
 def test_plain_integer():
@@ -65,3 +65,18 @@ def test_too_many_parts():
 def test_negative_rejected():
     with pytest.raises(BadParameter):
         convert("1:-1")
+
+
+def test_negative_plain_seconds_accepted():
+    # plain negative seconds: no range check, converts normally
+    assert convert("-5") == -5.0
+
+
+def test_negative_hours_rejected():
+    with pytest.raises(BadParameter):
+        convert("-1:0:0")
+
+
+def test_float_minutes_accepted():
+    # 1.5:30 = 90 + 30 = 120.0 — deliberate, document with test
+    assert convert("1.5:30") == 120.0
