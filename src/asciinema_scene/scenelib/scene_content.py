@@ -204,6 +204,28 @@ class SceneContent:
             term["theme"] = self.header["theme"]
         return term
 
+    def set_format_version(self, version: int) -> None:
+        """Set the output format version and adjust header accordingly."""
+        self.format_version = version
+        if version == 2:
+            self._build_v2_header()
+
+    def _build_v2_header(self) -> None:
+        """Convert internal header to v2 schema in-place."""
+        self.header["version"] = 2
+        # Ensure width/height at top level (already there from _convert_v3)
+        # Move term.type back to env.TERM if it came from v3
+        if "term" in self.header and isinstance(self.header["term"], dict):
+            term = self.header["term"]
+            if "type" in term:
+                env = self.header.setdefault("env", {})
+                env.setdefault("TERM", term["type"])
+            if "theme" in term:
+                self.header.setdefault("theme", term["theme"])
+        # Remove v3-only fields
+        self.header.pop("tags", None)
+        self.header.pop("term", None)
+
     def dump(self, output_file: str | Path | None = None) -> None:
         if output_file:
             Path(output_file).write_text(self.dumps(), encoding="utf8")

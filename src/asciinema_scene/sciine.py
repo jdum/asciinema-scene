@@ -517,3 +517,31 @@ def text_merge_cmd(
     scene = Scene.parse(input_file)
     scene.text_merge_frames(text, start=start, end=end)
     scene.dump(output_file)
+
+
+@cli.command("convert")
+@stdin_timeout_handler
+@click.option(
+    "--format",
+    "-f",
+    "output_format",
+    required=True,
+    type=click.Choice(["v2", "v3"]),
+    help="Output format version.",
+)
+@input_option
+@output_option
+def convert_cmd(
+    output_format: str,
+    input_file: str | None,
+    output_file: str | None,
+) -> None:
+    """Convert between asciicast v2 and v3 formats.
+
+    Reads input in any supported format (auto-detected) and writes
+    output in the specified format.
+    """
+    scene = Scene.parse(input_file)
+    version = int(output_format[1])  # "v2" -> 2, "v3" -> 3
+    scene.set_format_version(version)
+    scene.dump(output_file)
