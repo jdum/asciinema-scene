@@ -10,6 +10,72 @@ from .scenelib import Scene, SceneStdinError
 
 __version__ = importlib.metadata.version("asciinema_scene")
 
+
+class TimecodeParamType(click.ParamType):
+    name = "timecode"
+
+    def convert(
+        self,
+        value: str | float,
+        param: click.Parameter | None,
+        ctx: click.Context | None,
+    ) -> float:
+        if isinstance(value, float):
+            return value
+        parts = str(value).split(":")
+        if len(parts) == 1:
+            try:
+                return float(parts[0])
+            except ValueError:
+                self.fail(
+                    f"{value!r} is not a valid timecode (use seconds or [H:]M:S)",
+                    param,
+                    ctx,
+                )
+        if len(parts) == 2:
+            try:
+                minutes = float(parts[0])
+                seconds = float(parts[1])
+            except ValueError:
+                self.fail(
+                    f"{value!r} is not a valid timecode (use seconds or [H:]M:S)",
+                    param,
+                    ctx,
+                )
+            if minutes < 0 or seconds < 0 or seconds >= 60:
+                self.fail(
+                    f"{value!r}: minutes must be >= 0 and seconds must be in [0, 60)",
+                    param,
+                    ctx,
+                )
+            return minutes * 60 + seconds
+        if len(parts) == 3:
+            try:
+                hours = float(parts[0])
+                minutes = float(parts[1])
+                seconds = float(parts[2])
+            except ValueError:
+                self.fail(
+                    f"{value!r} is not a valid timecode (use seconds or [H:]M:S)",
+                    param,
+                    ctx,
+                )
+            if hours < 0 or minutes < 0 or minutes >= 60 or seconds < 0 or seconds >= 60:
+                self.fail(
+                    f"{value!r}: hours >= 0, minutes in [0, 60), seconds in [0, 60)",
+                    param,
+                    ctx,
+                )
+            return hours * 3600 + minutes * 60 + seconds
+        self.fail(
+            f"{value!r} is not a valid timecode (use seconds or [H:]M:S)",
+            param,
+            ctx,
+        )
+
+
+TIMECODE = TimecodeParamType()
+
 input_option = click.option(
     "--input",
     "-i",
