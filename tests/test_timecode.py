@@ -80,3 +80,44 @@ def test_negative_hours_rejected():
 def test_float_minutes_accepted():
     # 1.5:30 = 90 + 30 = 120.0 — deliberate, document with test
     assert convert("1.5:30") == 120.0
+
+
+from unittest.mock import patch
+
+from click.testing import CliRunner
+from click.testing import Result
+
+from asciinema_scene.sciine import cli
+from .contents import SHORT_FILE_CONTENT
+
+
+def _invoke_cut(args: list[str]) -> Result:
+    runner = CliRunner()
+    with patch("asciinema_scene.scenelib.scene_content.detect_stdin_timeout"):
+        return runner.invoke(cli, ["cut"] + args, input=SHORT_FILE_CONTENT)
+
+
+def test_cut_with_colon_start():
+    result = _invoke_cut(["--start", "0:04"])
+    assert result.exit_code == 0
+
+
+def test_cut_with_colon_start_end():
+    result = _invoke_cut(["--start", "0:04", "--end", "0:10"])
+    assert result.exit_code == 0
+
+
+def test_cut_with_hms():
+    result = _invoke_cut(["--start", "0:0:4", "--end", "0:0:10"])
+    assert result.exit_code == 0
+
+
+def test_invalid_timecode_error():
+    runner = CliRunner()
+    result = runner.invoke(
+        cli,
+        ["cut", "--start", "bad"],
+        input=SHORT_FILE_CONTENT,
+    )
+    assert result.exit_code != 0
+    assert "timecode" in result.output.lower() or "invalid" in result.output.lower()
