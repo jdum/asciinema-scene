@@ -95,6 +95,7 @@ class SceneContent:
         duplicate = SceneContent()
         duplicate.header = deepcopy(self.header)
         duplicate.frames = [line.copy() for line in self.frames]
+        duplicate.format_version = self.format_version
         return duplicate
 
     def set_timestamp(self) -> None:
