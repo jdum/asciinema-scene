@@ -1,7 +1,12 @@
+from unittest.mock import patch
+
 import pytest
 from click.exceptions import BadParameter
+from click.testing import CliRunner, Result
 
-from asciinema_scene.sciine import TimecodeParamType
+from asciinema_scene.sciine import TimecodeParamType, cli
+
+from .contents import SHORT_FILE_CONTENT
 
 TIMECODE = TimecodeParamType()
 
@@ -82,19 +87,10 @@ def test_float_minutes_accepted():
     assert convert("1.5:30") == 120.0
 
 
-from unittest.mock import patch
-
-from click.testing import CliRunner
-from click.testing import Result
-
-from asciinema_scene.sciine import cli
-from .contents import SHORT_FILE_CONTENT
-
-
 def _invoke_cut(args: list[str]) -> Result:
     runner = CliRunner()
     with patch("asciinema_scene.scenelib.scene_content.detect_stdin_timeout"):
-        return runner.invoke(cli, ["cut"] + args, input=SHORT_FILE_CONTENT)
+        return runner.invoke(cli, ["cut", *args], input=SHORT_FILE_CONTENT)
 
 
 def test_cut_with_colon_start():
