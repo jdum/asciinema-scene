@@ -17,6 +17,7 @@ class Scene(SceneContent):
         scene.input_file = content.input_file
         scene.header = content.header
         scene.frames = content.frames
+        scene.format_version = content.format_version
         return scene
 
     def _split_parts(
