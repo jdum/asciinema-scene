@@ -132,3 +132,80 @@ def test_detect_index_range() -> None:
     assert len(regions) == 1
     assert regions[0].start_idx == 2
     assert regions[0].end_idx == 4
+
+
+from asciinema_scene.scenelib.scene import Scene
+
+
+COLLAPSE_V2_CONTENT = (
+    '{"version": 2, "width": 80, "height": 24, "timestamp": 1700000000}\n'
+    '[0.0, "o", "starting up"]\n'
+    '[1.0, "o", "\\r| loading..."]\n'
+    '[2.0, "o", "\\r/ loading..."]\n'
+    '[3.0, "o", "\\r- loading..."]\n'
+    '[4.0, "o", "\\r\\\\ loading..."]\n'
+    '[5.0, "o", "\\r| loading..."]\n'
+    '[6.0, "o", "\\r/ loading..."]\n'
+    '[7.0, "o", "\\r- loading..."]\n'
+    '[8.0, "o", "\\r\\\\ loading..."]\n'
+    '[9.0, "o", "\\r| loading..."]\n'
+    '[10.0, "o", "\\r/ loading..."]\n'
+    '[11.0, "o", "\\rdone!          "]\n'
+)
+
+
+def test_scene_collapse_reduces_duration():
+    """Collapse should reduce the duration of the spinner region."""
+    scene = Scene()
+    scene.parse_content(COLLAPSE_V2_CONTENT)
+    orig_duration = scene.duration
+    scene.collapse(duration=2.0)
+    assert scene.duration < orig_duration
+
+
+def test_scene_collapse_preserves_frames():
+    """Collapse should not remove any frames."""
+    scene = Scene()
+    scene.parse_content(COLLAPSE_V2_CONTENT)
+    orig_count = scene.length
+    scene.collapse(duration=2.0)
+    assert scene.length == orig_count
+
+
+def test_scene_collapse_no_similar_noop():
+    """If no similar regions exist, duration is unchanged."""
+    content = (
+        '{"version": 2, "width": 80, "height": 24, "timestamp": 1700000000}\n'
+        '[0.0, "o", "hello"]\n'
+        '[1.0, "o", "completely different text"]\n'
+        '[2.0, "o", "another unique line"]\n'
+    )
+    scene = Scene()
+    scene.parse_content(content)
+    orig_duration = scene.duration
+    scene.collapse(duration=1.0)
+    assert scene.duration == orig_duration
+
+
+def test_scene_collapse_with_start_end():
+    """Collapse respects start/end timecodes."""
+    scene = Scene()
+    scene.parse_content(COLLAPSE_V2_CONTENT)
+    scene.collapse(duration=1.0, start=2.0, end=8.0)
+    assert scene.duration < 12.0
+
+
+def test_scene_collapse_already_short():
+    """Regions already shorter than target duration are untouched."""
+    content = (
+        '{"version": 2, "width": 80, "height": 24, "timestamp": 1700000000}\n'
+        '[0.0, "o", "loading..."]\n'
+        '[0.5, "o", "loading..."]\n'
+        '[1.0, "o", "loading..."]\n'
+        '[1.5, "o", "done!"]\n'
+    )
+    scene = Scene()
+    scene.parse_content(content)
+    orig_duration = scene.duration
+    scene.collapse(duration=5.0, min_duration=0.5)
+    assert scene.duration == orig_duration

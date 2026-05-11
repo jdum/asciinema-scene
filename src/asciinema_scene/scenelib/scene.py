@@ -4,6 +4,7 @@ import re
 import sys
 from pathlib import Path
 
+from .collapse import detect_collapse_regions
 from .constants import INFINITE_DURATION, PRECISION
 from .frame import Frame
 from .scene_content import SceneContent
@@ -407,5 +408,43 @@ class Scene(SceneContent):
         tcode_start, tcode_end = self.start_end(start, end)
         self.frames = self._text_merge_frames(text, tcode_start, tcode_end)
         self.set_durations()
+        self.set_timecodes()
+        self.post_normalize()
+
+    def collapse(
+        self,
+        duration: float,
+        threshold: float = 0.05,
+        min_duration: float = 2.0,
+        start: float | None = None,
+        end: float | None = None,
+    ) -> None:
+        """Collapse repetitive/idle regions to at most duration seconds."""
+        if duration <= 0.0:
+            raise ValueError(duration)
+        self.pre_normalize()
+        tcode_start, tcode_end = self.start_end(start, end)
+        idx1, idx2 = self._split_parts(tcode_start, tcode_end)
+        cols = self.header.get("width", 80)
+        rows = self.header.get("height", 24)
+        regions = detect_collapse_regions(
+            self.frames,
+            cols=cols,
+            rows=rows,
+            start_idx=idx1,
+            end_idx=idx2,
+            threshold=threshold,
+            min_duration=min_duration,
+        )
+        target_duration_tc = round(duration * PRECISION)
+        for region in regions:
+            region_duration_tc = 0
+            for frame in self.frames[region.start_idx : region.end_idx]:
+                region_duration_tc += frame.duration
+            if region_duration_tc <= target_duration_tc:
+                continue
+            factor = target_duration_tc / region_duration_tc
+            for frame in self.frames[region.start_idx : region.end_idx]:
+                frame.duration = round(frame.duration * factor)
         self.set_timecodes()
         self.post_normalize()
