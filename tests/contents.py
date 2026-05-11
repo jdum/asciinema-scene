@@ -12,3 +12,7 @@ SHORT_FILE_CONTENT = (
 BACK_FILE_CONTENT = (
     rso.files("tests.files").joinpath("back.cast").read_text(encoding="utf8")
 )
+
+SHORT_V3_FILE_CONTENT = (
+    rso.files("tests.files").joinpath("short_v3.cast").read_text(encoding="utf8")
+)

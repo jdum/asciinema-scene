@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Wrapper to run sciine from the asciinema-scene project
+SCRIPT_DIR="$(cd "$(dirname "$(readlink -f "$0")")" && pwd)"
+exec uv run --project "$SCRIPT_DIR" sciine "$@"

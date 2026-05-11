@@ -10,6 +10,7 @@ from time import time
 from typing import Any
 from zipfile import ZipFile
 
+from .constants import PRECISION
 from .frame import Frame
 from .utils import detect_stdin_timeout
 
@@ -19,6 +20,7 @@ class SceneContent:
         self.input_file: str = "string"
         self.header: dict[str, Any] = {}
         self.frames: list[Frame] = []
+        self.format_version: int = 2
 
     @staticmethod
     def _decode(line: str) -> Any:
@@ -38,7 +40,7 @@ class SceneContent:
 
     def parse_content(self, raw_content: str) -> None:
         for line in raw_content.split("\n"):
-            if not line:
+            if not line or line.startswith("#"):
                 continue
             frame = self._decode(line)
             if isinstance(frame, list):
@@ -46,7 +48,21 @@ class SceneContent:
                 continue
             if not self.header and isinstance(frame, dict):
                 self.header = frame
+        self.format_version = self.header.get("version", 2)
+        if self.format_version == 3:
+            self._convert_v3()
         self.pre_normalize()
+
+    def _convert_v3(self) -> None:
+        """Convert v3 format: extract dimensions and convert intervals to absolute timecodes."""
+        term = self.header.get("term", {})
+        self.header["width"] = term.get("cols", 80)
+        self.header["height"] = term.get("rows", 24)
+        # Convert relative intervals to absolute timecodes
+        cumulative = 0
+        for frame in self.frames:
+            cumulative += frame.timecode
+            frame.timecode = cumulative
 
     @classmethod
     def from_file(cls, input_file: str | Path) -> SceneContent:
@@ -77,6 +93,7 @@ class SceneContent:
         duplicate = SceneContent()
         duplicate.header = deepcopy(self.header)
         duplicate.frames = [line.copy() for line in self.frames]
+        duplicate.format_version = self.format_version
         return duplicate
 
     def set_timestamp(self) -> None:
@@ -113,10 +130,16 @@ class SceneContent:
             return 0.0
 
     def dumps(self) -> str:
+        if self.format_version == 3:
+            return self._dumps_v3()
+        return self._dumps_v2()
+
+    def _dumps_v2(self) -> str:
         content = []
+        header = {k: v for k, v in self.header.items() if not k.startswith("_")}
         content.append(
             json.dumps(
-                self.header,
+                header,
                 ensure_ascii=True,
                 check_circular=False,
             )
@@ -124,6 +147,85 @@ class SceneContent:
         content.extend(frame.dumps() for frame in self.frames)
         content.append("")
         return "\n".join(content)
+
+    def _dumps_v3(self) -> str:
+        content = []
+        header = self._build_v3_header()
+        content.append(
+            json.dumps(
+                header,
+                ensure_ascii=True,
+                check_circular=False,
+            )
+        )
+        # Convert absolute timecodes to relative intervals
+        prev_tc = 0
+        for frame in self.frames:
+            interval = (frame.timecode - prev_tc) / PRECISION
+            # Round to 3 decimal places (millisecond precision)
+            interval_rounded = round(interval, 3)
+            event = [interval_rounded, frame.tpe, frame.text]
+            content.append(
+                json.dumps(event, ensure_ascii=True, check_circular=False)
+            )
+            prev_tc = frame.timecode
+        content.append("")
+        return "\n".join(content)
+
+    def _build_v3_header(self) -> dict[str, Any]:
+        """Build v3 header from internal representation."""
+        term = self._build_v3_term()
+        header: dict[str, Any] = {"version": 3, "term": term}
+        for key in ("timestamp", "idle_time_limit", "command", "title", "tags"):
+            if key in self.header:
+                header[key] = self.header[key]
+        # Copy env without TERM (promoted to term.type)
+        if "env" in self.header:
+            env = {k: v for k, v in self.header["env"].items() if k != "TERM"}
+            if env:
+                header["env"] = env
+        return header
+
+    def _build_v3_term(self) -> dict[str, Any]:
+        """Build v3 term dict from internal header."""
+        term: dict[str, Any] = {
+            "cols": self.header.get("width", 80),
+            "rows": self.header.get("height", 24),
+        }
+        orig_term = self.header.get("term", {})
+        if isinstance(orig_term, dict):
+            for key in ("type", "version", "theme"):
+                if key in orig_term:
+                    term[key] = orig_term[key]
+        if "type" not in term and "env" in self.header:
+            env = self.header.get("env", {})
+            if "TERM" in env:
+                term["type"] = env["TERM"]
+        if "theme" not in term and "theme" in self.header:
+            term["theme"] = self.header["theme"]
+        return term
+
+    def set_format_version(self, version: int) -> None:
+        """Set the output format version and adjust header accordingly."""
+        self.format_version = version
+        if version == 2:
+            self._build_v2_header()
+
+    def _build_v2_header(self) -> None:
+        """Convert internal header to v2 schema in-place."""
+        self.header["version"] = 2
+        # Ensure width/height at top level (already there from _convert_v3)
+        # Move term.type back to env.TERM if it came from v3
+        if "term" in self.header and isinstance(self.header["term"], dict):
+            term = self.header["term"]
+            if "type" in term:
+                env = self.header.setdefault("env", {})
+                env.setdefault("TERM", term["type"])
+            if "theme" in term:
+                self.header.setdefault("theme", term["theme"])
+        # Remove v3-only fields
+        self.header.pop("tags", None)
+        self.header.pop("term", None)
 
     def dump(self, output_file: str | Path | None = None) -> None:
         if output_file:
@@ -166,7 +268,6 @@ class SceneContent:
         if not self.frames:
             return
         last = self.frames[-1]
-        last.duration = 0  # default for last message (0 millisec)
         next_tc = last.timecode
         for frame in reversed(self.frames[:-1]):
             frame.duration, next_tc = next_tc - frame.timecode, frame.timecode
