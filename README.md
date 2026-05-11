@@ -61,6 +61,10 @@ There are 4 types of commands:
     - [delete](#command-delete)
 
 
+- command to auto-detect and collapse repetitive regions:
+    - [collapse](#command-collapse)
+
+
 - command modifying content via regular expressions:
     - [text-delete](#command-text-delete)
     - [text-merge](#command-text-merge)
@@ -75,6 +79,7 @@ Options:
   --help     Show this message and exit.
 
 Commands:
+  collapse      Collapse repetitive/idle regions to at most DURATION...
   copy          Copy content between START and END timecodes.
   cut           Cut content between START and END timecodes.
   delete        Delete the frame with timecode >= TIMECODE.
@@ -201,6 +206,53 @@ sciine show --lines 5 --precise  -i short.cast
   0.998548│ 0.164761│ 'h'
   1.163309│ 0.300601│ 'o'
   1.463910│ 0.392259│ ' '
+```
+
+---
+
+## Command `collapse`
+
+``` script
+Usage: sciine collapse [OPTIONS] DURATION
+
+  Collapse repetitive/idle regions to at most DURATION seconds each.
+
+  Detects regions where the visible terminal screen barely changes
+  (spinners, progress bars, AI thinking indicators) and speeds them
+  up so each region takes at most DURATION seconds.
+
+Options:
+  -s, --start FLOAT          Start timecode (sec), default is 0.0.
+  -e, --end FLOAT            End timecode (sec), default is EOF.
+  -t, --threshold FLOAT      Screen change ratio to consider a frame
+                             repetitive (0.0–1.0), default is 0.05.
+  -m, --min-duration FLOAT   Minimum region duration (sec) to collapse,
+                             default is 2.0.
+  -f, --format [v2|v3]       Output format version.
+  -i, --input PATH           Input .cast file, default is stdin.
+  -o, --output PATH          Output .cast file, default is stdout.
+  --help                     Show this message and exit.
+```
+
+The detection works by emulating the terminal with a virtual screen (`pyte`). Each
+frame's output is rendered, and the visible screen content is compared to the previous
+frame. Consecutive frames where less than `threshold` (default 5%) of screen cells
+change are grouped into a region. Regions lasting longer than `min-duration` (default
+2.0s) are then sped up proportionally so they play in at most `DURATION` seconds. All
+frames are preserved — no content is deleted — only the timing is compressed.
+
+Example:
+
+Collapse idle/spinner regions to at most 3 seconds each.
+
+``` bash
+sciine collapse 3.0 -i recording.cast -o collapsed.cast
+```
+
+Collapse only the section between 10s and 60s, with a stricter 2% change threshold.
+
+``` bash
+sciine collapse 3.0 --start 10 --end 60 --threshold 0.02 -i recording.cast -o collapsed.cast
 ```
 
 ---
