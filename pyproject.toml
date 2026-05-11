@@ -18,6 +18,7 @@ classifiers = [
 requires-python = ">=3.10,<4.0"
 dependencies = [
     "click>=8.3.0,<9",
+    "pyte>=0.8.0,<1",
 ]
 
 [project.urls]
