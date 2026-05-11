@@ -209,3 +209,66 @@ def test_scene_collapse_already_short():
     orig_duration = scene.duration
     scene.collapse(duration=5.0, min_duration=0.5)
     assert scene.duration == orig_duration
+
+
+COLLAPSE_V3_CONTENT = (
+    '{"version": 3, "term": {"cols": 80, "rows": 24}, "timestamp": 1700000000}\n'
+    '[0.0, "o", "starting up"]\n'
+    '[1.0, "o", "\\r| loading..."]\n'
+    '[1.0, "o", "\\r/ loading..."]\n'
+    '[1.0, "o", "\\r- loading..."]\n'
+    '[1.0, "o", "\\r\\\\ loading..."]\n'
+    '[1.0, "o", "\\r| loading..."]\n'
+    '[1.0, "o", "\\r/ loading..."]\n'
+    '[1.0, "o", "\\r- loading..."]\n'
+    '[1.0, "o", "\\r\\\\ loading..."]\n'
+    '[1.0, "o", "\\r| loading..."]\n'
+    '[1.0, "o", "\\r/ loading..."]\n'
+    '[1.0, "o", "\\rdone!          "]\n'
+)
+
+
+def test_scene_collapse_v3_format():
+    """Collapse works with v3 format recordings."""
+    scene = Scene()
+    scene.parse_content(COLLAPSE_V3_CONTENT)
+    orig_duration = scene.duration
+    scene.collapse(duration=2.0)
+    assert scene.duration < orig_duration
+
+
+def test_scene_collapse_v3_preserves_format():
+    """Collapse preserves v3 format version."""
+    scene = Scene()
+    scene.parse_content(COLLAPSE_V3_CONTENT)
+    scene.collapse(duration=2.0)
+    assert scene.format_version == 3
+
+
+def test_scene_collapse_invalid_duration():
+    """Collapse raises ValueError for non-positive duration."""
+    import pytest
+
+    scene = Scene()
+    scene.parse_content(COLLAPSE_V2_CONTENT)
+    with pytest.raises(ValueError):
+        scene.collapse(duration=0.0)
+    with pytest.raises(ValueError):
+        scene.collapse(duration=-1.0)
+
+
+def test_detect_input_frames_only():
+    """Input event frames (type 'i') are not fed to screen emulator."""
+    frames = [
+        _make_frame(0.0, 1.0, "visible output"),
+        _make_frame(1.0, 1.0, "visible output"),
+        _make_frame(2.0, 1.0, "visible output"),
+    ]
+    # Set one frame to input type
+    frames[1].tpe = "i"
+    frames[1].text = "keystroke"
+    regions = detect_collapse_regions(
+        frames, cols=80, rows=24, min_duration=1.5,
+    )
+    # Should still detect similarity (input frame doesn't change screen)
+    assert len(regions) == 1
