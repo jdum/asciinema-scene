@@ -592,6 +592,60 @@ def text_merge_cmd(
     scene.dump(output_file)
 
 
+@cli.command("collapse")
+@stdin_timeout_handler
+@click.argument("duration", required=True, type=float)
+@start_option
+@end_option
+@click.option(
+    "--threshold",
+    "-t",
+    type=float,
+    default=0.05,
+    show_default=True,
+    help="Max screen change ratio to consider 'similar' (0.0-1.0).",
+)
+@click.option(
+    "--min-duration",
+    "-m",
+    type=float,
+    default=2.0,
+    show_default=True,
+    help="Minimum region duration (seconds) to collapse.",
+)
+@format_option
+@input_option
+@output_option
+def collapse_cmd(
+    duration: float,
+    start: float | None,
+    end: float | None,
+    threshold: float,
+    min_duration: float,
+    output_format: str | None,
+    input_file: str | None,
+    output_file: str | None,
+) -> None:
+    """Collapse repetitive/idle regions to at most DURATION seconds each.
+
+    Detects regions where the visible terminal screen barely changes
+    (spinners, progress bars, AI thinking indicators) and speeds them
+    up so each region takes at most DURATION seconds.
+    """
+    scene = Scene.parse(input_file)
+    scene.collapse(
+        duration,
+        threshold=threshold,
+        min_duration=min_duration,
+        start=start,
+        end=end,
+    )
+    if output_format:
+        version = int(output_format[1])
+        scene.set_format_version(version)
+    scene.dump(output_file)
+
+
 @cli.command("convert")
 @stdin_timeout_handler
 @click.option(
