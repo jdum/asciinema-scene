@@ -1,5 +1,24 @@
 # asciinema_scene Release Notes
 
+## [1.2.4] - 2026-07-12
+
+Add colon-formatted timecode support, fix last-frame duration handling, introduce a `contrib/` sample script folder.
+
+### Added
+
+-   Support colon-formatted timecodes (`[H:]M:S`) for `--start` and `--end` options via `TimecodeParamType`.
+-   New `contrib/` directory with a `quantize_cast` sample script.
+-   Add `AGENTS.md` project guidance file.
+
+### Fixed
+
+-   `quantize`, `speed`, `minimum`, and `maximum` now preserve the explicitly-set duration of the last frame instead of silently zeroing it.
+
+### Changed
+
+-   Update dependencies.
+-   Documentation updates.
+
 ## [1.2.3] - 2026-02-07
 
 Update dependencies and coverage configuration.

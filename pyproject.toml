@@ -1,6 +1,6 @@
 [project]
 name = "asciinema_scene"
-version = "1.2.3"
+version = "1.2.4"
 description = "Toolbox to edit asciinema screencasts (sciine)"
 authors = [{ name = "Jerome Dumonteil", email = "jerome.dumonteil@gmail.com" }]
 readme = "README.md"
