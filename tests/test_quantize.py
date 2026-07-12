@@ -84,6 +84,16 @@ def test_quant_7():
     assert result == 20.687072
 
 
+def test_quant_last_frame():
+    """Last frame duration must be quantized when it falls in the eligible range."""
+    scene = Scene()
+    scene.parse_content(SHORT_FILE_CONTENT)
+    # Last frame has duration=0 which is in [0.0, 1.0]; should become 0.5s
+    scene.quantize(0.0, 1.0, 0.5)
+    last = scene.frames[-1]
+    assert last.duration == 500_000  # 0.5s * PRECISION
+
+
 def test_maximum_1():
     scene = Scene()
     scene.parse_content(SHORT_FILE_CONTENT)
