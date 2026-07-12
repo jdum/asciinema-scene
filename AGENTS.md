@@ -49,6 +49,7 @@ tests/
   files/             # sample .cast files
 contrib/             # custom sample / helper scripts
   quantize_cast.sh   # example: asciicast v3 → v2 quantization
+CONTRIBUTORS.md      # project contributors
 ```
 
 ## Conventions
