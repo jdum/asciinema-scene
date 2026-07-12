@@ -10,6 +10,78 @@ from .scenelib import Scene, SceneStdinError
 
 __version__ = importlib.metadata.version("asciinema_scene")
 
+
+class TimecodeParamType(click.ParamType):
+    name = "timecode"
+
+    def convert(
+        self,
+        value: str | float,
+        param: click.Parameter | None,
+        ctx: click.Context | None,
+    ) -> float:
+        if isinstance(value, (int, float)):
+            return float(value)
+        parts = str(value).split(":")
+        if len(parts) == 1:
+            try:
+                return float(parts[0])
+            except ValueError:
+                self.fail(
+                    f"{value!r} is not a valid timecode (use seconds or [H:]M:S)",
+                    param,
+                    ctx,
+                )
+                return 0.0  # unreachable but satisfies mypy
+        if len(parts) == 2:
+            try:
+                minutes = float(parts[0])
+                seconds = float(parts[1])
+            except ValueError:
+                self.fail(
+                    f"{value!r} is not a valid timecode (use seconds or [H:]M:S)",
+                    param,
+                    ctx,
+                )
+                return 0.0  # unreachable but satisfies mypy
+            if minutes < 0 or seconds < 0 or seconds >= 60:
+                self.fail(
+                    f"{value!r}: minutes must be >= 0 and seconds must be in [0, 60)",
+                    param,
+                    ctx,
+                )
+                return 0.0  # unreachable but satisfies mypy
+            return minutes * 60 + seconds
+        if len(parts) == 3:
+            try:
+                hours = float(parts[0])
+                minutes = float(parts[1])
+                seconds = float(parts[2])
+            except ValueError:
+                self.fail(
+                    f"{value!r} is not a valid timecode (use seconds or [H:]M:S)",
+                    param,
+                    ctx,
+                )
+                return 0.0  # unreachable but satisfies mypy
+            if hours < 0 or minutes < 0 or minutes >= 60 or seconds < 0 or seconds >= 60:
+                self.fail(
+                    f"{value!r}: hours >= 0, minutes in [0, 60), seconds in [0, 60)",
+                    param,
+                    ctx,
+                )
+                return 0.0  # unreachable but satisfies mypy
+            return hours * 3600 + minutes * 60 + seconds
+        self.fail(
+            f"{value!r} is not a valid timecode (use seconds or [H:]M:S)",
+            param,
+            ctx,
+        )
+        return 0.0  # unreachable but satisfies mypy
+
+
+TIMECODE = TimecodeParamType()
+
 input_option = click.option(
     "--input",
     "-i",
@@ -27,14 +99,14 @@ output_option = click.option(
 start_option = click.option(
     "--start",
     "-s",
-    type=float,
-    help="Start timecode (sec), default is 0.0.",
+    type=TIMECODE,
+    help="Start timecode (seconds or [H:]M:S), default is 0.0.",
 )
 end_option = click.option(
     "--end",
     "-e",
-    type=float,
-    help="End timecode (sec), default is EOF.",
+    type=TIMECODE,
+    help="End timecode (seconds or [H:]M:S), default is EOF.",
 )
 adjust_option = click.option(
     "--adjust",
