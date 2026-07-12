@@ -36,7 +36,7 @@ class Frame:
 
     @property
     def tc_float(self) -> float:
-        return round(self.timecode / PRECISION, PRECISION_DECI)  # type: ignore
+        return round(self.timecode / PRECISION, PRECISION_DECI)
 
     @property
     def tc_floor3(self) -> float:
@@ -44,11 +44,11 @@ class Frame:
 
     @property
     def tc_floor6(self) -> float:
-        return floor(self.tc_float * PRECISION) / PRECISION  # type: ignore
+        return floor(self.tc_float * PRECISION) / PRECISION
 
     @property
     def dur_float(self) -> float:
-        return round(self.duration / PRECISION, PRECISION_DECI)  # type: ignore
+        return round(self.duration / PRECISION, PRECISION_DECI)
 
     def as_list(self) -> list[Any]:
         return [self.tc_float, self.tpe, self.text]

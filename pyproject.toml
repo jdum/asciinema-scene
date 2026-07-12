@@ -17,7 +17,7 @@ classifiers = [
 ]
 requires-python = ">=3.10,<4.0"
 dependencies = [
-    "click>=8.3.0,<9",
+    "click>=8.4.2,<9",
 ]
 
 [project.urls]
@@ -31,34 +31,36 @@ sciine = "asciinema_scene.sciine:cli"
 [dependency-groups]
 dev = [
     "pytest>=8.4.2,<9",
-    "pytest-cov>=7.0.0",
-    "coverage>=7.13.3",
-    "deptry>=0.23.0",
-    "mypy>=1.18.2",
-    "mypy-extensions>=1.1.0",
+    "pytest-cov>=7.1.0",
+    "coverage>=7.15.0",
+    "deptry>=0.25.1",
+    # "mypy>=1.18.2",
+    # "mypy-extensions>=1.1.0",
     "typing-extensions>=4.15.0",
-    "tox>=4.31.0",
+    "tox>=4.56.4",
     "tox-gh-actions>=3.4.0",
-    "ruff>=0.15.0",
-    "isort>=7.0.0",
+    "ruff>=0.15.21",
+    "isort>=8.0.1",
+    "ty>=0.0.56",
 ]
 
 [build-system]
 requires = ["uv_build>=0.11.28,<0.12.0"]
 build-backend = "uv_build"
 
-[tool.mypy]
-files = ["src/asciinema_scene"]
-disallow_untyped_defs = true
-disallow_any_unimported = true
-no_implicit_optional = true
-check_untyped_defs = true
-warn_return_any = true
-warn_unused_ignores = true
-show_error_codes = true
+[tool.ty.src]
+exclude = ["tests"]
+
+[[tool.ty.overrides]]
+include = ["tests"]
+
+[tool.ty.overrides.rules]
+invalid-argument-type = "ignore"
+not-subscriptable = "ignore"
+unresolved-attribute = "ignore"
 
 [tool.ruff]
-target-version = "py313"
+target-version = "py314"
 exclude = [".venv"]
 line-length = 88
 indent-width = 4
@@ -101,9 +103,9 @@ lint.ignore = [
     "E501",
     # DoNotAssignLambda
     "E731",
-    #Use specific rule codes when ignoring type issues
+    # Use specific rule codes when ignoring type issues
     "PGH003",
-    #check for execution of untrusted input
+    # check for execution of untrusted input
     "S603",
 ]
 
