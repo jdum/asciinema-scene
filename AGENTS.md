@@ -47,10 +47,13 @@ src/asciinema_scene/
 tests/
   contents.py        # shared test fixtures/data
   files/             # sample .cast files
+contrib/             # custom sample / helper scripts
+  quantize_cast.sh   # example: asciicast v3 → v2 quantization
 ```
 
 ## Conventions
 
 - Commands read from stdin, write to stdout by default — maintain this for new commands.
 - Test data lives in `tests/contents.py` (inline) and `tests/files/` (sample files).
+- Custom sample scripts live in `contrib/`.
 - No separate format command; formatting issues surface through `ruff check`.
