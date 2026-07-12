@@ -23,61 +23,43 @@ class TimecodeParamType(click.ParamType):
         if isinstance(value, (int, float)):
             return float(value)
         parts = str(value).split(":")
-        if len(parts) == 1:
+        if len(parts) > 3:
+            self.fail(
+                f"{value!r} is not a valid timecode (use seconds or [H:]M:S)",
+                param,
+                ctx,
+            )
+        units: list[float] = [0.0, 0.0, 0.0]
+        for index, part in enumerate(reversed(parts)):
             try:
-                return float(parts[0])
+                units[index] = float(part)
             except ValueError:
                 self.fail(
                     f"{value!r} is not a valid timecode (use seconds or [H:]M:S)",
                     param,
                     ctx,
                 )
-                return 0.0  # unreachable but satisfies mypy
-        if len(parts) == 2:
-            try:
-                minutes = float(parts[0])
-                seconds = float(parts[1])
-            except ValueError:
+        seconds, minutes, hours = units
+        if len(parts) >= 2:
+            if seconds < 0 or seconds >= 60:
                 self.fail(
-                    f"{value!r} is not a valid timecode (use seconds or [H:]M:S)",
+                    f"{value!r}: seconds must be in [0, 60)",
                     param,
                     ctx,
                 )
-                return 0.0  # unreachable but satisfies mypy
-            if minutes < 0 or seconds < 0 or seconds >= 60:
+            if minutes < 0:
                 self.fail(
-                    f"{value!r}: minutes must be >= 0 and seconds must be in [0, 60)",
+                    f"{value!r}: minutes must be >= 0",
                     param,
                     ctx,
                 )
-                return 0.0  # unreachable but satisfies mypy
-            return minutes * 60 + seconds
-        if len(parts) == 3:
-            try:
-                hours = float(parts[0])
-                minutes = float(parts[1])
-                seconds = float(parts[2])
-            except ValueError:
+            if len(parts) == 3 and (minutes >= 60 or hours < 0):
                 self.fail(
-                    f"{value!r} is not a valid timecode (use seconds or [H:]M:S)",
+                    f"{value!r}: hours >= 0, minutes in [0, 60)",
                     param,
                     ctx,
                 )
-                return 0.0  # unreachable but satisfies mypy
-            if hours < 0 or minutes < 0 or minutes >= 60 or seconds < 0 or seconds >= 60:
-                self.fail(
-                    f"{value!r}: hours >= 0, minutes in [0, 60), seconds in [0, 60)",
-                    param,
-                    ctx,
-                )
-                return 0.0  # unreachable but satisfies mypy
-            return hours * 3600 + minutes * 60 + seconds
-        self.fail(
-            f"{value!r} is not a valid timecode (use seconds or [H:]M:S)",
-            param,
-            ctx,
-        )
-        return 0.0  # unreachable but satisfies mypy
+        return hours * 3600 + minutes * 60 + seconds
 
 
 TIMECODE = TimecodeParamType()
