@@ -19,6 +19,7 @@ class SceneContent:
         self.input_file: str = "string"
         self.header: dict[str, Any] = {}
         self.frames: list[Frame] = []
+        self.format_version: int = 2
 
     @staticmethod
     def _decode(line: str) -> Any:
@@ -38,7 +39,7 @@ class SceneContent:
 
     def parse_content(self, raw_content: str) -> None:
         for line in raw_content.split("\n"):
-            if not line:
+            if not line or line.startswith("#"):
                 continue
             frame = self._decode(line)
             if isinstance(frame, list):
@@ -46,7 +47,21 @@ class SceneContent:
                 continue
             if not self.header and isinstance(frame, dict):
                 self.header = frame
+        self.format_version = self.header.get("version", 2)
+        if self.format_version == 3:
+            self._convert_v3()
         self.pre_normalize()
+
+    def _convert_v3(self) -> None:
+        """Convert v3 format: extract dimensions and convert intervals to absolute timecodes."""
+        term = self.header.get("term", {})
+        self.header["width"] = term.get("cols", 80)
+        self.header["height"] = term.get("rows", 24)
+        # Convert relative intervals to absolute timecodes
+        cumulative = 0
+        for frame in self.frames:
+            cumulative += frame.timecode
+            frame.timecode = cumulative
 
     @classmethod
     def from_file(cls, input_file: str | Path) -> SceneContent:
