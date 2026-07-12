@@ -181,13 +181,13 @@ Usage: sciine show [OPTIONS]
   provided, display all lines until the end, or LINES lines
 
 Options:
-  -s, --start FLOAT    Start timecode (sec), default is 0.0.
-  -e, --end FLOAT      End timecode (sec), default is EOF.
-  -l, --lines INTEGER  Number of lines to show.
-  -p, --precise        Show all digits of time codes.
-  -t, --text           Show message field as plain text.
-  -i, --input PATH     Input .cast file, default is stdin.
-  --help               Show this message and exit.
+  -s, --start TIMECODE  Start timecode (seconds or [H:]M:S), default is 0.0.
+  -e, --end TIMECODE    End timecode (seconds or [H:]M:S), default is EOF.
+  -l, --lines INTEGER   Number of lines to show.
+  -p, --precise         Show all digits of time codes.
+  -t, --text            Show message field as plain text.
+  -i, --input PATH      Input .cast file, default is stdin.
+  --help                Show this message and exit.
 ```
 
 Example:
@@ -213,11 +213,11 @@ Usage: sciine copy [OPTIONS]
   Copy content between START and END timecodes.
 
 Options:
-  -s, --start FLOAT  Start timecode (sec), default is 0.0.
-  -e, --end FLOAT    End timecode (sec), default is EOF.
-  -i, --input PATH   Input .cast file, default is stdin.
-  -o, --output PATH  Output .cast file, default is stdout.
-  --help             Show this message and exit.
+  -s, --start TIMECODE  Start timecode (seconds or [H:]M:S), default is 0.0.
+  -e, --end TIMECODE    End timecode (seconds or [H:]M:S), default is EOF.
+  -i, --input PATH      Input .cast file, default is stdin.
+  -o, --output PATH     Output .cast file, default is stdout.
+  --help                Show this message and exit.
 ```
 
 Example:
@@ -241,12 +241,12 @@ Usage: sciine cut [OPTIONS]
   is provided, cut until the end.
 
 Options:
-  -s, --start FLOAT  Start timecode (sec), default is 0.0.
-  -e, --end FLOAT    End timecode (sec), default is EOF.
-  -a, --adjust       Adjust durations of frames at precise cut values.
-  -i, --input PATH   Input .cast file, default is stdin.
-  -o, --output PATH  Output .cast file, default is stdout.
-  --help             Show this message and exit.
+  -s, --start TIMECODE  Start timecode (seconds or [H:]M:S), default is 0.0.
+  -e, --end TIMECODE    End timecode (seconds or [H:]M:S), default is EOF.
+  -a, --adjust          Adjust durations of frames at precise cut values.
+  -i, --input PATH      Input .cast file, default is stdin.
+  -o, --output PATH     Output .cast file, default is stdout.
+  --help                Show this message and exit.
 ```
 
 Example:
@@ -271,11 +271,11 @@ Usage: sciine speed [OPTIONS] SPEED
   timecode is provided, modify speed until the end.
 
 Options:
-  -s, --start FLOAT  Start timecode (sec), default is 0.0.
-  -e, --end FLOAT    End timecode (sec), default is EOF.
-  -i, --input PATH   Input .cast file, default is stdin.
-  -o, --output PATH  Output .cast file, default is stdout.
-  --help             Show this message and exit.
+  -s, --start TIMECODE  Start timecode (seconds or [H:]M:S), default is 0.0.
+  -e, --end TIMECODE    End timecode (seconds or [H:]M:S), default is EOF.
+  -i, --input PATH      Input .cast file, default is stdin.
+  -o, --output PATH     Output .cast file, default is stdout.
+  --help                Show this message and exit.
 ```
 
 Example:
@@ -305,11 +305,11 @@ Usage: sciine minimum [OPTIONS] DURATION
   end.
 
 Options:
-  -s, --start FLOAT  Start timecode (sec), default is 0.0.
-  -e, --end FLOAT    End timecode (sec), default is EOF.
-  -i, --input PATH   Input .cast file, default is stdin.
-  -o, --output PATH  Output .cast file, default is stdout.
-  --help             Show this message and exit.
+  -s, --start TIMECODE  Start timecode (seconds or [H:]M:S), default is 0.0.
+  -e, --end TIMECODE    End timecode (seconds or [H:]M:S), default is EOF.
+  -i, --input PATH      Input .cast file, default is stdin.
+  -o, --output PATH     Output .cast file, default is stdout.
+  --help                Show this message and exit.
 ```
 
 Example:
@@ -339,11 +339,11 @@ Usage: sciine maximum [OPTIONS] DURATION
   the beginning. If no END timecode is provided, apply until the end.
 
 Options:
-  -s, --start FLOAT  Start timecode (sec), default is 0.0.
-  -e, --end FLOAT    End timecode (sec), default is EOF.
-  -i, --input PATH   Input .cast file, default is stdin.
-  -o, --output PATH  Output .cast file, default is stdout.
-  --help             Show this message and exit.
+  -s, --start TIMECODE  Start timecode (seconds or [H:]M:S), default is 0.0.
+  -e, --end TIMECODE    End timecode (seconds or [H:]M:S), default is EOF.
+  -i, --input PATH      Input .cast file, default is stdin.
+  -o, --output PATH     Output .cast file, default is stdout.
+  --help                Show this message and exit.
 ```
 
 Example:
@@ -373,11 +373,11 @@ Usage: sciine quantize [OPTIONS] RANGE_MIN RANGE_MAX DURATION
   beginning. If no END timecode is provided, apply until the end.
 
 Options:
-  -s, --start FLOAT  Start timecode (sec), default is 0.0.
-  -e, --end FLOAT    End timecode (sec), default is EOF.
-  -i, --input PATH   Input .cast file, default is stdin.
-  -o, --output PATH  Output .cast file, default is stdout.
-  --help             Show this message and exit.
+  -s, --start TIMECODE  Start timecode (seconds or [H:]M:S), default is 0.0.
+  -e, --end TIMECODE    End timecode (seconds or [H:]M:S), default is EOF.
+  -i, --input PATH      Input .cast file, default is stdin.
+  -o, --output PATH     Output .cast file, default is stdout.
+  --help                Show this message and exit.
 ```
 
 Example:
@@ -563,11 +563,11 @@ Usage: sciine text-delete [OPTIONS] TEXT
   timecode is provided, delete until the end.
 
 Options:
-  -s, --start FLOAT  Start timecode (sec), default is 0.0.
-  -e, --end FLOAT    End timecode (sec), default is EOF.
-  -i, --input PATH   Input .cast file, default is stdin.
-  -o, --output PATH  Output .cast file, default is stdout.
-  --help             Show this message and exit.
+  -s, --start TIMECODE  Start timecode (seconds or [H:]M:S), default is 0.0.
+  -e, --end TIMECODE    End timecode (seconds or [H:]M:S), default is EOF.
+  -i, --input PATH      Input .cast file, default is stdin.
+  -o, --output PATH     Output .cast file, default is stdout.
+  --help                Show this message and exit.
 ```
 
 Example:
@@ -604,11 +604,11 @@ Usage: sciine text-replace [OPTIONS] TEXT REPLACEMENT
   timecode is provided, replace until the end.
 
 Options:
-  -s, --start FLOAT  Start timecode (sec), default is 0.0.
-  -e, --end FLOAT    End timecode (sec), default is EOF.
-  -i, --input PATH   Input .cast file, default is stdin.
-  -o, --output PATH  Output .cast file, default is stdout.
-  --help             Show this message and exit.
+  -s, --start TIMECODE  Start timecode (seconds or [H:]M:S), default is 0.0.
+  -e, --end TIMECODE    End timecode (seconds or [H:]M:S), default is EOF.
+  -i, --input PATH      Input .cast file, default is stdin.
+  -o, --output PATH     Output .cast file, default is stdout.
+  --help                Show this message and exit.
 ```
 
 Example:
@@ -654,11 +654,11 @@ Usage: sciine text-merge [OPTIONS] TEXT
   timecode is provided, merge until the end.
 
 Options:
-  -s, --start FLOAT  Start timecode (sec), default is 0.0.
-  -e, --end FLOAT    End timecode (sec), default is EOF.
-  -i, --input PATH   Input .cast file, default is stdin.
-  -o, --output PATH  Output .cast file, default is stdout.
-  --help             Show this message and exit.
+  -s, --start TIMECODE  Start timecode (seconds or [H:]M:S), default is 0.0.
+  -e, --end TIMECODE    End timecode (seconds or [H:]M:S), default is EOF.
+  -i, --input PATH      Input .cast file, default is stdin.
+  -o, --output PATH     Output .cast file, default is stdout.
+  --help                Show this message and exit.
 ```
 
 Example:
