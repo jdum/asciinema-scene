@@ -15,8 +15,7 @@ def test_parse_status_short():
     scene = SceneContent()
     scene.parse_content(SHORT_FILE_CONTENT)
     expected = (
-        "Input: string\nDate: 2023-05-28 11:15:06+00:00\n"
-        "Frames: 22\nDuration: 6.135993"
+        "Input: string\nDate: 2023-05-28 11:15:06+00:00\nFrames: 22\nDuration: 6.135993"
     )
     result = scene.info
     assert result == expected
@@ -195,3 +194,120 @@ def test_dump():
     expected = scene.dumps()
     result = scene2.dumps()
     assert result == expected
+
+
+def test_set_format_version_int():
+    scene = SceneContent()
+    scene.set_format_version(3)
+    assert scene.format_version == 3
+
+
+def test_set_format_version_str():
+    scene = SceneContent()
+    scene.set_format_version("v3")
+    assert scene.format_version == 3
+
+
+def test_set_format_version_str_v2_builds_v2_header():
+    scene = SceneContent()
+    scene.header = {"version": 3, "term": {"type": "linux"}}
+    scene.set_format_version("v2")
+    assert scene.format_version == 2
+    assert scene.header["version"] == 2
+    assert scene.header["env"]["TERM"] == "linux"
+    assert "term" not in scene.header
+
+
+def test_set_format_version_unknown_string():
+    scene = SceneContent()
+    with pytest.raises(ValueError, match="Unknown version"):
+        scene.set_format_version("foo")
+
+
+def test_set_format_version_unknown_int():
+    scene = SceneContent()
+    with pytest.raises(ValueError, match="Unknown version"):
+        scene.set_format_version(99)
+
+
+def test_build_v3_header_no_env():
+    scene = SceneContent()
+    scene.header = {"version": 3, "width": 80, "height": 24}
+    header = scene._build_v3_header()
+    assert "env" not in header
+
+
+def test_build_v3_header_env_term_only():
+    scene = SceneContent()
+    scene.header = {"version": 3, "width": 80, "height": 24, "env": {"TERM": "linux"}}
+    header = scene._build_v3_header()
+    assert "env" not in header
+
+
+def test_build_v3_header_env_without_term():
+    scene = SceneContent()
+    scene.header = {
+        "version": 3,
+        "width": 80,
+        "height": 24,
+        "env": {"SHELL": "/bin/bash"},
+    }
+    header = scene._build_v3_header()
+    assert header["env"] == {"SHELL": "/bin/bash"}
+
+
+def test_build_v3_term_from_env_term():
+    scene = SceneContent()
+    scene.header = {
+        "width": 80,
+        "height": 24,
+        "term": "xterm-256color",
+        "env": {"TERM": "linux"},
+    }
+    term = scene._build_v3_term()
+    assert term["type"] == "linux"
+
+
+def test_build_v3_term_theme_from_header():
+    scene = SceneContent()
+    scene.header = {"width": 80, "height": 24, "term": {}, "theme": "dark"}
+    term = scene._build_v3_term()
+    assert term["theme"] == "dark"
+
+
+def test_build_v2_header_from_term_dict():
+    scene = SceneContent()
+    scene.header = {
+        "version": 3,
+        "term": {"type": "linux", "theme": "dark"},
+        "env": {"SHELL": "/bin/bash"},
+    }
+    scene._build_v2_header()
+    assert scene.header["env"]["TERM"] == "linux"
+    assert scene.header["theme"] == "dark"
+    assert "term" not in scene.header
+
+
+def test_build_v2_header_with_string_term():
+    scene = SceneContent()
+    scene.header = {
+        "version": 3,
+        "term": "xterm",
+        "env": {"SHELL": "/bin/bash"},
+    }
+    scene._build_v2_header()
+    assert "term" not in scene.header
+    assert "TERM" not in scene.header.get("env", {})
+
+
+def test_build_v2_header_term_dict_theme_only():
+    scene = SceneContent()
+    scene.header = {
+        "version": 3,
+        "term": {"theme": "dark"},
+        "env": {"SHELL": "/bin/bash"},
+    }
+    scene._build_v2_header()
+    assert scene.header["theme"] == "dark"
+    assert "TERM" not in scene.header.get("env", {})
+    assert "term" not in scene.header

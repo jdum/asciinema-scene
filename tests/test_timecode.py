@@ -23,6 +23,14 @@ def test_plain_float():
     assert convert("90.5") == 90.5
 
 
+def test_convert_int():
+    assert convert(90) == 90.0
+
+
+def test_convert_float():
+    assert convert(90.5) == 90.5
+
+
 def test_minutes_seconds():
     assert convert("1:30") == 90.0
 
@@ -70,6 +78,11 @@ def test_too_many_parts():
 def test_negative_rejected():
     with pytest.raises(BadParameter):
         convert("1:-1")
+
+
+def test_negative_minutes_rejected():
+    with pytest.raises(BadParameter):
+        convert("-1:30")
 
 
 def test_negative_plain_seconds_accepted():
