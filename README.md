@@ -37,8 +37,6 @@ uv run pytest
 ### Commandes
 
 
-There are 4 types of commands:
-
 - content information commands:
     - [status](#command-status)
     - [header](#command-header)
@@ -55,17 +53,21 @@ There are 4 types of commands:
     - [include](#command-include)
 
 
-- command applying to a single frame:
+- commands applying to a single frame:
     - [insert](#command-insert)
     - [replace](#command-replace)
     - [delete](#command-delete)
 
 
-- command modifying content via regular expressions:
+- commands modifying content via regular expressions:
     - [text-delete](#command-text-delete)
     - [text-merge](#command-text-merge)
     - [text-replace](#command-text-replace)
 
+
+- command to switch between asciicast v2 and v3 formats
+    - [convert](#command-convert)
+    
 
 ``` script
 Usage: sciine [OPTIONS] COMMAND [ARGS]...
@@ -681,6 +683,25 @@ sciine show -s3 -i back.cast
 sciine text-merge -s3 -i back.cast '. {server}' | sciine show -s3
   3.057│ 1.80│ '\x1b[K    \\ {server}\r'
   4.861│ 0.00│ '\x1b[K    \x1b[0m[\x1b[1mserver\x1b[0m] \x1b[32mSuccess\x1b[0m\r\n'
+```
+
+---
+
+## Command `convert`
+
+``` script
+Usage: sciine convert [OPTIONS]
+
+  Convert between asciicast v2 and v3 formats.
+
+  Reads input in any supported format (auto-detected) and writes output in the
+  specified format.
+
+Options:
+  -f, --format [v2|v3]  Output format version.  [required]
+  -i, --input PATH      Input .cast file, default is stdin.
+  -o, --output PATH     Output .cast file, default is stdout.
+  --help                Show this message and exit.
 ```
 
 ---

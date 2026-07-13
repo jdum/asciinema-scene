@@ -603,8 +603,6 @@ mark {
 
 <h3 id="commandes">Commandes</h3>
 
-<p>There are 4 types of commands:</p>
-
 <ul>
 <li><p>content information commands:</p>
 
@@ -624,19 +622,24 @@ mark {
 <li><a href="#command-quantize">quantize</a></li>
 <li><a href="#command-include">include</a></li>
 </ul></li>
-<li><p>command applying to a single frame:</p>
+<li><p>commands applying to a single frame:</p>
 
 <ul>
 <li><a href="#command-insert">insert</a></li>
 <li><a href="#command-replace">replace</a></li>
 <li><a href="#command-delete">delete</a></li>
 </ul></li>
-<li><p>command modifying content via regular expressions:</p>
+<li><p>commands modifying content via regular expressions:</p>
 
 <ul>
 <li><a href="#command-text-delete">text-delete</a></li>
 <li><a href="#command-text-merge">text-merge</a></li>
 <li><a href="#command-text-replace">text-replace</a></li>
+</ul></li>
+<li><p>command to switch between asciicast v2 and v3 formats</p>
+
+<ul>
+<li><a href="#command-convert">convert</a></li>
 </ul></li>
 </ul>
 
@@ -1217,6 +1220,24 @@ Options:
 sciine text-merge -s3 -i back.cast '. {server}' | sciine show -s3
   3.057│ 1.80│ '\x1b[K    \\ {server}\r'
   4.861│ 0.00│ '\x1b[K    \x1b[0m[\x1b[1mserver\x1b[0m] \x1b[32mSuccess\x1b[0m\r\n'
+</code></pre>
+
+<hr />
+
+<h2 id="command-convert">Command <code>convert</code></h2>
+
+<pre><code class="script language-script">Usage: sciine convert [OPTIONS]
+
+  Convert between asciicast v2 and v3 formats.
+
+  Reads input in any supported format (auto-detected) and writes output in the
+  specified format.
+
+Options:
+  -f, --format [v2|v3]  Output format version.  [required]
+  -i, --input PATH      Input .cast file, default is stdin.
+  -o, --output PATH     Output .cast file, default is stdout.
+  --help                Show this message and exit.
 </code></pre>
 
 <hr />
