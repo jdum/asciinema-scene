@@ -650,6 +650,7 @@ Options:
   --help     Show this message and exit.
 
 Commands:
+  convert       Convert between asciicast v2 and v3 formats.
   copy          Copy content between START and END timecodes.
   cut           Cut content between START and END timecodes.
   delete        Delete the frame with timecode &gt;= TIMECODE.
@@ -779,6 +780,8 @@ Options:
 Options:
   -s, --start TIMECODE  Start timecode (seconds or [H:]M:S), default is 0.0.
   -e, --end TIMECODE    End timecode (seconds or [H:]M:S), default is EOF.
+  -f, --format [v2|v3]  Output format (v2 or v3). Default: preserve input
+                        format.
   -i, --input PATH      Input .cast file, default is stdin.
   -o, --output PATH     Output .cast file, default is stdout.
   --help                Show this message and exit.
@@ -806,6 +809,8 @@ Options:
   -s, --start TIMECODE  Start timecode (seconds or [H:]M:S), default is 0.0.
   -e, --end TIMECODE    End timecode (seconds or [H:]M:S), default is EOF.
   -a, --adjust          Adjust durations of frames at precise cut values.
+  -f, --format [v2|v3]  Output format (v2 or v3). Default: preserve input
+                        format.
   -i, --input PATH      Input .cast file, default is stdin.
   -o, --output PATH     Output .cast file, default is stdout.
   --help                Show this message and exit.
@@ -833,6 +838,8 @@ Options:
 Options:
   -s, --start TIMECODE  Start timecode (seconds or [H:]M:S), default is 0.0.
   -e, --end TIMECODE    End timecode (seconds or [H:]M:S), default is EOF.
+  -f, --format [v2|v3]  Output format (v2 or v3). Default: preserve input
+                        format.
   -i, --input PATH      Input .cast file, default is stdin.
   -o, --output PATH     Output .cast file, default is stdout.
   --help                Show this message and exit.
@@ -865,6 +872,8 @@ Duration: 3.067996
 Options:
   -s, --start TIMECODE  Start timecode (seconds or [H:]M:S), default is 0.0.
   -e, --end TIMECODE    End timecode (seconds or [H:]M:S), default is EOF.
+  -f, --format [v2|v3]  Output format (v2 or v3). Default: preserve input
+                        format.
   -i, --input PATH      Input .cast file, default is stdin.
   -o, --output PATH     Output .cast file, default is stdout.
   --help                Show this message and exit.
@@ -897,6 +906,8 @@ Options:
 Options:
   -s, --start TIMECODE  Start timecode (seconds or [H:]M:S), default is 0.0.
   -e, --end TIMECODE    End timecode (seconds or [H:]M:S), default is EOF.
+  -f, --format [v2|v3]  Output format (v2 or v3). Default: preserve input
+                        format.
   -i, --input PATH      Input .cast file, default is stdin.
   -o, --output PATH     Output .cast file, default is stdout.
   --help                Show this message and exit.
@@ -929,6 +940,8 @@ Options:
 Options:
   -s, --start TIMECODE  Start timecode (seconds or [H:]M:S), default is 0.0.
   -e, --end TIMECODE    End timecode (seconds or [H:]M:S), default is EOF.
+  -f, --format [v2|v3]  Output format (v2 or v3). Default: preserve input
+                        format.
   -i, --input PATH      Input .cast file, default is stdin.
   -o, --output PATH     Output .cast file, default is stdout.
   --help                Show this message and exit.
@@ -958,9 +971,11 @@ Options:
   screen cast. The timecodes will be adjusted as required.
 
 Options:
-  -i, --input PATH   Input .cast file, default is stdin.
-  -o, --output PATH  Output .cast file, default is stdout.
-  --help             Show this message and exit.
+  -f, --format [v2|v3]  Output format (v2 or v3). Default: preserve input
+                        format.
+  -i, --input PATH      Input .cast file, default is stdin.
+  -o, --output PATH     Output .cast file, default is stdout.
+  --help                Show this message and exit.
 </code></pre>
 
 <p>Example:</p>
@@ -986,10 +1001,12 @@ Duration: 22.925312
   type ETYPE is set to "o".
 
 Options:
-  -b, --line-break   Add line break at end of text.
-  -i, --input PATH   Input .cast file, default is stdin.
-  -o, --output PATH  Output .cast file, default is stdout.
-  --help             Show this message and exit.
+  -b, --line-break      Add line break at end of text.
+  -f, --format [v2|v3]  Output format (v2 or v3). Default: preserve input
+                        format.
+  -i, --input PATH      Input .cast file, default is stdin.
+  -o, --output PATH     Output .cast file, default is stdout.
+  --help                Show this message and exit.
 </code></pre>
 
 <p>Example:</p>
@@ -1026,9 +1043,11 @@ sciine insert 2.0 0.1 "xyz" -i short.cast | sciine show -l 8 -p
   Replace the text of frame with timecode &gt;= TIMECODE by TEXT.
 
 Options:
-  -i, --input PATH   Input .cast file, default is stdin.
-  -o, --output PATH  Output .cast file, default is stdout.
-  --help             Show this message and exit.
+  -f, --format [v2|v3]  Output format (v2 or v3). Default: preserve input
+                        format.
+  -i, --input PATH      Input .cast file, default is stdin.
+  -o, --output PATH     Output .cast file, default is stdout.
+  --help                Show this message and exit.
 </code></pre>
 
 <p>Example:</p>
@@ -1065,9 +1084,11 @@ sciine replace 2.0 "xyz" -i short.cast | sciine show -l 8 -p
   Delete the frame with timecode &gt;= TIMECODE.
 
 Options:
-  -i, --input PATH   Input .cast file, default is stdin.
-  -o, --output PATH  Output .cast file, default is stdout.
-  --help             Show this message and exit.
+  -f, --format [v2|v3]  Output format (v2 or v3). Default: preserve input
+                        format.
+  -i, --input PATH      Input .cast file, default is stdin.
+  -o, --output PATH     Output .cast file, default is stdout.
+  --help                Show this message and exit.
 </code></pre>
 
 <p>Example:</p>
@@ -1109,6 +1130,8 @@ sciine delete 2.0  -i short.cast | sciine show -l 8 -p
 Options:
   -s, --start TIMECODE  Start timecode (seconds or [H:]M:S), default is 0.0.
   -e, --end TIMECODE    End timecode (seconds or [H:]M:S), default is EOF.
+  -f, --format [v2|v3]  Output format (v2 or v3). Default: preserve input
+                        format.
   -i, --input PATH      Input .cast file, default is stdin.
   -o, --output PATH     Output .cast file, default is stdout.
   --help                Show this message and exit.
@@ -1148,6 +1171,8 @@ sciine text-delete -s3 -i back.cast '.*{server}' | sciine show -s3
 Options:
   -s, --start TIMECODE  Start timecode (seconds or [H:]M:S), default is 0.0.
   -e, --end TIMECODE    End timecode (seconds or [H:]M:S), default is EOF.
+  -f, --format [v2|v3]  Output format (v2 or v3). Default: preserve input
+                        format.
   -i, --input PATH      Input .cast file, default is stdin.
   -o, --output PATH     Output .cast file, default is stdout.
   --help                Show this message and exit.
@@ -1196,6 +1221,8 @@ sciine text-replace -s3 -i back.cast '. {server}' 'box' | sciine show -s3
 Options:
   -s, --start TIMECODE  Start timecode (seconds or [H:]M:S), default is 0.0.
   -e, --end TIMECODE    End timecode (seconds or [H:]M:S), default is EOF.
+  -f, --format [v2|v3]  Output format (v2 or v3). Default: preserve input
+                        format.
   -i, --input PATH      Input .cast file, default is stdin.
   -o, --output PATH     Output .cast file, default is stdout.
   --help                Show this message and exit.
