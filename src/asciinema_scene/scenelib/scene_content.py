@@ -14,6 +14,8 @@ from .constants import PRECISION
 from .frame import Frame
 from .utils import detect_stdin_timeout
 
+VERSIONS = {2, 3}
+
 
 class SceneContent:
     def __init__(self) -> None:
@@ -164,9 +166,7 @@ class SceneContent:
             # Round to 3 decimal places (millisecond precision)
             interval_rounded = round(interval, 3)
             event = [interval_rounded, frame.tpe, frame.text]
-            content.append(
-                json.dumps(event, ensure_ascii=True, check_circular=False)
-            )
+            content.append(json.dumps(event, ensure_ascii=True, check_circular=False))
             prev_tc = frame.timecode
         content.append("")
         return "\n".join(content)
@@ -204,11 +204,21 @@ class SceneContent:
             term["theme"] = self.header["theme"]
         return term
 
-    def set_format_version(self, version: int) -> None:
+    def set_format_version(self, version: int | str | None) -> None:
         """Set the output format version and adjust header accordingly."""
-        self.format_version = version
-        if version == 2:
-            self._build_v2_header()
+        if version:
+            if isinstance(version, str):
+                try:
+                    version = int(version[-1])
+                except (IndexError, ValueError) as e:
+                    msg = f"Unknown version: {version!r}"
+                    raise ValueError(msg) from e
+            if version not in VERSIONS:
+                msg = f"Unknown version: {version!r}"
+                raise ValueError(msg)
+            self.format_version = version
+            if version == 2:
+                self._build_v2_header()
 
     def _build_v2_header(self) -> None:
         """Convert internal header to v2 schema in-place."""

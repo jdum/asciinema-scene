@@ -97,6 +97,14 @@ adjust_option = click.option(
     default=False,
     help="Adjust durations of frames at precise cut values.",
 )
+format_option = click.option(
+    "--format",
+    "-f",
+    "output_format",
+    type=click.Choice(["v2", "v3"]),
+    default=None,
+    help="Output format (v2 or v3). Default: preserve input format.",
+)
 
 
 def stdin_timeout_handler(function: Callable) -> Callable:
@@ -192,12 +200,14 @@ def show_cmd(
 @start_option
 @end_option
 @adjust_option
+@format_option
 @input_option
 @output_option
 def cut_cmd(
     start: float | None,
     end: float | None,
     adjust: bool,
+    output_format: str | None,
     input_file: str | None,
     output_file: str | None,
 ) -> None:
@@ -208,6 +218,7 @@ def cut_cmd(
     """
     scene = Scene.parse(input_file)
     scene.cut_frames(start=start, end=end, adjust=adjust)
+    scene.set_format_version(output_format)
     scene.dump(output_file)
 
 
@@ -215,11 +226,13 @@ def cut_cmd(
 @stdin_timeout_handler
 @start_option
 @end_option
+@format_option
 @input_option
 @output_option
 def copy_cmd(
     start: float | None,
     end: float | None,
+    output_format: str | None,
     input_file: str | None,
     output_file: str | None,
     adjust: bool = False,
@@ -227,6 +240,7 @@ def copy_cmd(
     """Copy content between START and END timecodes."""
     scene = Scene.parse(input_file)
     scene.copy(start=start, end=end, adjust=adjust)
+    scene.set_format_version(output_format)
     scene.dump(output_file)
 
 
@@ -235,12 +249,14 @@ def copy_cmd(
 @click.argument("speed", required=True, type=float)
 @start_option
 @end_option
+@format_option
 @input_option
 @output_option
 def speed_cmd(
     speed: float,
     start: float | None,
     end: float | None,
+    output_format: str | None,
     input_file: str | None,
     output_file: str | None,
 ) -> None:
@@ -252,6 +268,7 @@ def speed_cmd(
     """
     scene = Scene.parse(input_file)
     scene.speed(speed, start=start, end=end)
+    scene.set_format_version(output_format)
     scene.dump(output_file)
 
 
@@ -260,12 +277,14 @@ def speed_cmd(
 @click.argument("duration", required=True, type=float)
 @start_option
 @end_option
+@format_option
 @input_option
 @output_option
 def maximum_cmd(
     duration: float,
     start: float | None,
     end: float | None,
+    output_format: str | None,
     input_file: str | None,
     output_file: str | None,
 ) -> None:
@@ -277,6 +296,7 @@ def maximum_cmd(
     """
     scene = Scene.parse(input_file)
     scene.maximum(duration, start=start, end=end)
+    scene.set_format_version(output_format)
     scene.dump(output_file)
 
 
@@ -285,12 +305,14 @@ def maximum_cmd(
 @click.argument("duration", required=True, type=float)
 @start_option
 @end_option
+@format_option
 @input_option
 @output_option
 def minimum_cmd(
     duration: float,
     start: float | None,
     end: float | None,
+    output_format: str | None,
     input_file: str | None,
     output_file: str | None,
 ) -> None:
@@ -303,6 +325,7 @@ def minimum_cmd(
     """
     scene = Scene.parse(input_file)
     scene.minimum(duration, start=start, end=end)
+    scene.set_format_version(output_format)
     scene.dump(output_file)
 
 
@@ -313,6 +336,7 @@ def minimum_cmd(
 @click.argument("duration", required=True, type=float)
 @start_option
 @end_option
+@format_option
 @input_option
 @output_option
 def quantize_cmd(
@@ -321,6 +345,7 @@ def quantize_cmd(
     duration: float,
     start: float | None,
     end: float | None,
+    output_format: str | None,
     input_file: str | None,
     output_file: str | None,
 ) -> None:
@@ -332,6 +357,7 @@ def quantize_cmd(
     """
     scene = Scene.parse(input_file)
     scene.quantize(range_min, range_max, duration, start=start, end=end)
+    scene.set_format_version(output_format)
     scene.dump(output_file)
 
 
@@ -348,6 +374,7 @@ def quantize_cmd(
     default=False,
     help="Add line break at end of text.",
 )
+@format_option
 @input_option
 @output_option
 def insert_cmd(
@@ -356,6 +383,7 @@ def insert_cmd(
     text: str,
     etype: str,
     line_break: bool,
+    output_format: str | None,
     input_file: str | None,
     output_file: str | None,
 ) -> None:
@@ -368,22 +396,26 @@ def insert_cmd(
     if not etype:
         etype = "o"
     scene.insert(timecode, duration, text, etype, line_break)
+    scene.set_format_version(output_format)
     scene.dump(output_file)
 
 
 @cli.command("delete")
 @stdin_timeout_handler
 @click.argument("timecode", required=True, type=float)
+@format_option
 @input_option
 @output_option
 def delete_cmd(
     timecode: float,
+    output_format: str | None,
     input_file: str | None,
     output_file: str | None,
 ) -> None:
     """Delete the frame with timecode >= TIMECODE."""
     scene = Scene.parse(input_file)
     scene.delete(timecode)
+    scene.set_format_version(output_format)
     scene.dump(output_file)
 
 
@@ -391,17 +423,20 @@ def delete_cmd(
 @stdin_timeout_handler
 @click.argument("timecode", required=True, type=float)
 @click.argument("text", required=True, type=str)
+@format_option
 @input_option
 @output_option
 def replace_cmd(
     timecode: float,
     text: str,
+    output_format: str | None,
     input_file: str | None,
     output_file: str | None,
 ) -> None:
     """Replace the text of frame with timecode >= TIMECODE by TEXT."""
     scene = Scene.parse(input_file)
     scene.replace(timecode, text)
+    scene.set_format_version(output_format)
     scene.dump(output_file)
 
 
@@ -409,11 +444,13 @@ def replace_cmd(
 @stdin_timeout_handler
 @click.argument("timecode", required=True, type=float)
 @click.argument("include_file", type=click.Path(exists=True), required=True)
+@format_option
 @input_option
 @output_option
 def include_cmd(
     timecode: float,
     include_file: str,
+    output_format: str | None,
     input_file: str | None,
     output_file: str | None,
 ) -> None:
@@ -424,6 +461,7 @@ def include_cmd(
     """
     scene = Scene.parse(input_file)
     scene.include(timecode, include_file)
+    scene.set_format_version(output_format)
     scene.dump(output_file)
 
 
@@ -432,12 +470,14 @@ def include_cmd(
 @click.argument("text", required=True, type=str)
 @start_option
 @end_option
+@format_option
 @input_option
 @output_option
 def text_delete_cmd(
     text: str,
     start: float | None,
     end: float | None,
+    output_format: str | None,
     input_file: str | None,
     output_file: str | None,
 ) -> None:
@@ -448,6 +488,7 @@ def text_delete_cmd(
     """
     scene = Scene.parse(input_file)
     scene.text_delete_frames(text, start=start, end=end)
+    scene.set_format_version(output_format)
     scene.dump(output_file)
 
 
@@ -457,6 +498,7 @@ def text_delete_cmd(
 @click.argument("replacement", required=True, type=str)
 @start_option
 @end_option
+@format_option
 @input_option
 @output_option
 def text_replace_cmd(
@@ -464,6 +506,7 @@ def text_replace_cmd(
     replacement: str,
     start: float | None,
     end: float | None,
+    output_format: str | None,
     input_file: str | None,
     output_file: str | None,
 ) -> None:
@@ -474,6 +517,7 @@ def text_replace_cmd(
     """
     scene = Scene.parse(input_file)
     scene.text_replace_frames(text, replacement, start=start, end=end)
+    scene.set_format_version(output_format)
     scene.dump(output_file)
 
 
@@ -482,12 +526,14 @@ def text_replace_cmd(
 @click.argument("text", required=True, type=str)
 @start_option
 @end_option
+@format_option
 @input_option
 @output_option
 def text_merge_cmd(
     text: str,
     start: float | None,
     end: float | None,
+    output_format: str | None,
     input_file: str | None,
     output_file: str | None,
 ) -> None:
@@ -498,6 +544,7 @@ def text_merge_cmd(
     """
     scene = Scene.parse(input_file)
     scene.text_merge_frames(text, start=start, end=end)
+    scene.set_format_version(output_format)
     scene.dump(output_file)
 
 
@@ -524,6 +571,5 @@ def convert_cmd(
     output in the specified format.
     """
     scene = Scene.parse(input_file)
-    version = int(output_format[1])  # "v2" -> 2, "v3" -> 3
-    scene.set_format_version(version)
+    scene.set_format_version(output_format)
     scene.dump(output_file)
