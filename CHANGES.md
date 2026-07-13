@@ -1,5 +1,23 @@
 # asciinema_scene Release Notes
 
+## [1.3.0] - 2026-07-13
+
+Support asciicast format version 3, new command `convert` to convert between versions 2 and 3, new option `--format`.
+Complete test coverage and project housekeeping.
+
+### Added
+
+-   Add command `convert` to convert between versions 2 and 3.
+-   Add options `--format`to several commands.
+-   Add `CONTRIBUTORS.md` file.
+
+### Changed
+
+-   Switch from `Makefile` to `justfile`.
+-   Switch from `mypy` to `ty`.
+-   Complete test suite to reach 100% line and branch coverage.
+-   Documentation updates.
+
 ## [1.2.4] - 2026-07-12
 
 Add colon-formatted timecode support, fix last-frame duration handling, introduce a `contrib/` sample script folder.
